@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 
 import { HeroInstall } from "@/components/site/hero-install"
 import { SiteContainer } from "@/components/site/container"
+import { SiteRule } from "@/components/site/corners"
 import { ProseLead, ProseMuted } from "@/components/site/prose"
 import { cn } from "@/lib/utils"
 
@@ -18,6 +19,7 @@ function LandingHero({
   command,
   actions,
   figure,
+  split = false,
 }: {
   title: string
   lead: ReactNode
@@ -25,38 +27,59 @@ function LandingHero({
   command?: string
   actions?: readonly LandingAction[]
   figure: ReactNode
+  split?: boolean
 }) {
+  const copy = (
+    <>
+      <h1 className="max-w-[16ch] text-4xl font-medium tracking-tighter text-balance sm:text-5xl md:text-6xl lg:text-7xl">
+        {title}
+      </h1>
+      <ProseLead>{lead}</ProseLead>
+      {command != null || item != null ? (
+        <HeroInstall className="max-w-none" command={command} item={item} />
+      ) : null}
+      {actions && actions.length > 0 ? (
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          {actions.map((action) => (
+            <LandingLink href={action.href} key={action.href}>
+              {action.label}
+            </LandingLink>
+          ))}
+        </div>
+      ) : null}
+    </>
+  )
+
   return (
     <section>
       <SiteContainer
         borderTop={false}
         className="py-8 sm:py-16 md:py-24 lg:py-32"
       >
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="flex min-w-0 flex-col items-start gap-4">
-            <h1 className="max-w-[16ch] text-4xl font-medium tracking-tighter text-balance sm:text-5xl md:text-6xl lg:text-7xl">
-              {title}
-            </h1>
-            <ProseLead>{lead}</ProseLead>
-            {command != null || item != null ? (
-              <HeroInstall
-                className="max-w-none"
-                command={command}
-                item={item}
-              />
-            ) : null}
-            {actions && actions.length > 0 ? (
-              <div className="flex flex-wrap gap-x-6 gap-y-2">
-                {actions.map((action) => (
-                  <LandingLink href={action.href} key={action.href}>
-                    {action.label}
-                  </LandingLink>
-                ))}
-              </div>
-            ) : null}
+        {split ? (
+          <div className="grid items-stretch gap-12 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] lg:gap-0">
+            <div className="flex min-w-0 flex-col items-start gap-4 lg:pr-12">
+              {copy}
+            </div>
+            <div
+              aria-hidden="true"
+              className="relative hidden min-h-48 lg:block"
+            >
+              <SiteRule className="inset-y-0 left-0" orientation="y" />
+            </div>
+            <div className="relative flex min-w-0 items-center pt-12 lg:pt-0 lg:pl-12">
+              <SiteRule className="top-0 lg:hidden" />
+              <div className="w-full">{figure}</div>
+            </div>
           </div>
-          <div className="min-w-0">{figure}</div>
-        </div>
+        ) : (
+          <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="flex min-w-0 flex-col items-start gap-4">
+              {copy}
+            </div>
+            <div className="min-w-0">{figure}</div>
+          </div>
+        )}
       </SiteContainer>
     </section>
   )
@@ -69,7 +92,7 @@ function LandingSection({
   id,
   children,
 }: {
-  title: string
+  title?: string
   lead?: ReactNode
   muted?: ReactNode
   id?: string
@@ -78,13 +101,17 @@ function LandingSection({
   return (
     <section id={id}>
       <SiteContainer className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
-            {title}
-          </h2>
-          {lead}
-          {muted ? <ProseMuted>{muted}</ProseMuted> : null}
-        </div>
+        {title || lead || muted ? (
+          <div className="flex flex-col gap-4">
+            {title ? (
+              <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
+                {title}
+              </h2>
+            ) : null}
+            {lead}
+            {muted ? <ProseMuted>{muted}</ProseMuted> : null}
+          </div>
+        ) : null}
         {children}
       </SiteContainer>
     </section>

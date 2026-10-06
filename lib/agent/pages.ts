@@ -4,6 +4,7 @@ import {
   deprecationMarkdown,
   developersMarkdown,
   homeMarkdown,
+  labsMarkdown,
   privacyMarkdown,
 } from "@/lib/agent/copy"
 import { components, getComponent } from "@/lib/docs/catalog"
@@ -352,6 +353,8 @@ export async function markdownForPath(path: string, origin = SITE_URL) {
       return deprecationMarkdown(host)
     case "/about":
       return aboutMarkdown(host)
+    case "/shadcn-labs":
+      return labsMarkdown(host)
     case "/contact":
       return contactMarkdown(host)
     case "/privacy":
@@ -395,6 +398,7 @@ export function knownMarkdownPaths() {
     "/developers",
     "/developers/deprecation",
     "/about",
+    "/shadcn-labs",
     "/contact",
     "/privacy",
     "/docs",

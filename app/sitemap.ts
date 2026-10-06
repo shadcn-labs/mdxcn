@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/developers",
     "/developers/deprecation",
     "/about",
+    "/shadcn-labs",
     "/contact",
     "/privacy",
     "/docs",

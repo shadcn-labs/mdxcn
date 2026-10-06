@@ -40,6 +40,7 @@ export default function AboutPage() {
         figure={
           <GraphSpec
             rows={[
+              { label: "lab", value: "shadcn labs" },
               { label: "license", value: "mit", accent: true },
               { label: "install", value: "shadcn cli" },
               { label: "registry", value: "@mdxcn" },

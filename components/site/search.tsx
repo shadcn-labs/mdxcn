@@ -74,6 +74,14 @@ const HITS: Hit[] = [
     haystack: "about mdxcn mdxcn keshav bagaade mit open source",
   },
   {
+    href: "/shadcn-labs",
+    title: "announcement",
+    detail: "/shadcn-labs",
+    group: "get started",
+    haystack:
+      "shadcn labs announcement termcn pdfcn startercn skills ecosystem registry",
+  },
+  {
     href: "/contact",
     title: "contact",
     detail: "/contact",

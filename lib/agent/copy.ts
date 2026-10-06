@@ -1,4 +1,11 @@
 import { GITHUB_URL, GITHUB_REPO } from "@/lib/github"
+import {
+  SHADCN_LABS_GROUPS,
+  SHADCN_LABS_URL,
+  SHADCN_LABS_X,
+  SHADCN_UI_URL,
+  SHADCN_URL,
+} from "@/lib/shadcn-labs"
 import { SITE_AUTHOR, SITE_EMAIL, SITE_URL } from "@/lib/site"
 
 export const HOME_WHAT =
@@ -74,6 +81,15 @@ export const ABOUT_PARAS = [
   "Each graph sits in a dashed frame with a title on the top edge. Drawing graphs use one accent by default. Most graphs have an official fenced ASCII for README files, GitHub, Linear, and PR comments. Comark apps can render the same figures from ::graph-* blocks in a plain .md file. Knap templates can emit that fence, or a ::graph-* block, from data.",
   `The site at ${SITE_URL.replace("https://", "")} is the catalog, the shadcn registry, and the agent skill. The skill file tells an agent which graph to put next to its prose, and what to write: Markdown inside the tag in MDX, a ::graph-* block in Comark, a graph_* filter in Knap, or the code block in a README.`,
   `Source: ${GITHUB_URL}. Mail: ${SITE_EMAIL}.`,
+  "mdxcn has joined Shadcn Labs. See /shadcn-labs.",
+] as const
+
+export const LABS_INSTALL = `pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json`
+
+export const LABS_ANNOUNCEMENT = [
+  "mdxcn has joined Shadcn Labs.",
+  "Shadcn Labs is an open-source collective building registries, templates, and tools around the shadcn/ui ecosystem. mdxcn.dev and the @mdxcn registry continue as before for installs and documentation.",
+  "Shadcn Labs is not endorsed by or affiliated with shadcn.",
 ] as const
 
 export const CONTACT_PARAS = [
@@ -152,6 +168,34 @@ ${CONTACT_PARAS.join("\n\n")}
 
 - about: ${origin}/about
 - privacy: ${origin}/privacy
+`
+}
+
+export function labsMarkdown(origin = SITE_URL) {
+  const projects = SHADCN_LABS_GROUPS.map((group) => {
+    const lines = group.projects
+      .map((project) => `- [${project.name}](${project.href})`)
+      .join("\n")
+
+    return `### ${group.label}\n\n${lines}`
+  }).join("\n\n")
+
+  return `# shadcn labs
+
+${LABS_ANNOUNCEMENT.join("\n\n")}
+
+${LABS_INSTALL}
+
+- Shadcn Labs: ${SHADCN_LABS_URL}
+- X: ${SHADCN_LABS_X}
+- shadcn/ui: ${SHADCN_UI_URL}
+- shadcn: ${SHADCN_URL}
+- About: ${origin}/about
+- Source: ${GITHUB_URL}
+
+## projects
+
+${projects}
 `
 }
 
