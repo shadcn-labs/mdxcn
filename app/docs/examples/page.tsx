@@ -62,9 +62,9 @@ export default function ExamplesPage() {
         }}
         lead={
           <ProseLead>
-            short write-ups with two graphs each. copy the .md tab — it is the
-            framed figure. paste it into notion or a readme and the drawing is
-            still there. each graph has its own page if you want the props.
+            short write-ups with two graphs each. the .md tab is the framed
+            figure, and it looks the same pasted into notion or a readme. each
+            graph has its own page with its props.
           </ProseLead>
         }
         title="examples"

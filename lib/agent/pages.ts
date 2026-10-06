@@ -61,11 +61,19 @@ function installationMarkdown(origin: string) {
     origin,
     title: "installation",
     description:
-      "these are source files, not an npm package. you need an existing shadcn project and the motion dependency.",
+      "write markdown children inside the tag. paste the fence when the file cannot render mdx. the cli copies the source into your project so the tags exist. there is no npm package. you need motion.",
     registry: "all",
-    extra: `## one component
+    extra: `## mdx
 
-run the shadcn cli against this site's registry, or copy the files from github.
+register the parent once in mdx-components.tsx. the .mdx tab is what you write. the .md tab is the framed figure, for notion or a readme.
+
+## agents
+
+$ORIGIN/agents covers writing and reading: markdown inside the tag in mdx, the code block in a readme, ::graph-* in comark, graph_* in knap. $ORIGIN/docs/skill is the skill.md. $ORIGIN/llms.txt is the chooser, the fences, the comark blocks, and the knap filters.
+
+## one component
+
+the shadcn cli copies the source, or copy the files from github.
 
 pnpm dlx shadcn@latest add $ORIGIN/r/graph-table.json
 
@@ -89,15 +97,7 @@ pnpm dlx shadcn@latest add @mdxcn/graph-table
 
 files land under @/registry.
 
-import { GraphTable } from "@/registry/default/graph-table/graph-table"
-
-## mdx
-
-register the parent once in mdx-components.tsx. the .md tab is the framed figure — copy it into notion or a readme.
-
-## agents
-
-$ORIGIN/agents is write vs read. $ORIGIN/docs/comark is ::graph-* in a plain .md file. $ORIGIN/docs/knap is graph_* filters that emit the fence. $ORIGIN/docs/skill is the skill.md. $ORIGIN/llms.txt is the chooser, the ascii blocks, the comark blocks, and the knap filters.`,
+import { GraphTable } from "@/registry/default/graph-table/graph-table"`,
   })
 }
 
@@ -247,7 +247,7 @@ async function skillMarkdown(origin: string) {
     "",
     "## What it does",
     "",
-    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. React or importable MDX gets JSX. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter. Plain Markdown gets the official fenced ASCII from /llms.txt.",
+    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. MDX gets markdown children inside the tag. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter. A README, GitHub comment, or Linear note gets the official fence from /llms.txt.",
     "",
     "## Files",
     "",
@@ -295,19 +295,20 @@ function agentsMarkdown(origin: string) {
 
 ${AGENTS_DESCRIPTION}
 
-When a write-up needs a figure, the skill picks which graph to use. Emit JSX in MDX, a ::graph-* block in a Comark app, a graph_* filter in a Knap template, or the official fence in a README, PR, or Linear note.
+When a write-up needs a figure, the skill picks which graph to use. In MDX, wrap markdown children in the tag. In a Comark app, write a ::graph-* block. In a Knap template, pipe a graph_* filter. In a README, PR, or Linear note, paste the official fence.
 
 ## Writing and reading
 
-On write, emit at most two graphs next to the claim — JSX for React, YAML for Comark, a Knap filter when data becomes Markdown, or the official fence from ${host}/llms.txt when the host cannot run a renderer.
+On write, emit at most two graphs next to the claim. Use Markdown inside the tag in MDX, a ::graph-* block in Comark, a Knap filter when data becomes Markdown, or the code block from ${host}/llms.txt when the host cannot run a renderer.
 
 On read, the figure is still characters in the file, so opening the MDX shows labels and values. Edit the labels; do not replace a graph with SVG.
 
 ## How to call it
 
 1. Put ${host}/skill.md and ${host}/skill/recipes.md in the skills folder the agent already reads.
-2. If the host is React, install the components: \`pnpm dlx shadcn@latest add ${host}/r/all.json\`.
-3. Ask for a write-up. At most two graphs. Prose between them.
+2. Write the figure. In MDX, wrap markdown children in the tag. In a README, PR, or Linear, paste the official fence from ${host}/llms.txt. In Comark, a ::graph-* block. In Knap, a graph_* filter.
+3. If the MDX app does not have the tags yet: \`pnpm dlx shadcn@latest add ${host}/r/all.json\`.
+4. Ask for a write-up. At most two graphs. Prose between them.
 
 ## Chooser
 

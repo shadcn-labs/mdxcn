@@ -14,9 +14,9 @@ function Hero() {
             markdown-friendly components for mdx
           </h1>
           <ProseLead>
-            mdxcn is a free, open-source set of callouts, steps, terminals,
-            charts, and timelines for mdx. copy any component with the shadcn
-            cli.
+            callouts, timelines, tables, and charts drawn with text. in an mdx
+            file you write them as markdown inside a tag. in a readme or a pr,
+            you paste the same drawing as a code block.
           </ProseLead>
           <HeroInstall />
         </div>

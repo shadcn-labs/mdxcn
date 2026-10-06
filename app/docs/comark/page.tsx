@@ -35,7 +35,7 @@ Markdown attributes are strings. {value=0.86} arrives as "0.86". arrays and obje
 
 ## stream
 
-Auto-close completes a dangling ::graph-table. YAML is all-or-nothing — a timeline grows an event at a time. A prefix that cuts mid-key can throw YAMLException; hold the last good tree. Required props missing → empty frame, not rows.map on undefined.
+Auto-close completes a dangling ::graph-table. YAML is all-or-nothing, but a timeline grows one event at a time. A prefix that cuts off mid-key can throw YAMLException, so keep the last tree that parsed. If required props are missing, the graph renders an empty frame instead of calling rows.map on undefined.
 
 ## hosts
 
@@ -69,7 +69,7 @@ export default function ComarkDocsPage() {
           <ProseLead>
             author figures as <InlineCode>::graph-*</InlineCode> blocks in plain
             markdown; <TextLink href={COMARK_URL}>comark</TextLink> parses the
-            file and these graphs draw the frames — no mdx compile step.
+            file and these graphs draw the frames. there is no mdx compile step.
           </ProseLead>
         }
         title="comark"
@@ -84,7 +84,7 @@ export default function ComarkDocsPage() {
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">install</h2>
         <ProseP>
-          copy the graphs first — <InlineCode>all.json</InlineCode> already
+          copy the graphs first. <InlineCode>all.json</InlineCode> already
           includes the adapter. if the graphs are already in the repo, adding{" "}
           <InlineCode>graph-comark</InlineCode> alone is enough.
         </ProseP>
@@ -115,7 +115,7 @@ const graphComponents = createGraphComponents({
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">author</h2>
         <ProseP>
-          Put YAML props on a <InlineCode>::graph-*</InlineCode> block — they
+          Put YAML props on a <InlineCode>::graph-*</InlineCode> block. They
           match the React API. Nest figures in{" "}
           <InlineCode>::row{"{cols=2}"}</InlineCode>. Every docs page has a
           Comark tab with a copy-paste block.
@@ -141,9 +141,9 @@ caption: 86% of statements
           YAML fence stay typed. <InlineCode>coerceProps</InlineCode> turns
           listed numeric props into numbers, maps <InlineCode>class</InlineCode>{" "}
           to <InlineCode>className</InlineCode>, and strips a leading colon from
-          Vue-style keys. <InlineCode>adapters.ts</InlineCode> is the per-tag
-          list — it tracks the catalog&apos;s <InlineCode>number</InlineCode>{" "}
-          props.
+          Vue-style keys. <InlineCode>adapters.ts</InlineCode> lists the numeric
+          props for each tag, matching the <InlineCode>number</InlineCode> props
+          in the catalog.
         </ProseP>
       </section>
 
@@ -163,8 +163,8 @@ caption: 86% of statements
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold tracking-tight">hosts</h2>
         <ProseP>
-          GitHub, Linear, and a README still get the fenced ASCII from the MDX
-          tab — they do not run Comark.{" "}
+          GitHub, Linear, and a README do not run Comark, so they still get the
+          code block from the .md tab.{" "}
           <TextLink href={COMARK_URL}>Comark</TextLink> is the renderer;{" "}
           <TextLink href={COMARK_DEMO_REPO}>the demo repo</TextLink> is the full
           catalog in one file.

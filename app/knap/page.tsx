@@ -139,8 +139,8 @@ export default function KnapPage() {
           <>
             pipe a props object through a <InlineCode>graph_*</InlineCode>{" "}
             filter. <TextLink href={KNAP_URL}>knap</TextLink> renders markdown
-            and these filters draw the official fence. no svg. the knap cli does
-            not load custom filters — wire them in your app.
+            and these filters draw the framed code block. the knap cli does not
+            load custom filters, so you add them in your own app.
           </>
         }
         title="graphs from a knap template"

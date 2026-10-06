@@ -57,7 +57,7 @@ const kit = [
   {
     name: "fenced ascii",
     detail:
-      "official fences that survive github, linear, and pr comments — swap labels, keep the frame, and do not invent a new drawing.",
+      "code blocks that render the same in github, linear, and pr comments. change the labels, keep the frame, and do not draw a new figure.",
   },
   {
     name: "llms.txt",
@@ -258,7 +258,7 @@ export default function AgentsPage() {
             <TextLink href="/docs/installation">
               install the components
             </TextLink>{" "}
-            first — the graphs still need to live in the project.
+            first. the graphs have to be in the project to render.
           </ProseP>
         }
         muted={

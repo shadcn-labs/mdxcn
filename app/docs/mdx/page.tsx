@@ -77,8 +77,8 @@ export default function MdxDocsPage() {
         lead={
           <ProseLead>
             wrap your mdx components once. tags you swap still parse, and plain
-            markdown — alerts, bylines, shell sessions, footnotes — gets a
-            frame. github still renders the original.
+            markdown alerts, bylines, shell sessions, and footnotes get a frame.
+            github still renders the original.
           </ProseLead>
         }
         title="mdx"

@@ -34,15 +34,15 @@ Chooser
 
 Host
 - Notion, Linear, a README → the framed ASCII from the docs .md tab. Keep the fence so the + corners stay aligned. That is the figure, not the inner list.
-- React, or MDX that can register the parent → wrap markdown children in the parent tag. Register the parent once in mdx-components.tsx. No extra child imports.
+- MDX that can register the parent → wrap markdown children in the parent tag. Register the parent once in mdx-components.tsx. No extra child imports. Props still work when the data is already in JavaScript.
 - Plain Markdown (README, GitHub, PR comments) → same framed ASCII from /llms.txt ## MDX, or the docs Markdown tab. Swap labels, keep the frame. Do not invent ASCII. Do not paste JSX.
 - Comark app (plain .md the app renders) → ::graph-* block from /llms.txt ## Comark, or the docs Comark tab. YAML props match the React API. Do not paste JSX. GitHub still gets fenced ASCII.
 - Knap template (data → Markdown) → graph_* filter from /llms.txt ## Knap, or the docs Knap tab. Pipe the React props object. A string param is the title. Pass comark for a ::graph-* block. Wire graphFilters in createEngine; the Knap CLI does not load them.
 - Reading an existing file: the figure is characters. Edit labels. Do not replace a graph with SVG.
 - No fenced ASCII: GraphFlow, GraphPlot, GraphActivity, GraphHeatmap, GraphCalendar, GraphTimer, GraphCountdown, GraphFrame still copy as a framed box of the labels. They have a Comark block and a Knap filter (YAML) except GraphFrame.
 
-Mood
-Typed, not illustrated. Quiet monospace figures that sit next to prose. Two graphs per section is enough. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
+Style
+The figures are plain monospace text that sit next to prose, not illustrations. Use at most two graphs per section. Do not restyle the frame or add decoration. Use one accent unless a second series needs palette="duo" or "multi".`
 
 export function installCli(origin: string, registry: string) {
   const host = origin || "<origin>"
@@ -80,29 +80,30 @@ export function agentPrompt({
     : "`motion`"
 
   if (!doc) {
-    return `Install mdxcn into this shadcn project.
+    return `Register mdxcn so an MDX file can render framed figures.
 
 ${command}
 
-These are React source files, not an npm package. You need ${deps}. Files land under @/registry/default. Import from there, or add a barrel.
+These are source files, not an npm package. You need ${deps}. Files land under @/registry/default. Register the parents once in mdx-components.tsx. In the MDX file, wrap markdown children in the tag. In a README, paste the official fence.
 
 ${DESIGN_AND_MOOD}`
   }
 
   const usage = example
-    ? `\nUsage\n\nThe docs .md tab is the framed figure — dashed box, [ TITLE ], glyphs. Paste that into Notion or a README. Keep the fence. Register the parent once in mdx-components.tsx and wrap markdown children when you want it live.\n\n${toMdxCopy(example)}\n`
-    : `\nImport\n\nimport { ${doc.name} } from "@/registry/default/${registry}/${registry}"\n`
+    ? `\nWrite\n\nPrefer markdown children. The same list is the figure.\n\n${example.trim()}\n\nWhen the file cannot run MDX (README, GitHub, Linear, a PR), paste this fence. Keep it. Swap labels.\n\n${toMdxCopy(example)}\n`
+    : `\nImport\n\nimport { ${doc.name} } from "@/registry/default/${registry}/${registry}"\n\nRegister it once in mdx-components.tsx and wrap markdown children in the tag.\n`
 
-  return `Install ${doc.name} (${doc.title}) from mdxcn into this shadcn project.
+  return `Add ${doc.name} (${doc.title}) so MDX can render it.
 
 ${command}
 
-These are React source files, not an npm package. You need ${deps}. Files land under @/registry/default.
+These are source files, not an npm package. You need ${deps}. Files land under @/registry/default. Register the parent once in mdx-components.tsx.
 
 What it is
 ${doc.description}
 ${doc.when ? `\nWhen to use\n${doc.when}\n` : ""}${doc.not ? `\nSkip it when\n${doc.not}\n` : ""}${usage}
 Props
+These still work when the data is already in JavaScript. Prefer the children above.
 ${formatProps(doc.props)}
 
 ${DESIGN_AND_MOOD}`

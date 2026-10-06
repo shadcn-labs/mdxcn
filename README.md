@@ -1,12 +1,25 @@
 # mdxcn
 
-React components for ASCII-style tables, charts, and diagrams in MDX. Built so an agent can drop a figure next to prose — JSX in MDX, `::graph-*` in Comark, `graph_*` in Knap, official ASCII in a README. Each graph sits in a dashed frame with a title on the top edge. One accent color by default; drawing graphs can take `palette="duo"` or `palette="multi"`. You copy the source into your project — this is not an npm package.
+Figures drawn with text, for MDX. An agent writes Markdown inside a component tag, and the MDX page renders it in a frame. A README, a PR, or Linear gets the same figure as a fenced drawing. The [shadcn](https://ui.shadcn.com) CLI copies the component source into your app. There is no npm package.
+
+<!-- prettier-ignore -->
+```mdx
+<GraphTimeline title="NIGHT">
+
+- 14:02: p95 crossed 800ms — paged the on-call
+- **14:11: rolled back the cache flag**
+- *14:40: write the postmortem*
+
+</GraphTimeline>
+```
+
+Every component reads the same Markdown inside its tag. Bold is now, italic is next, `label: value` is a row, `— note` is a side note, and `ok*40` is a run. The rules: [grammar](https://mdxcn.dev/docs/grammar). The same Markdown is a Comark block body and a Knap `body`, and draws the same fence.
 
 [docs](https://mdxcn.dev/docs) · [grammar](https://mdxcn.dev/docs/grammar) · [mdx](https://mdxcn.dev/docs/mdx) · [comark](https://mdxcn.dev/comark) · [knap](https://mdxcn.dev/knap) · [for agents](https://mdxcn.dev/agents) · [examples](https://mdxcn.dev/docs/examples) · [install](https://mdxcn.dev/docs/installation) · [skill](https://mdxcn.dev/docs/skill) · [github](https://github.com/keshav-exe/mdxcn)
 
 ## Install
 
-You need an existing [shadcn](https://ui.shadcn.com) project and [`motion`](https://motion.dev).
+You need [`motion`](https://motion.dev). The CLI copies the source into a project that already has `components.json`.
 
 Add the `@mdxcn` registry once, then install by name:
 
@@ -92,27 +105,15 @@ import { GraphTable } from "@/registry/default/graph-table/graph-table"
 | MDX       | `mdx`             | `withMdxcn` for `mdx-components.tsx`       |
 | Frame     | `graph-frame`     | Shared dashed frame primitives             |
 
-Every component reads the same Markdown inside its tag — bold is now, italic is next, `label: value` is a row, `— note` is a side note, `ok*40` is a run. The rules: [grammar](https://mdxcn.dev/docs/grammar). The same Markdown works as a Comark block body and a Knap `body`, and draws the same fenced ASCII.
-
-```mdx
-<GraphTimeline title="NIGHT">
-
-- 14:02: p95 crossed 800ms — paged the on-call
-- **14:11: rolled back the cache flag**
-- *14:40: write the postmortem*
-
-</GraphTimeline>
-```
-
-Wrap your MDX components in `withMdxcn` (registry item `mdx`). Tags your docs framework swaps — `li`, `table`, `h3` — still parse, and plain Markdown gets a frame: `> [!WARNING]` becomes a Callout, a `— Name` byline a Quote, a `console` fence a Terminal, footnotes a framed list. GitHub still renders the original. See [mdx](https://mdxcn.dev/docs/mdx).
+Wrap your MDX components in `withMdxcn` (registry item `mdx`). Tags your docs framework swaps out (`li`, `table`, `h3`) still parse, and plain Markdown gets a frame: `> [!WARNING]` becomes a Callout, a `— Name` byline a Quote, a `console` fence a Terminal, footnotes a framed list. GitHub still renders the original. See [mdx](https://mdxcn.dev/docs/mdx).
 
 Each docs page has CLI, manual, agent, MDX, Comark, and Knap install tabs. Copy page puts the markdown (install, prompt, examples, props) on the clipboard.
 
-Comark apps render the same figures from `::graph-*` blocks in a plain `.md` file — no MDX. Copy `graph-comark` (already in `all.json`). Full install: `graphComponents` from `graph-comark.tsx`. Subset: `createGraphComponents`. Wiring: [Comark](https://mdxcn.dev/docs/comark). Pitch: [Comark landing](https://mdxcn.dev/comark).
+Comark apps render the same figures from `::graph-*` blocks in a plain `.md` file, without MDX. Copy `graph-comark` (already in `all.json`). Full install: `graphComponents` from `graph-comark.tsx`. Subset: `createGraphComponents`. Wiring: [Comark](https://mdxcn.dev/docs/comark). Pitch: [Comark landing](https://mdxcn.dev/comark).
 
 Knap templates pipe the same props through `graph_*` filters and emit the official fence (or a `::graph-*` block). Copy `graph-knap` (already in `all.json`). Spread `graphFilters` into `createEngine`. The Knap CLI does not load them. Wiring: [Knap](https://mdxcn.dev/docs/knap). Pitch: [Knap landing](https://mdxcn.dev/knap).
 
-Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdxcn.dev/docs/examples). [for agents](https://mdxcn.dev/agents) is the write and read story. The [skill](https://mdxcn.dev/docs/skill) tells an agent which graph to put next to the prose — JSX in React, `::graph-*` in Comark, `graph_*` in Knap, fenced ASCII in GitHub. Agents can also fetch [`/llms.txt`](https://mdxcn.dev/llms.txt) for the chooser, the ASCII blocks, the Comark blocks, and the Knap filters.
+Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdxcn.dev/docs/examples). [for agents](https://mdxcn.dev/agents) is the write and read story. The [skill](https://mdxcn.dev/docs/skill) tells an agent which graph to put next to the prose, and in what form: Markdown inside the tag in MDX, `::graph-*` in Comark, `graph_*` in Knap, and the code block in GitHub. Agents can also fetch [`/llms.txt`](https://mdxcn.dev/llms.txt) for the chooser, the ASCII blocks, the Comark blocks, and the Knap filters.
 
 ## Design
 

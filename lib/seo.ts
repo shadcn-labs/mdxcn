@@ -244,7 +244,7 @@ export function installationJsonLd() {
         "@type": "TechArticle",
         headline: "installation",
         description:
-          "Copy the source into a shadcn project. Then give the agent the skill.",
+          "Write markdown children in MDX. Paste the fence when the file cannot render. The CLI copies the tags.",
         url: `${SITE_URL}/docs/installation`,
         author,
       },

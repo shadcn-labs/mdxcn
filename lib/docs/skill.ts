@@ -149,11 +149,11 @@ export const skillChooser: SkillChooserRow[] = [
 
 export const skillRules = [
   "At most two graphs in a section. Prose between them.",
-  "React / importable MDX: JSX. Notion / README / GitHub / Linear: framed ASCII from the docs .md tab (keep the fence). Comark: ::graph-* with YAML. Knap: graph_* filter. Do not invent ASCII.",
-  "In MDX, write Markdown inside the tag — bold is now, italic is next, label: value is a row, — note is a side note. The rules are on /docs/grammar.",
+  "MDX: markdown children inside the tag, from the docs .mdx tab. Notion / README / GitHub / Linear: the fence from the docs .md tab. Comark: ::graph-* . Knap: graph_* filter. Do not invent ASCII.",
+  "In MDX, write Markdown inside the tag. Bold is now, italic is next, label: value is a row, and '— note' is a side note. The rules are on /docs/grammar.",
   "Titles: short uppercase, drawn as [ TITLE ].",
   "Labels: lowercase, plain (auth middleware, not AuthMiddleware Layer).",
-  "Copy props from docs or recipes. Do not invent APIs, extra hues, or chart libraries.",
+  "Copy the markdown children from docs or recipes. Paste the official fence when the host cannot render MDX. Props still work when the data is already JavaScript. Do not invent APIs, extra hues, or chart libraries.",
   'palette="duo" / "multi" only when a second or third series needs it.',
   "Motion is already in the components. Do not add loops or pulses.",
 ]
@@ -177,7 +177,7 @@ Use mdxcn for the before/after request path and the week-by-week rollout. Prose 
     hint: "GraphTimeline, then GraphUptime",
     prompt: `Draft a tight postmortem: p95 crossed 800ms at 14:02, we rolled back the cache flag at 14:11, the write-up is still open.
 
-Use mdxcn — a timeline of the night, then which days users felt it. No SVG.`,
+Use mdxcn: a timeline of the night, then the days users felt it. No SVG.`,
   },
   {
     label: "Pull request",
@@ -191,14 +191,14 @@ Use mdxcn — a timeline of the night, then which days users felt it. No SVG.`,
     hint: "GraphCompare, then GraphRank",
     prompt: `We're choosing a queue: BullMQ vs SQS. Write the tradeoff for the RFC.
 
-Use mdxcn — a feature matrix, then bundle size only if it matters. Don't draw SVG.`,
+Use mdxcn: a feature matrix, and bundle size only if it matters. Don't draw SVG.`,
   },
   {
     label: "README",
     hint: "Fenced ASCII, not JSX",
     prompt: `Add a launch section to the README. It's a .md file, no React.
 
-Use mdxcn — a punch list (GraphCheck fence) and a grouped table if it earns it. Paste the official fenced ASCII from llms.txt. Don't paste JSX.`,
+Use mdxcn: a punch list (the GraphCheck fence), plus a grouped table if one helps. Paste the official fenced ASCII from llms.txt. Don't paste JSX.`,
   },
   {
     label: "Comark",
@@ -239,5 +239,5 @@ If the graph files are missing and the host is React, install them first:
 
 pnpm dlx shadcn@latest add ${host}/r/all.json
 
-Fetch ${host}/agents for the write and read story. Fetch ${host}/llms.txt for the chooser, the MDX ASCII blocks, the Comark blocks, and the Knap filters. Copy JSX from ${host}/docs/examples when the file can import components. Copy ::graph-* from ${host}/docs/comark when the host is Comark. Copy graph_* filters from ${host}/docs/knap when the host is Knap.`
+Fetch ${host}/agents for the write and read story. Fetch ${host}/llms.txt for the chooser, the fenced figures, the Comark blocks, and the Knap filters. In an MDX file, copy the .mdx tab from ${host}/docs, which is Markdown inside the tag. Paste the .md fence when the host cannot render MDX. Copy ::graph-* from ${host}/docs/comark when the host is Comark. Copy graph_* filters from ${host}/docs/knap when the host is Knap.`
 }

@@ -214,13 +214,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         register the parent once in <InlineCode>mdx-components.tsx</InlineCode>
         {names.length > 1 ? (
           <>
-            {" "}
-            — including <InlineCode>{names.slice(1).join(", ")}</InlineCode>
+            , along with <InlineCode>{names.slice(1).join(", ")}</InlineCode>
           </>
         ) : null}
-        . lists and tables inside the tag do not need extra imports. the .mdx
-        tab on the example is the framed figure — that is what you paste into
-        notion or a readme.
+        . lists and tables inside the tag do not need extra imports. for notion
+        or a readme, paste the .md tab from the example instead.
       </ProseP>
       <CopyBlock label="mdx-components.tsx" value={register} />
       {example ? <CopyBlock label="page.mdx" value={example} /> : null}
@@ -232,10 +230,10 @@ function MarkdownInstall({ markdown }: { markdown: string }) {
   return (
     <div className="flex flex-col gap-6">
       <ProseP>
-        paste this fenced block into a markdown file that cannot import the
-        component — readme, github, linear, pr comments, a bare{" "}
-        <InlineCode>.md</InlineCode>. monospace keeps the frame aligned. swap
-        labels, keep the frame. do not invent a different drawing.
+        paste this code block anywhere that cannot import the component: a
+        readme, github, linear, a pr comment, or a plain{" "}
+        <InlineCode>.md</InlineCode> file. monospace keeps the frame aligned.
+        change the labels, keep the frame, and do not draw a new figure.
       </ProseP>
       <CopyBlock label="markdown" value={markdown} />
     </div>
@@ -248,8 +246,8 @@ function ComarkInstall({ markdown }: { markdown: string }) {
       <ProseP>
         paste this into a <InlineCode>.md</InlineCode> file that a{" "}
         <TextLink href={COMARK_URL}>comark</TextLink> app will render. yaml
-        props match the react api. github and linear still need the mdx fence —
-        they do not run comark. wiring is on{" "}
+        props match the react api. github and linear do not run comark, so they
+        still need the code block from the .md tab. wiring is on{" "}
         <TextLink href="/docs/comark">/docs/comark</TextLink>.
       </ProseP>
       <CopyBlock label="comark" value={markdown} />

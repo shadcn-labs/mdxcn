@@ -40,7 +40,7 @@ export default async function SkillPage() {
     "",
     "## what it does",
     "",
-    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. React or importable MDX gets JSX. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter. Plain Markdown (README, GitHub, Linear) gets the official fenced ASCII from /llms.txt.",
+    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. MDX gets markdown children inside the tag. A Comark app gets a ::graph-* block. A Knap template gets a graph_* filter. A README, GitHub comment, or Linear note gets the official fence from /llms.txt.",
     "",
     "## files",
     "",

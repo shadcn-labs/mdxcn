@@ -42,4 +42,4 @@ Glyphs, not SVG.[^1]
 
 [^1]: SVG does not survive a README.`
 
-export const MDX_WHY = `Docs frameworks swap tags for their own components — li: ListItem, table: Table, h3: Heading. A graph reads its children by tag, so a swapped li looks like an unknown component and the list renders empty. withMdxcn marks each swap so the graphs still see the tag. It works under React Server Components too: the mark rides on a data-graph-host prop.`
+export const MDX_WHY = `Docs frameworks swap tags for their own components (li: ListItem, table: Table, h3: Heading). A graph reads its children by tag, so a swapped li looks like an unknown component and the list renders empty. withMdxcn marks each swap so the graphs still see the tag. It works under React Server Components too: the mark rides on a data-graph-host prop.`

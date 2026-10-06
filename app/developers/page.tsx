@@ -179,8 +179,8 @@ export default function DevelopersPage() {
       <LandingSection
         lead={
           <ProseP>
-            install graph source files with the official shadcn cli — there is
-            no separate npm package of react components.
+            install graph source files with the shadcn cli. there is no npm
+            package.
           </ProseP>
         }
         title="copy the source"

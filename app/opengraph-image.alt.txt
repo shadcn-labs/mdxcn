@@ -1,1 +1,1 @@
-mdxcn — markdown-friendly components
+mdxcn: markdown-friendly components

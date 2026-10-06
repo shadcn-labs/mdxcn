@@ -26,7 +26,7 @@ export const metadata: Metadata = pageMeta({
   path: "/docs",
 })
 
-const intro = `register the parent once in mdx-components.tsx. the .mdx tab is what you write — markdown inside the tag. the .md tab is the framed figure — copy it into notion, linear, a readme. the .tsx tab is the react. wrap the same content in the parent when you want it live.`
+const intro = `each example has three tabs. .md is the framed figure as a code block, which you can paste into notion, linear, or a readme. .mdx is markdown inside the component tag, for an mdx page that registered the component in mdx-components.tsx. .tsx is the same figure as react.`
 
 export default function DocsPage() {
   const groups = componentsByCategory()
@@ -98,9 +98,9 @@ export default function DocsPage() {
       </DocsPageHeader>
 
       <Callout type="tip">
-        the .mdx tab is what you write: markdown inside the tag. the .md tab is
-        the drawing — dashed frame, title, glyphs. copy that into notion or a
-        readme and the figure is still there. the rules are on{" "}
+        the .md tab is the drawing itself: the dashed frame, the title, and the
+        glyphs. paste it into notion or a readme and it looks the same there.
+        the markdown rules are on{" "}
         <TextLink href="/docs/grammar">grammar</TextLink>.
       </Callout>
 

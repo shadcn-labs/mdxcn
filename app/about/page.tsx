@@ -14,7 +14,7 @@ import { pageMeta, webPageJsonLd } from "@/lib/seo"
 import { SITE_EMAIL } from "@/lib/site"
 
 const description =
-  "Open-source ASCII-framed React diagrams for MDX. Source on GitHub, MIT license, copied with the shadcn CLI."
+  "Framed markdown for MDX. An agent writes the children; the page renders the frame. Source on GitHub, MIT license."
 
 export const metadata: Metadata = pageMeta({
   title: "about",

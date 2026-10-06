@@ -104,7 +104,7 @@ const content: CatalogEntry[] = [
     title: "callout",
     name: "Callout",
     description:
-      "An aside between paragraphs — a caveat, a tip, a warning. The body is Markdown. A quote is Quote.",
+      "An aside between paragraphs, like a caveat, a tip, or a warning. The body is Markdown. A quote is Quote.",
     registry: "callout",
     dependencies: ["motion"],
     props: [
@@ -559,7 +559,7 @@ const catalog: CatalogEntry[] = [
     title: "sheet",
     name: "GraphSheet",
     description:
-      "A table with section titles — an API, an RFC. Write `### Scope` then a markdown table. A flat table is Table.",
+      "A table with section titles, like an API or an RFC. Write `### Scope` then a markdown table. A flat table is Table.",
     registry: "graph-sheet",
     dependencies: ["motion"],
     props: [
@@ -873,7 +873,7 @@ const catalog: CatalogEntry[] = [
     title: "tree",
     name: "GraphTree",
     description:
-      "Nested list drawn with branch glyphs. Bold a node to highlight it — files, an org chart. Not a timeline or a table.",
+      "Nested list drawn with branch glyphs. Good for files or an org chart. Bold a node to highlight it. Not a timeline or a table.",
     registry: "graph-tree",
     dependencies: ["motion"],
     props: [
@@ -1544,7 +1544,7 @@ const catalog: CatalogEntry[] = [
     title: "activity",
     name: "GraphActivity",
     description:
-      "GitHub-style contribution grid. Pass dated counts, or write `- 2026-03-02: 0 1 4 2 0*3` — counts run day by day from the date.",
+      "GitHub-style contribution grid. Pass dated counts, or write `- 2026-03-02: 0 1 4 2 0*3`. The counts run day by day from the date.",
     registry: "graph-activity",
     dependencies: ["motion"],
     props: [

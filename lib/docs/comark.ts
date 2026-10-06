@@ -8,7 +8,7 @@ export const COMARK_DEMO_URL = "https://comark-demo.vercel.app"
 export const COMARK_DEMO_REPO = "https://github.com/atinux/comark-demo"
 
 export const COMARK_DESCRIPTION =
-  "Author figures as ::graph-* blocks in plain Markdown; Comark parses the file and these graphs draw the frames — no MDX compile step."
+  "Write figures as ::graph-* blocks in plain Markdown. Comark parses the file and these graphs draw the frames, with no MDX compile step."
 
 export const COMARK_SKIP_SLUGS = ["graph-frame"] as const
 
@@ -60,7 +60,7 @@ ${example.markdown}`
 
   return `## Comark
 
-Plain \`.md\` that a Comark app will render. Paste a \`::graph-*\` block. YAML props match the React API — or write the block body in the same Markdown grammar MDX children use. Content blocks (\`::callout\`, \`::steps\`, \`::chat\`, …) always take a Markdown body. Do not paste JSX. GitHub and Linear still need the fenced ASCII from ## MDX — they do not run Comark.
+Plain \`.md\` that a Comark app will render. Paste a \`::graph-*\` block. YAML props match the React API. You can also write the block body in the same Markdown grammar MDX children use. Content blocks (\`::callout\`, \`::steps\`, \`::chat\`, …) always take a Markdown body. Do not paste JSX. GitHub and Linear do not run Comark, so they still need the fenced ASCII from ## MDX.
 
 Install the adapter after the graphs:
 

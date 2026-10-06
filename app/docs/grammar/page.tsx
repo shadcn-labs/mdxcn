@@ -53,9 +53,9 @@ export default function GrammarPage() {
         kicker="markdown"
         lead={
           <ProseLead>
-            every component reads the same markdown. learn these rules once —
+            every component reads the same markdown, so the rules carry over.
             bold is now, italic is next, <InlineCode>label: value</InlineCode>{" "}
-            is a row, <InlineCode>— note</InlineCode> is a side note.
+            is a row, and <InlineCode>— note</InlineCode> is a side note.
           </ProseLead>
         }
         title="grammar"

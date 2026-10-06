@@ -19,16 +19,24 @@ import { installationJsonLd, pageMeta } from "@/lib/seo"
 export const metadata: Metadata = pageMeta({
   title: "installation",
   description:
-    "copy the source into a shadcn project. then give the agent the skill.",
+    "write markdown children in mdx. paste the fence when the file cannot render. the cli copies the tags.",
   path: "/docs/installation",
 })
 
 const description =
-  "these are source files, not an npm package. you need an existing shadcn project and the motion dependency."
+  "write markdown children inside the tag. paste the fence when the file cannot render mdx. the cli copies the source into your project so the tags exist. there is no npm package. you need motion."
 
-const extra = `## one component
+const extra = `## mdx
 
-run the shadcn cli against this site's registry, or copy the files from github.
+register the parent once in mdx-components.tsx. the .mdx tab is what you write. the .md tab is the framed figure, for notion or a readme.
+
+## agents
+
+$ORIGIN/agents covers writing and reading: markdown inside the tag in mdx, the code block in a readme, ::graph-* in comark, graph_* in knap. $ORIGIN/docs/skill is the skill.md. $ORIGIN/llms.txt is the chooser, the fences, the comark blocks, and the knap filters.
+
+## one component
+
+the shadcn cli copies the source, or copy the files from github.
 
 pnpm dlx shadcn@latest add $ORIGIN/r/graph-table.json
 
@@ -52,15 +60,7 @@ pnpm dlx shadcn@latest add @mdxcn/graph-table
 
 files land under @/registry. add your own barrel export if you want a shorter import path.
 
-import { GraphTable } from "@/registry/default/graph-table/graph-table"
-
-## mdx
-
-register the parent once in mdx-components.tsx. the .md tab is the framed figure — copy it into notion or a readme. wrap the children in the parent when you want it live.
-
-## agents
-
-$ORIGIN/agents is write vs read — markdown in mdx and in notion, ::graph-* in comark, graph_* in knap, official ascii in a readme. $ORIGIN/docs/skill is the skill.md. $ORIGIN/llms.txt is the chooser, recipes, fenced ascii blocks, comark blocks, and knap filters in one file.`
+import { GraphTable } from "@/registry/default/graph-table/graph-table"`
 
 export default function InstallationPage() {
   const table = getComponent("graph-table")
@@ -77,9 +77,11 @@ export default function InstallationPage() {
         }}
         lead={
           <ProseLead>
-            these are source files, not an npm package. you need an existing{" "}
-            <TextLink href="https://ui.shadcn.com">shadcn</TextLink> project and
-            the <InlineCode>motion</InlineCode> dependency.
+            write markdown children inside the tag. paste the fence when the
+            file cannot render mdx. the{" "}
+            <TextLink href="https://ui.shadcn.com">shadcn</TextLink> cli copies
+            the source into your project so the tags exist. there is no npm
+            package. you need <InlineCode>motion</InlineCode>.
           </ProseLead>
         }
         title="installation"
@@ -87,13 +89,69 @@ export default function InstallationPage() {
 
       <div className="flex flex-col gap-6 lg:gap-8">
         <section className="flex flex-col gap-4">
+          <h2 className="text-xl font-semibold tracking-tight">mdx</h2>
+          <ProseP>
+            register the parent once. lists and tables inside the tag do not
+            need extra imports. the .mdx tab is what you write. the .md tab is
+            the framed figure, for notion or a readme.
+          </ProseP>
+          <Callout type="tip">
+            register the parent once in{" "}
+            <InlineCode>mdx-components.tsx</InlineCode> and wrap the map in{" "}
+            <TextLink href="/docs/mdx">withMdxcn</TextLink> so tags your docs
+            framework swaps out still parse.
+          </Callout>
+          <Steps title="mdx">
+            <ol>
+              <li>
+                <p>
+                  <strong>write</strong>
+                </p>
+                <p>
+                  markdown children inside the tag. the .mdx tab. the .md tab is
+                  the fence for notion or a readme.
+                </p>
+              </li>
+              <li>
+                <p>register the parent</p>
+                <p>
+                  once in mdx-components.tsx. lists and tables inside do not
+                  need their own imports.
+                </p>
+              </li>
+              <li>
+                <p>
+                  <em>copy the files</em>
+                </p>
+                <p>if the app does not have the tags yet. cli or github.</p>
+              </li>
+            </ol>
+          </Steps>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="text-xl font-semibold tracking-tight">agents</h2>
+          <ProseP>
+            a skill file so the agent pastes a figure instead of drawing svg.
+            markdown children in mdx. the fence in a readme. a{" "}
+            <InlineCode>::graph-*</InlineCode> block in{" "}
+            <TextLink href={COMARK_URL}>comark</TextLink>. a{" "}
+            <InlineCode>graph_*</InlineCode> filter in{" "}
+            <TextLink href={KNAP_URL}>knap</TextLink>.{" "}
+            <TextLink href="/agents">for agents</TextLink> is the write and read
+            story. <TextLink href="/docs/skill">skill</TextLink> is the install.{" "}
+            <TextLink href="/llms.txt">/llms.txt</TextLink> is the chooser plus
+            the fences, comark, and knap blocks, in one file.
+          </ProseP>
+        </section>
+
+        <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">
             one component
           </h2>
           <ProseP>
-            run the shadcn cli against this site&apos;s registry, or copy the
-            files from github. they land under{" "}
-            <InlineCode>registry/default</InlineCode>.
+            the cli copies the source, or copy the files from github. they land
+            under <InlineCode>registry/default</InlineCode>.
           </ProseP>
           <InstallCommand doc={table} name="graph-table" />
         </section>
@@ -130,64 +188,6 @@ export default function InstallationPage() {
             label="import"
             value={`import { GraphTable } from "@/registry/default/graph-table/graph-table"`}
           />
-        </section>
-
-        <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">mdx</h2>
-          <ProseP>
-            register the parent once. lists and tables inside the tag do not
-            need extra imports. the .md tab is the framed figure — paste that
-            into notion or a readme. wrap the children in the parent when you
-            want it live.
-          </ProseP>
-          <Callout type="tip">
-            register the parent once in{" "}
-            <InlineCode>mdx-components.tsx</InlineCode> and wrap the map in{" "}
-            <TextLink href="/docs/mdx">withMdxcn</TextLink> — tags your docs
-            framework swaps still parse. the .mdx tab is what you write; the .md
-            tab is the framed drawing for notion or a readme.
-          </Callout>
-          <Steps title="mdx">
-            <ol>
-              <li>
-                <p>copy the files</p>
-                <p>cli or github. they land under registry/default.</p>
-              </li>
-              <li>
-                <p>
-                  <strong>register the parent</strong>
-                </p>
-                <p>
-                  once in mdx-components.tsx. lists and tables inside do not
-                  need their own imports.
-                </p>
-              </li>
-              <li>
-                <p>
-                  <em>paste</em>
-                </p>
-                <p>
-                  the .md tab is the framed figure. paste it into notion or a
-                  readme. wrap the children in the parent when you want it live.
-                </p>
-              </li>
-            </ol>
-          </Steps>
-        </section>
-
-        <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">agents</h2>
-          <ProseP>
-            a skill file so the agent picks a component instead of drawing svg.
-            markdown in mdx and in notion. a <InlineCode>::graph-*</InlineCode>{" "}
-            block in <TextLink href={COMARK_URL}>comark</TextLink>. a{" "}
-            <InlineCode>graph_*</InlineCode> filter in{" "}
-            <TextLink href={KNAP_URL}>knap</TextLink>. official ascii in a
-            readme. <TextLink href="/agents">for agents</TextLink> is the write
-            and read story. <TextLink href="/docs/skill">skill</TextLink> is the
-            install. <TextLink href="/llms.txt">/llms.txt</TextLink> is the
-            chooser plus the ascii, comark, and knap blocks, in one file.
-          </ProseP>
         </section>
       </div>
     </div>

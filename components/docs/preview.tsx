@@ -36,12 +36,14 @@ function ComponentPreview({
 }) {
   const tabs = (
     [
-      ["mdx", ".mdx"],
       ["md", ".md"],
+      ["mdx", ".mdx"],
       ["react", ".tsx"],
     ] as const
   ).filter(([id]) => (id !== "mdx" || kind === "mdx") && (id !== "md" || ascii))
-  const [tab, setTab] = useState<SourceTab>(tabs[0]?.[0] ?? "react")
+  const [tab, setTab] = useState<SourceTab>(() =>
+    tabs.some(([id]) => id === "md") ? "md" : (tabs[0]?.[0] ?? "react")
+  )
   const accent = useAccent()
   const tsx = `${accentCss(accent.id)}\n\n${(react ?? code).trim()}`
   const source =

@@ -44,8 +44,8 @@ const steps = [
       <>
         <TextLink href={COMARK_URL}>comark</TextLink> turns the{" "}
         <InlineCode>.md</InlineCode> file into a{" "}
-        <InlineCode>MarkdownDocument</InlineCode> — on the server, in a worker,
-        or as tokens stream in.
+        <InlineCode>MarkdownDocument</InlineCode> on the server, in a worker, or
+        as tokens stream in.
       </>
     ),
   },
@@ -142,7 +142,7 @@ export default function ComarkPage() {
             put <InlineCode>::graph-*</InlineCode> blocks in a{" "}
             <InlineCode>.md</InlineCode> file.{" "}
             <TextLink href={COMARK_URL}>comark</TextLink> parses them and these
-            graphs draw the frames — no mdx, no compile step.{" "}
+            graphs draw the frames. you do not need mdx or a compile step.{" "}
             <TextLink href={COMARK_DEMO_REPO}>
               sébastien chopin&apos;s demo
             </TextLink>{" "}
@@ -184,7 +184,9 @@ export default function ComarkPage() {
             ]}
             title="NIGHT"
           />
-          <ProseMuted>same night — and the two days users felt it.</ProseMuted>
+          <ProseMuted>
+            same night. these are the two days users felt it.
+          </ProseMuted>
           <GraphUptime
             days={[
               "ok",

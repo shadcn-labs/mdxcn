@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/site"
 
 export const CHOOSER: Record<string, { when: string; not: string }> = {
   callout: {
-    when: "Good for an aside the reader should not skip — a caveat, a tip, a breaking change.",
+    when: "Good for an aside the reader should not skip, like a caveat, a tip, or a breaking change.",
     not: "A quote is Quote. A list of steps is Steps.",
   },
   quote: {
@@ -16,7 +16,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "Your own caveat is Callout.",
   },
   steps: {
-    when: "Good for a procedure — install, migrate, release — with one step marked now.",
+    when: "Good for a procedure (install, migrate, release) with one step marked now.",
     not: "Dated events are Timeline. A punch list with done boxes is Check.",
   },
   terminal: {
@@ -60,7 +60,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "Grouped sections are Sheet. Label/value rows are Spec.",
   },
   "graph-sheet": {
-    when: "Good when a table needs section titles — an API, an RFC, a spec with groups.",
+    when: "Good when a table needs section titles, like an API, an RFC, or a spec with groups.",
     not: "A flat table is Table. Label/value rows are Spec.",
   },
   "graph-flow": {
@@ -238,8 +238,7 @@ ${mdx.markdown}`
 
   return `# mdxcn
 
-ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not npm.
-The docs .md tab is the framed figure (dashed box, [ TITLE ], glyphs). Paste that into Notion, Linear, or a README. Keep the fence. Wrap markdown children in the parent after registering once (React / MDX). Write a \`::graph-*\` block for Comark, or pipe data through a Knap filter. Do not invent ASCII. Do not draw SVG.
+Framed figures for MDX. An agent writes markdown children inside a tag. A README, Linear, or a PR gets the same figure as a fence. The React components are how an MDX page renders the frame. The shadcn CLI copies those files into the app. Do not invent ASCII. Do not draw SVG.
 ${host}
 
 ## When to use
@@ -250,11 +249,11 @@ Reach for it when the writing is a path or a refactor, an incident or postmortem
 
 How to call it:
 
-1. Notion, Linear, or a README: copy the framed ASCII from the docs .md tab. Keep the fence so the + corners stay aligned.
-2. React or importable MDX: install with \`pnpm dlx shadcn@latest add ${host}/r/<slug>.json\`, register the parent once in mdx-components.tsx, wrap markdown children in the tag.
-3. Plain Markdown that cannot run a renderer (README, GitHub): same framed ASCII from ## MDX below. Do not invent ASCII. Do not paste JSX.
-4. Comark app (plain \`.md\`, streaming, DB-backed content): paste a \`::graph-*\` block from ## Comark. Wiring: ${host}/docs/comark.
-5. Knap template (data → Markdown): pipe props through a \`graph_*\` filter from ## Knap. Wiring: ${host}/docs/knap.
+1. MDX: wrap markdown children in the tag. Register the parent once in mdx-components.tsx.
+2. README, GitHub, Notion, Linear: paste the fence from ## MDX below. Keep it. Swap labels. Do not paste JSX.
+3. Comark app (plain \`.md\`, streaming, DB-backed content): paste a \`::graph-*\` block from ## Comark. Wiring: ${host}/docs/comark.
+4. Knap template (data → Markdown): pipe props through a \`graph_*\` filter from ## Knap. Wiring: ${host}/docs/knap.
+5. If the MDX app does not have the tags yet: \`pnpm dlx shadcn@latest add ${host}/r/<slug>.json\`.
 6. Install the skill from ${host}/skill.md so the chooser runs without fetching this file every time.
 
 Do not use it for a one-sentence note, a pie chart, or a drawing that needs SVG. At most two figures, with prose between them.
@@ -282,9 +281,9 @@ pnpm dlx shadcn@latest add ${host}/r/all.json
 ## Host
 
 - Notion, Linear, Google Docs, any rich text editor: copy the framed ASCII from the docs .md tab. Keep the fence.
-- React, or MDX that can register the parent: wrap markdown children in the tag. Install via shadcn. Register once in mdx-components.tsx. No extra child imports.
+- MDX that can register the parent: wrap markdown children in the tag. Register once in mdx-components.tsx. No extra child imports. The CLI copies the tags if the app does not have them.
 - Plain Markdown that cannot run React (README, GitHub, Slack, PR comments): paste a fenced ASCII from ## MDX. Swap labels, keep the frame. Do not invent ASCII. Do not paste JSX.
-- Comark: paste a \`::graph-*\` block from ## Comark. YAML props match the React API. GitHub does not run Comark — use fenced ASCII there.
+- Comark: paste a \`::graph-*\` block from ## Comark. YAML props match the React API. GitHub does not run Comark, so use the fenced ASCII there.
 - Knap: pipe the same props through a \`graph_*\` filter from ## Knap. Output is the official fence, or \`::graph-*\` when the figure has no ASCII / the param is \`comark\`. The Knap CLI does not load these filters. Wire them in your app.
 - No fenced ASCII (${skip}): Flow, Plot, Activity, Heatmap, Calendar, Timer, Countdown, Frame have no ## MDX block. They still have a Comark block and a Knap filter (YAML) except Frame.
 
@@ -294,7 +293,7 @@ pnpm dlx shadcn@latest add ${host}/r/all.json
 - Charts are made of characters (█ ░ - = + ├ └). Borders are dashes. Do not use SVG, Recharts, or canvas.
 - One accent: --graph-accent. palette="duo" | "multi" is opt-in.
 - Motion is opacity and transform, ~220ms, no loops, no pulsing.
-- Copy the example props exactly. Do not invent extra hues or chart libraries.
+- Copy the markdown children from the example. Paste the official fence when the host cannot render MDX. Props still work when the data is already in JavaScript. Do not invent extra hues or chart libraries.
 
 ## Install
 

@@ -15,7 +15,7 @@ export type GrammarRule = {
 }
 
 export const GRAMMAR_DESCRIPTION =
-  "The Markdown every mdxcn component reads — bold is now, italic is next, label: value is a row, — note is a side note. The same grammar works as MDX children, a Comark block body, a Knap body, and the fenced ASCII."
+  "The Markdown every mdxcn component reads. Bold is now, italic is next, label: value is a row, and '— note' is a side note. The same grammar works as MDX children, a Comark block body, a Knap body, and the fenced ASCII."
 
 export const GRAMMAR: GrammarRule[] = [
   {
@@ -97,7 +97,7 @@ export const UPGRADES: GrammarRule[] = [
   {
     write: "> [!WARNING]",
     means:
-      "Callout. NOTE, TIP, IMPORTANT, WARNING, CAUTION — and Obsidian names. Text after the marker is the title.",
+      "Callout. NOTE, TIP, IMPORTANT, WARNING, CAUTION, and the Obsidian names. Text after the marker is the title.",
     read: "withMdxcn → Callout",
   },
   {

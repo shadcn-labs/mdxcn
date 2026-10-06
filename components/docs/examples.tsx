@@ -72,10 +72,10 @@ function Examples({ items, slug }: { items: Example[]; slug?: string }) {
     <div className="flex flex-col gap-16">
       {items.map((item) => (
         <ComponentPreview
-          ascii={ascii}
+          ascii={ascii || item.source !== "tsx"}
           code={item.code}
           description={item.description}
-          key={item.title}
+          key={`${slug ?? "example"}-${item.title}-md`}
           react={item.react}
           source={item.source}
           title={item.title}
@@ -756,6 +756,17 @@ const cellsExamples: Example[] = [
 
 const meterExamples: Example[] = [
   {
+    title: "written",
+    description: "The value, then the caption after an em dash.",
+    code: `<GraphMeter title="DISK">78% — of 500 GB</GraphMeter>`,
+    react: tsx(
+      "graph-meter",
+      "GraphMeter",
+      `<GraphMeter title="DISK">78% — of 500 GB</GraphMeter>`
+    ),
+    preview: <GraphMeter title="DISK">78% — of 500 GB</GraphMeter>,
+  },
+  {
     title: "shipped",
     description: "Dashes stay empty until the fill animates in.",
     code: `import { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
@@ -784,20 +795,31 @@ const meterExamples: Example[] = [
       />
     ),
   },
-  {
-    title: "written",
-    description: "The value, then the caption after an em dash.",
-    code: `<GraphMeter title="DISK">78% — of 500 GB</GraphMeter>`,
-    react: tsx(
-      "graph-meter",
-      "GraphMeter",
-      `<GraphMeter title="DISK">78% — of 500 GB</GraphMeter>`
-    ),
-    preview: <GraphMeter title="DISK">78% — of 500 GB</GraphMeter>,
-  },
 ]
 
 const sparkExamples: Example[] = [
+  {
+    title: "written",
+    description:
+      "Numbers as children. `0*3` repeats a value. The caption follows an em dash.",
+    code: `<GraphSpark title="DEPLOYS">
+
+2 3 0*3 5 8 6 9 — three quiet days, then a busy week
+
+</GraphSpark>`,
+    react: tsx(
+      "graph-spark",
+      "GraphSpark",
+      `<GraphSpark title="DEPLOYS">
+  <p>2 3 0*3 5 8 6 9 — three quiet days, then a busy week</p>
+</GraphSpark>`
+    ),
+    preview: (
+      <GraphSpark title="DEPLOYS">
+        <p>2 3 0*3 5 8 6 9 — three quiet days, then a busy week</p>
+      </GraphSpark>
+    ),
+  },
   {
     title: "latency",
     description:
@@ -829,28 +851,6 @@ const sparkExamples: Example[] = [
         data={[4, 4, 5, 3, 6, 8, 7, 9, 8, 6, 5, 7]}
         title="REQUESTS"
       />
-    ),
-  },
-  {
-    title: "written",
-    description:
-      "Numbers as children. `0*3` repeats a value. The caption follows an em dash.",
-    code: `<GraphSpark title="DEPLOYS">
-
-2 3 0*3 5 8 6 9 — three quiet days, then a busy week
-
-</GraphSpark>`,
-    react: tsx(
-      "graph-spark",
-      "GraphSpark",
-      `<GraphSpark title="DEPLOYS">
-  <p>2 3 0*3 5 8 6 9 — three quiet days, then a busy week</p>
-</GraphSpark>`
-    ),
-    preview: (
-      <GraphSpark title="DEPLOYS">
-        <p>2 3 0*3 5 8 6 9 — three quiet days, then a busy week</p>
-      </GraphSpark>
     ),
   },
 ]
@@ -1424,6 +1424,43 @@ const ganttExamples: Example[] = [
 
 const plotExamples: Example[] = [
   {
+    title: "labeled rows",
+    description: "A list of `label: value` keeps the labels for the axis.",
+    code: `<GraphPlot title="SIGNUPS" variant="line">
+
+- Mon: 12
+- Tue: 18
+- Wed: 15
+- Thu: 24
+- Fri: 31
+
+</GraphPlot>`,
+    react: tsx(
+      "graph-plot",
+      "GraphPlot",
+      `<GraphPlot title="SIGNUPS" variant="line">
+  <ul>
+    <li>Mon: 12</li>
+    <li>Tue: 18</li>
+    <li>Wed: 15</li>
+    <li>Thu: 24</li>
+    <li>Fri: 31</li>
+  </ul>
+</GraphPlot>`
+    ),
+    preview: (
+      <GraphPlot title="SIGNUPS" variant="line">
+        <ul>
+          <li>Mon: 12</li>
+          <li>Tue: 18</li>
+          <li>Wed: 15</li>
+          <li>Thu: 24</li>
+          <li>Fri: 31</li>
+        </ul>
+      </GraphPlot>
+    ),
+  },
+  {
     title: "p95",
     description: "Last cap is the live point.",
     code: `import { GraphPlot } from "@/registry/default/graph-plot/graph-plot"
@@ -1461,46 +1498,20 @@ const plotExamples: Example[] = [
       />
     ),
   },
-  {
-    title: "labeled rows",
-    description: "A list of `label: value` keeps the labels for the axis.",
-    code: `<GraphPlot title="SIGNUPS" variant="line">
-
-- Mon: 12
-- Tue: 18
-- Wed: 15
-- Thu: 24
-- Fri: 31
-
-</GraphPlot>`,
-    react: tsx(
-      "graph-plot",
-      "GraphPlot",
-      `<GraphPlot title="SIGNUPS" variant="line">
-  <ul>
-    <li>Mon: 12</li>
-    <li>Tue: 18</li>
-    <li>Wed: 15</li>
-    <li>Thu: 24</li>
-    <li>Fri: 31</li>
-  </ul>
-</GraphPlot>`
-    ),
-    preview: (
-      <GraphPlot title="SIGNUPS" variant="line">
-        <ul>
-          <li>Mon: 12</li>
-          <li>Tue: 18</li>
-          <li>Wed: 15</li>
-          <li>Thu: 24</li>
-          <li>Fri: 31</li>
-        </ul>
-      </GraphPlot>
-    ),
-  },
 ]
 
 const waffleExamples: Example[] = [
+  {
+    title: "written",
+    description: "The value, then the caption after an em dash.",
+    code: `<GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>`,
+    react: tsx(
+      "graph-waffle",
+      "GraphWaffle",
+      `<GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>`
+    ),
+    preview: <GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>,
+  },
   {
     title: "coverage",
     description: "One hundred cells. Value is how many are lit.",
@@ -1536,17 +1547,6 @@ const waffleExamples: Example[] = [
         value={0.4}
       />
     ),
-  },
-  {
-    title: "written",
-    description: "The value, then the caption after an em dash.",
-    code: `<GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>`,
-    react: tsx(
-      "graph-waffle",
-      "GraphWaffle",
-      `<GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>`
-    ),
-    preview: <GraphWaffle title="TESTS">91% — 182 of 200 green</GraphWaffle>,
   },
 ]
 
@@ -2247,6 +2247,36 @@ const statExamples: Example[] = [
 
 const kpiExamples: Example[] = [
   {
+    title: "written",
+    description:
+      "First line is the value, the label, and `— hint`. The next line is the sparkline.",
+    code: `<GraphKpi title="READS">
+
+**12,400** this week — +18%
+
+4 5 5 6 8 7 9 8 11 10 12 14
+
+</GraphKpi>`,
+    react: tsx(
+      "graph-kpi",
+      "GraphKpi",
+      `<GraphKpi title="READS">
+  <p>
+    <strong>12,400</strong> this week — +18%
+  </p>
+  <p>4 5 5 6 8 7 9 8 11 10 12 14</p>
+</GraphKpi>`
+    ),
+    preview: (
+      <GraphKpi title="READS">
+        <p>
+          <strong>12,400</strong> this week — +18%
+        </p>
+        <p>4 5 5 6 8 7 9 8 11 10 12 14</p>
+      </GraphKpi>
+    ),
+  },
+  {
     title: "reads",
     description:
       "The number is the headline. The spark is the last twelve points.",
@@ -2289,36 +2319,6 @@ const kpiExamples: Example[] = [
         title="P95"
         value="142ms"
       />
-    ),
-  },
-  {
-    title: "written",
-    description:
-      "First line is the value, the label, and `— hint`. The next line is the sparkline.",
-    code: `<GraphKpi title="READS">
-
-**12,400** this week — +18%
-
-4 5 5 6 8 7 9 8 11 10 12 14
-
-</GraphKpi>`,
-    react: tsx(
-      "graph-kpi",
-      "GraphKpi",
-      `<GraphKpi title="READS">
-  <p>
-    <strong>12,400</strong> this week — +18%
-  </p>
-  <p>4 5 5 6 8 7 9 8 11 10 12 14</p>
-</GraphKpi>`
-    ),
-    preview: (
-      <GraphKpi title="READS">
-        <p>
-          <strong>12,400</strong> this week — +18%
-        </p>
-        <p>4 5 5 6 8 7 9 8 11 10 12 14</p>
-      </GraphKpi>
     ),
   },
 ]
@@ -2508,6 +2508,34 @@ const uptimeQuarter = Array.from({ length: 90 }, (_, index) => {
 
 const activityExamples: Example[] = [
   {
+    title: "written",
+    description:
+      "`date: counts`. Counts run day by day from the date; `0*4` is four quiet days.",
+    code: `<GraphActivity title="COMMITS">
+
+- 2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3
+
+</GraphActivity>`,
+    react: tsx(
+      "graph-activity",
+      "GraphActivity",
+      `<GraphActivity title="COMMITS">
+  <ul>
+    <li>2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3</li>
+  </ul>
+</GraphActivity>`
+    ),
+    preview: (
+      <GraphActivity title="COMMITS">
+        <ul>
+          <li>
+            2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3
+          </li>
+        </ul>
+      </GraphActivity>
+    ),
+  },
+  {
     title: "year",
     description:
       "Dated counts. The grid, month labels, and intensity scale are derived.",
@@ -2562,34 +2590,6 @@ function activityDays(start: string, length: number) {
         title="SHIPPED"
         weekStartsOn={1}
       />
-    ),
-  },
-  {
-    title: "written",
-    description:
-      "`date: counts`. Counts run day by day from the date; `0*4` is four quiet days.",
-    code: `<GraphActivity title="COMMITS">
-
-- 2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3
-
-</GraphActivity>`,
-    react: tsx(
-      "graph-activity",
-      "GraphActivity",
-      `<GraphActivity title="COMMITS">
-  <ul>
-    <li>2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3</li>
-  </ul>
-</GraphActivity>`
-    ),
-    preview: (
-      <GraphActivity title="COMMITS">
-        <ul>
-          <li>
-            2026-03-02: 1 3 0 4 2 0*2 5 6 2 3 1 0*2 2 4 7 3 5 0*2 1 2 0 3 4 0*3
-          </li>
-        </ul>
-      </GraphActivity>
     ),
   },
 ]
@@ -2871,38 +2871,6 @@ const heatmapExamples: Example[] = [
 
 const calendarExamples: Example[] = [
   {
-    title: "marked days",
-    description: "month is 1–12. today is passed in so render stays stable.",
-    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
-
-<GraphCalendar year={2026} month={8} today={27} marks="12 18 27" />`,
-    preview: (
-      <GraphCalendar marks="12 18 27" month={8} today={27} year={2026} />
-    ),
-  },
-  {
-    title: "sunday start",
-    description: "weekStartsOn 0 matches a US calendar.",
-    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
-
-<GraphCalendar
-  title="SHIP WEEK"
-  year={2026}
-  month={3}
-  weekStartsOn={0}
-  marks={[{ day: 12, accent: true }, { day: 18 }]}
-/>`,
-    preview: (
-      <GraphCalendar
-        marks={[{ day: 12, accent: true }, { day: 18 }]}
-        month={3}
-        title="SHIP WEEK"
-        weekStartsOn={0}
-        year={2026}
-      />
-    ),
-  },
-  {
     title: "with notes",
     description:
       "A list of `day: label`. Labels list under the month. Bold is today.",
@@ -2939,6 +2907,38 @@ const calendarExamples: Example[] = [
           <li>27: postmortem due</li>
         </ul>
       </GraphCalendar>
+    ),
+  },
+  {
+    title: "marked days",
+    description: "month is 1–12. today is passed in so render stays stable.",
+    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
+
+<GraphCalendar year={2026} month={8} today={27} marks="12 18 27" />`,
+    preview: (
+      <GraphCalendar marks="12 18 27" month={8} today={27} year={2026} />
+    ),
+  },
+  {
+    title: "sunday start",
+    description: "weekStartsOn 0 matches a US calendar.",
+    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
+
+<GraphCalendar
+  title="SHIP WEEK"
+  year={2026}
+  month={3}
+  weekStartsOn={0}
+  marks={[{ day: 12, accent: true }, { day: 18 }]}
+/>`,
+    preview: (
+      <GraphCalendar
+        marks={[{ day: 12, accent: true }, { day: 18 }]}
+        month={3}
+        title="SHIP WEEK"
+        weekStartsOn={0}
+        year={2026}
+      />
     ),
   },
 ]
@@ -3188,22 +3188,23 @@ const bulletExamples: Example[] = [
 const timerExamples: Example[] = [
   {
     title: "incident",
-    description: "Counts up from a start time.",
-    code: `import { GraphTimer } from "@/registry/default/graph-timer/graph-timer"
+    description: "The instant, then the caption. `kind` stays a prop.",
+    code: `<GraphTimer title="INCIDENT" kind="elapsed">
 
-<GraphTimer
-  title="INCIDENT"
-  kind="elapsed"
-  at="2026-08-27T08:00:00Z"
-  caption="api"
-/>`,
+2026-08-27T08:00:00Z — api
+
+</GraphTimer>`,
+    react: tsx(
+      "graph-timer",
+      "GraphTimer",
+      `<GraphTimer title="INCIDENT" kind="elapsed">
+  <p>2026-08-27T08:00:00Z — api</p>
+</GraphTimer>`
+    ),
     preview: (
-      <GraphTimer
-        at="2026-08-27T08:00:00Z"
-        caption="api"
-        kind="elapsed"
-        title="INCIDENT"
-      />
+      <GraphTimer kind="elapsed" title="INCIDENT">
+        <p>2026-08-27T08:00:00Z — api</p>
+      </GraphTimer>
     ),
   },
   {
@@ -3241,6 +3242,21 @@ const timerExamples: Example[] = [
 
 const countdownExamples: Example[] = [
   {
+    title: "written",
+    description: "The date, then the caption after an em dash.",
+    code: `<GraphCountdown title="LAUNCH">2027-01-15T09:00:00Z — until 2.0</GraphCountdown>`,
+    react: tsx(
+      "graph-countdown",
+      "GraphCountdown",
+      `<GraphCountdown title="LAUNCH">2027-01-15T09:00:00Z — until 2.0</GraphCountdown>`
+    ),
+    preview: (
+      <GraphCountdown title="LAUNCH">
+        2027-01-15T09:00:00Z — until 2.0
+      </GraphCountdown>
+    ),
+  },
+  {
     title: "freeze",
     description: "Until New Year's. After that it says open.",
     code: `import { GraphCountdown } from "@/registry/default/graph-countdown/graph-countdown"
@@ -3272,21 +3288,6 @@ const countdownExamples: Example[] = [
 />`,
     preview: (
       <GraphCountdown done="closed" title="WINDOW" to="2020-01-01T00:00:00Z" />
-    ),
-  },
-  {
-    title: "written",
-    description: "The date, then the caption after an em dash.",
-    code: `<GraphCountdown title="LAUNCH">2027-01-15T09:00:00Z — until 2.0</GraphCountdown>`,
-    react: tsx(
-      "graph-countdown",
-      "GraphCountdown",
-      `<GraphCountdown title="LAUNCH">2027-01-15T09:00:00Z — until 2.0</GraphCountdown>`
-    ),
-    preview: (
-      <GraphCountdown title="LAUNCH">
-        2027-01-15T09:00:00Z — until 2.0
-      </GraphCountdown>
     ),
   },
 ]
