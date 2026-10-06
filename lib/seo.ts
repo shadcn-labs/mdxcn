@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 
 import { components, type ComponentDoc } from "@/lib/docs/catalog"
 import { GITHUB_URL } from "@/lib/github"
+import { SHADCN_LABS_URL, SHADCN_LABS_X } from "@/lib/shadcn-labs"
 import {
   AGENTS_DESCRIPTION,
   DOCS_DESCRIPTION,
@@ -11,7 +12,9 @@ import {
   SITE_KEYWORDS,
   SITE_NAME,
   SITE_NAME_SHORT,
+  SITE_OG_IMAGE,
   SITE_TITLE,
+  SITE_TWITTER,
   SITE_URL,
 } from "@/lib/site"
 
@@ -35,6 +38,15 @@ export function pageMeta({
       description,
       url: path,
       type: "website",
+      images: [SITE_OG_IMAGE],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: ogTitle,
+      description,
+      site: SITE_TWITTER,
+      creator: SITE_TWITTER,
+      images: [SITE_OG_IMAGE],
     },
   }
 }
@@ -45,7 +57,7 @@ const author = {
   url: SITE_AUTHOR.url,
   jobTitle: SITE_AUTHOR.jobTitle,
   description: SITE_DESCRIPTION,
-  sameAs: [SITE_AUTHOR.x, GITHUB_URL],
+  sameAs: [SITE_AUTHOR.url, SITE_AUTHOR.x],
 }
 
 export function developersJsonLd() {
@@ -72,11 +84,10 @@ export function developersJsonLd() {
 function organizationNode() {
   return {
     "@type": "Organization" as const,
-    name: SITE_NAME,
-    alternateName: [...SITE_ALTERNATE_NAMES],
-    url: SITE_URL,
-    logo: `${SITE_URL}/opengraph-image`,
-    sameAs: [GITHUB_URL, SITE_AUTHOR.x],
+    name: "Shadcn Labs",
+    url: SHADCN_LABS_URL,
+    logo: `${SITE_URL}/shadcn-labs-brand/shadcn-labs-logomark.svg`,
+    sameAs: ["https://github.com/shadcn-labs", SHADCN_LABS_X],
   }
 }
 
@@ -93,7 +104,8 @@ export function websiteJsonLd() {
         description: SITE_DESCRIPTION,
         keywords: SITE_KEYWORDS.join(", "),
         inLanguage: "en",
-        publisher: organizationNode(),
+        author,
+        publisher: author,
         potentialAction: {
           "@type": "SearchAction",
           target: `${SITE_URL}/docs?q={search_term_string}`,
@@ -111,7 +123,7 @@ export function websiteJsonLd() {
         operatingSystem: "Web",
         license: `${GITHUB_URL}/blob/main/LICENSE`,
         author,
-        sameAs: [GITHUB_URL, SITE_AUTHOR.x],
+        sameAs: [GITHUB_URL],
         offers: {
           "@type": "Offer",
           price: "0",

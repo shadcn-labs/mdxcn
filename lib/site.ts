@@ -10,6 +10,12 @@ export const SITE_NAME_SHORT = "mdxcn"
 /** Browser / OG homepage title — what people search for. */
 export const SITE_TITLE = "mdxcn: markdown-friendly components"
 export const SITE_TAGLINE = "markdown-friendly components."
+export const SITE_OG_IMAGE = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "mdxcn — Beautiful markdown UIs, made simple.",
+}
 export const SITE_KEYWORDS = [
   "mdxcn",
   "markdown-friendly components",
@@ -53,7 +59,7 @@ export const SITE_TWITTER = "@kshvbgde"
 export const SITE_EMAIL = "hi@kshv.me"
 export const SITE_AUTHOR = {
   name: "Keshav Bagaade",
-  url: "https://github.com/keshav-exe/mdxcn",
+  url: "https://github.com/keshav-exe",
   x: "https://x.com/kshvbgde",
   jobTitle: "Engineer",
 }

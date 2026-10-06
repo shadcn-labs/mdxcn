@@ -1,0 +1,72 @@
+name: Bug report
+description: Report a reproducible bug in mdxcn.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a new issue:
+
+        - [Search existing issues](https://github.com/shadcn-labs/mdxcn/issues) to avoid duplicates.
+        - Check whether the latest source from the mdxcn registry still reproduces the bug.
+        - For questions or help, use [Discussions](https://github.com/shadcn-labs/mdxcn/discussions).
+        - For vulnerabilities, follow [SECURITY.md](https://github.com/shadcn-labs/mdxcn/blob/main/SECURITY.md); do not post details here.
+  - type: input
+    id: reproduction
+    attributes:
+      label: Link to a minimal reproduction
+      description: A public repository or sandbox containing only the code needed to reproduce the bug.
+      placeholder: "https://github.com/user/my-mdxcn-reproduction"
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component or registry item
+      description: Include the slug and when you copied or last updated the registry source. mdxcn is copied source, not an npm package.
+      placeholder: "graph-timeline, copied from mdxcn.dev/r/graph-timeline.json on YYYY-MM-DD"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the Markdown or props passed to the component and how to run the reproduction.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Current vs. expected behavior
+      description: What happened, including exact errors, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, browser, Node.js, package manager, framework, and renderer versions (MDX, Comark, or Knap).
+      render: shell
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where does the bug occur?
+      multiple: true
+      options:
+        - MDX rendering
+        - Comark rendering
+        - Knap / ASCII output
+        - Registry installation
+        - Documentation site
+        - Build
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Relevant logs, screenshots, or other details. Do not include secrets.
+    validations:
+      required: false

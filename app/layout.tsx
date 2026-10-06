@@ -16,6 +16,7 @@ import {
   SITE_KEYWORDS,
   SITE_NAME,
   SITE_NAME_SHORT,
+  SITE_OG_IMAGE,
   SITE_TITLE,
   SITE_TWITTER,
   SITE_URL,
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   keywords: [...SITE_KEYWORDS],
-  publisher: SITE_NAME,
+  publisher: SITE_AUTHOR.name,
   alternates: {
     canonical: "/",
   },
@@ -56,11 +57,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: SITE_NAME_SHORT,
+    images: [SITE_OG_IMAGE],
   },
   twitter: {
     title: SITE_TITLE,
     card: "summary_large_image",
+    site: SITE_TWITTER,
     creator: SITE_TWITTER,
+    images: [SITE_OG_IMAGE],
   },
   robots: {
     index: true,

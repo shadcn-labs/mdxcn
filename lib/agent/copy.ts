@@ -77,7 +77,7 @@ ${HOME_BRAND}
 }
 
 export const ABOUT_PARAS = [
-  `mdxcn is a set of MDX components that draw figures with text. ${SITE_AUTHOR.name} publishes the source on GitHub under the MIT license. An agent writes Markdown inside a component tag, and the MDX page renders it in a frame. The shadcn CLI copies the files into your app. There is no npm package.`,
+  `mdxcn is a set of MDX components that draw figures with text, created by ${SITE_AUTHOR.name} and now part of Shadcn Labs. The source is published on GitHub under the MIT license. An agent writes Markdown inside a component tag, and the MDX page renders it in a frame. The shadcn CLI copies the files into your app. There is no npm package.`,
   "Each graph sits in a dashed frame with a title on the top edge. Drawing graphs use one accent by default. Most graphs have an official fenced ASCII for README files, GitHub, Linear, and PR comments. Comark apps can render the same figures from ::graph-* blocks in a plain .md file. Knap templates can emit that fence, or a ::graph-* block, from data.",
   `The site at ${SITE_URL.replace("https://", "")} is the catalog, the shadcn registry, and the agent skill. The skill file tells an agent which graph to put next to its prose, and what to write: Markdown inside the tag in MDX, a ::graph-* block in Comark, a graph_* filter in Knap, or the code block in a README.`,
   `Source: ${GITHUB_URL}. Mail: ${SITE_EMAIL}.`,
