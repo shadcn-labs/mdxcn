@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { SiteContainer } from "@/components/site/container"
-import { SiteRule } from "@/components/site/corners"
+import { SiteCorners, SiteRule } from "@/components/site/corners"
 import { cn } from "@/lib/utils"
 import { LabsDirectory, LabsLogo } from "@/components/site/labs"
 import { Mark, MARK_THEME } from "@/lib/og/mark"
@@ -17,23 +17,22 @@ function FooterBlock({
   children,
   className,
   id,
-  rule = false,
 }: {
   children: ReactNode
   className?: string
   id?: string
-  rule?: boolean
 }) {
   return (
     <div
       className={cn(
-        "relative flex flex-col gap-8",
-        rule && "pt-12 sm:pt-16",
+        "relative flex flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8 lg:py-16",
         className
       )}
       id={id}
     >
-      {rule ? <SiteRule className="top-0" /> : null}
+      <SiteRule className="top-0" />
+      <SiteRule className="bottom-0" />
+      <SiteCorners />
       {children}
     </div>
   )
@@ -42,7 +41,11 @@ function FooterBlock({
 function SiteFooter() {
   return (
     <footer>
-      <SiteContainer className="flex flex-col gap-8" corners={["tl", "tr", "bl", "br"]}>
+      <SiteContainer
+        className="py-0 sm:py-0"
+        containerClassName="px-0 sm:px-0 lg:px-0"
+        corners={[]}
+      >
         <FooterBlock>
           <Link
             aria-label="Homepage"
@@ -202,7 +205,7 @@ function SiteFooter() {
           </nav>
         </FooterBlock>
 
-        <FooterBlock id="shadcn-labs" rule>
+        <FooterBlock id="shadcn-labs">
           <div className="flex flex-col gap-4">
             <a href={SHADCN_LABS_URL} rel="noreferrer" target="_blank">
               <LabsLogo />
@@ -233,37 +236,37 @@ function SiteFooter() {
           <LabsDirectory />
         </FooterBlock>
 
-        <FooterBlock rule>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-pretty text-muted-foreground">
-            © {new Date().getFullYear()} mdxcn ·{" "}
-            <a
-              className="text-foreground hover:text-foreground"
-              href={SHADCN_LABS_URL}
-              rel="noreferrer"
-              target="_blank"
-            >
-              shadcn labs
-            </a>
-            . mit license.
-          </p>
-          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-pretty text-muted-foreground">
-            <a
-              className="text-foreground hover:text-foreground"
-              href={SHADCN_LABS_X}
-              rel="noreferrer"
-              target="_blank"
-            >
-              @shadcnlabs
-            </a>
-            <Link
-              className="text-foreground hover:text-foreground"
-              href="https://x.com/kshvbgde"
-            >
-              @kshvbgde
-            </Link>
-          </p>
-        </div>
+        <FooterBlock>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-pretty text-muted-foreground">
+              © {new Date().getFullYear()}{" "}
+              <a
+                className="text-foreground hover:text-foreground"
+                href={SHADCN_LABS_URL}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Shadcn Labs
+              </a>
+              . mit license.
+            </p>
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-pretty text-muted-foreground">
+              <a
+                className="text-foreground hover:text-foreground"
+                href={SHADCN_LABS_X}
+                rel="noreferrer"
+                target="_blank"
+              >
+                @shadcnlabs
+              </a>
+              <Link
+                className="text-foreground hover:text-foreground"
+                href="https://x.com/kshvbgde"
+              >
+                @kshvbgde
+              </Link>
+            </p>
+          </div>
         </FooterBlock>
       </SiteContainer>
     </footer>

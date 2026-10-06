@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # mdxcn
 
-Markdown-friendly React components for MDX. Source is copied via shadcn registry, not npm. Site: https://mdxcn.dev. Repo: https://github.com/keshav-exe/mdxcn.
+Markdown-friendly React components for MDX, part of Shadcn Labs. Source is copied via shadcn registry, not npm. Site: https://mdxcn.dev. Repo: https://github.com/shadcn-labs/mdxcn.
 
 Nested agent notes:
 
@@ -29,7 +29,7 @@ Do the full list. Docs pages are generated from the catalog; there is no per-com
 4. Entry in `lib/docs/catalog.ts` and `lib/docs/files.ts`
 5. Examples in `components/docs/examples.tsx`, keyed in `examplesBySlug`
 6. **Replace** `NEW_SLUGS` in `lib/docs/new.ts` with this drop’s slugs. Do not append to last drop’s list.
-7. Row in the README component table
+7. README feature copy only if capabilities change. Preserve shadercn's README structure; the component catalog belongs in the docs, not a README table.
 8. Homepage (`app/page.tsx`) only if it earns a slot
 9. fenced ASCII in `registry/default/graph-knap/graphs.ts` + `MDX_SLUGS` if the figure is a character grid (see `lib/docs/AGENTS.md`)
 10. Comark: `COMARK_PROPS` in `lib/docs/comark-props.ts` and `numeric` / `required` in `registry/default/graph-comark/adapters.ts`. Do not add a catalog row for `graph-comark`.
@@ -38,7 +38,7 @@ Do the full list. Docs pages are generated from the catalog; there is no per-com
 13. `pnpm test` — `lib/docs/mdx-render.test.tsx` compiles every docs example through real MDX + GFM and checks it against the preview, with and without swapped tags. A preview that does not match its `code` fails. JS-only examples set `source: "tsx"`.
 14. `pnpm registry:build` so `public/r/` matches source
 
-OG is one shared route: `app/opengraph-image.tsx` renders via `lib/og/opengraph.tsx` (`ImageResponse` at build time). Font: `lib/og/geist-mono-latin-400-normal.ttf` (official Geist Mono — fontsource subsets break satori). Alt text in `app/opengraph-image.alt.txt`. No per-page OG files. Mark geometry lives in `lib/og/mark.tsx`.
+OG artwork is the static asset `public/og.png`. `SITE_OG_IMAGE` in `lib/site.ts` provides its URL, dimensions, and alt text to root and page metadata. No generated image route or per-page OG files. README banner: `.github/assets/gh.png`. Icon mark geometry lives in `lib/og/mark.tsx`.
 
 ## Design
 

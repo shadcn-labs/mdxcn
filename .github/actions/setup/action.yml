@@ -1,0 +1,16 @@
+name: Setup and install
+description: Common setup steps for Actions
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 10.28.2
+    - uses: actions/setup-node@v6
+      with:
+        node-version: 22
+        cache: pnpm
+        cache-dependency-path: pnpm-lock.yaml
+    - shell: bash
+      run: pnpm install --frozen-lockfile

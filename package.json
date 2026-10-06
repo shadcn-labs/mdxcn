@@ -4,6 +4,14 @@
   "license": "MIT",
   "type": "module",
   "private": true,
+  "homepage": "https://mdxcn.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shadcn-labs/mdxcn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shadcn-labs/mdxcn/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "registry:build": "shadcn build",

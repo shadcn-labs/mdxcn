@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an idea or improvement for mdxcn.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe a concrete use case and why the current behavior falls short.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Include Markdown, API sketches, or examples where useful.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds or other designs you considered.
+    validations:
+      required: false
