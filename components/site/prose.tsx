@@ -1,6 +1,8 @@
 import Link from "next/link"
 import type { ComponentProps, ReactNode } from "react"
 
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 /** Body copy — Geist Sans, relaxed leading, readable contrast. */
@@ -46,7 +48,12 @@ function TextLink({ href, children, className }: TextLinkProps) {
 
   if (href.startsWith("http")) {
     return (
-      <a className={cls} href={href} rel="noreferrer" target="_blank">
+      <a
+        className={cls}
+        href={addQueryParams(href, UTM_PARAMS)}
+        rel="noreferrer"
+        target="_blank"
+      >
         {children}
       </a>
     )

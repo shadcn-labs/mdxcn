@@ -2,6 +2,8 @@
 
 import { GithubIcon } from "../icons/github"
 import { GITHUB_URL } from "@/lib/github"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { Button } from "../ui/button"
@@ -19,7 +21,7 @@ function GithubStarLink({
   return (
     <Link
       aria-label={count ? `Star on GitHub, ${count} stars` : "Star on GitHub"}
-      href={GITHUB_URL}
+      href={addQueryParams(GITHUB_URL, UTM_PARAMS)}
       rel="noreferrer"
       className="flex items-center gap-2"
     >

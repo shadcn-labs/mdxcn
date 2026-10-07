@@ -2,6 +2,8 @@ import type { ReactNode } from "react"
 
 import { ComponentPreview } from "@/components/docs/preview"
 import { MDX_SKIP_SLUGS } from "@/lib/docs/ascii"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import {
   Annotate,
   Callout,
@@ -2323,6 +2325,8 @@ const kpiExamples: Example[] = [
   },
 ]
 
+const motionWebsiteUrl = addQueryParams("https://motion.dev", UTM_PARAMS)
+
 const specExamples: Example[] = [
   {
     title: "type",
@@ -2413,7 +2417,7 @@ const specExamples: Example[] = [
 
   Edit it there. Nothing to update later.
 
-- Needs: [motion](https://motion.dev)
+- Needs: [motion](${motionWebsiteUrl})
 
 </GraphSpec>`,
     react: tsx(
@@ -2434,7 +2438,7 @@ const specExamples: Example[] = [
     </li>
     <li>
       <p>
-        Needs: <a href="https://motion.dev">motion</a>
+        Needs: <a href="${motionWebsiteUrl}">motion</a>
       </p>
     </li>
   </ul>
@@ -2456,7 +2460,7 @@ const specExamples: Example[] = [
           </li>
           <li>
             <p>
-              Needs: <a href="https://motion.dev">motion</a>
+              Needs: <a href={motionWebsiteUrl}>motion</a>
             </p>
           </li>
         </ul>

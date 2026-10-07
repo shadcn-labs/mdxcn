@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils"
 import { LabsDirectory, LabsLogo } from "@/components/site/labs"
 import { Mark, MARK_THEME } from "@/lib/og/mark"
 import { GITHUB_URL } from "@/lib/github"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import {
   SHADCN_LABS_NOTE,
   SHADCN_LABS_URL,
@@ -186,7 +188,7 @@ function SiteFooter() {
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
-                  href={GITHUB_URL}
+                  href={addQueryParams(GITHUB_URL, UTM_PARAMS)}
                   rel="noreferrer"
                 >
                   source
@@ -195,7 +197,7 @@ function SiteFooter() {
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
-                  href={`${GITHUB_URL}/blob/main/LICENSE`}
+                  href={addQueryParams(`${GITHUB_URL}/blob/main/LICENSE`, UTM_PARAMS)}
                   rel="noreferrer"
                 >
                   MIT
@@ -207,7 +209,11 @@ function SiteFooter() {
 
         <FooterBlock id="shadcn-labs">
           <div className="flex flex-col gap-4">
-            <a href={SHADCN_LABS_URL} rel="noreferrer" target="_blank">
+            <a
+              href={addQueryParams(SHADCN_LABS_URL, UTM_PARAMS)}
+              rel="noreferrer"
+              target="_blank"
+            >
               <LabsLogo />
             </a>
             <p className="max-w-[62ch] text-pretty text-muted-foreground">
@@ -224,7 +230,7 @@ function SiteFooter() {
               not endorsed by or affiliated with{" "}
               <a
                 className="text-foreground hover:text-foreground"
-                href={SHADCN_URL}
+                href={addQueryParams(SHADCN_URL, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -242,7 +248,7 @@ function SiteFooter() {
               © {new Date().getFullYear()}{" "}
               <a
                 className="text-foreground hover:text-foreground"
-                href={SHADCN_LABS_URL}
+                href={addQueryParams(SHADCN_LABS_URL, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -253,7 +259,7 @@ function SiteFooter() {
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-pretty text-muted-foreground">
               <a
                 className="text-foreground hover:text-foreground"
-                href={SHADCN_LABS_X}
+                href={addQueryParams(SHADCN_LABS_X, UTM_PARAMS)}
                 rel="noreferrer"
                 target="_blank"
               >
@@ -261,7 +267,7 @@ function SiteFooter() {
               </a>
               <Link
                 className="text-foreground hover:text-foreground"
-                href="https://x.com/kshvbgde"
+                href={addQueryParams("https://x.com/kshvbgde", UTM_PARAMS)}
               >
                 @kshvbgde
               </Link>

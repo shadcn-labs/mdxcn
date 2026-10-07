@@ -5,6 +5,8 @@ import { HeroInstall } from "@/components/site/hero-install"
 import { SiteContainer } from "@/components/site/container"
 import { SiteRule } from "@/components/site/corners"
 import { ProseLead, ProseMuted } from "@/components/site/prose"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 type LandingAction = {
@@ -134,7 +136,12 @@ function LandingLink({
 
   if (href.startsWith("http") || href.startsWith("mailto:")) {
     return (
-      <a className={cls} href={href} rel="noreferrer" target="_blank">
+      <a
+        className={cls}
+        href={addQueryParams(href, UTM_PARAMS)}
+        rel="noreferrer"
+        target="_blank"
+      >
         {children}
       </a>
     )

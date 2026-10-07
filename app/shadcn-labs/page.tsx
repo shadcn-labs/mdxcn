@@ -13,6 +13,8 @@ import { ProseP } from "@/components/site/prose"
 import { LABS_ANNOUNCEMENT, LABS_INSTALL } from "@/lib/agent/copy"
 import { GITHUB_URL } from "@/lib/github"
 import { pageMeta, webPageJsonLd } from "@/lib/seo"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import {
   SHADCN_LABS_URL,
   SHADCN_LABS_X,
@@ -45,7 +47,11 @@ export default function ShadcnLabsPage() {
         ]}
         figure={
           <FrameBox className="flex items-center justify-center px-8 py-12 sm:px-12 sm:py-16">
-            <a href={SHADCN_LABS_URL} rel="noreferrer" target="_blank">
+            <a
+              href={addQueryParams(SHADCN_LABS_URL, UTM_PARAMS)}
+              rel="noreferrer"
+              target="_blank"
+            >
               <LabsLogo className="h-8 w-auto sm:h-9" />
             </a>
           </FrameBox>

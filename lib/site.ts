@@ -1,5 +1,5 @@
-export const SITE_URL = "https://mdxcn.dev"
 export const SITE_HOST = "mdxcn.dev"
+export const SITE_URL = `https://${SITE_HOST}`
 export const REGISTRY_SCOPE = "@mdxcn"
 
 export function scopedRegistryInstall(name: string) {
@@ -63,3 +63,7 @@ export const SITE_AUTHOR = {
   x: "https://x.com/kshvbgde",
   jobTitle: "Engineer",
 }
+
+export const UTM_PARAMS = {
+  utm_source: SITE_HOST,
+};

@@ -6,6 +6,8 @@ import Link from "next/link"
 import { SiteRule } from "@/components/site/corners"
 import { Button } from "@/components/ui/button"
 import { SHADCN_LABS_GROUPS, SHADCN_LABS_NOTE } from "@/lib/shadcn-labs"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 const footerLinkClass =
@@ -67,7 +69,7 @@ function LabsDirectory() {
               <li key={project.href}>
                 <a
                   className={footerLinkClass}
-                  href={project.href}
+                  href={addQueryParams(project.href, UTM_PARAMS)}
                   rel="noreferrer"
                   target="_blank"
                 >

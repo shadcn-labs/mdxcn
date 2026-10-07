@@ -17,6 +17,8 @@ import { knapExample, KNAP_URL } from "@/lib/docs/knap"
 import { agentPrompt } from "@/lib/docs/prompt"
 import { GITHUB_TREE, GITHUB_URL } from "@/lib/github"
 import { scopedRegistryInstall } from "@/lib/site"
+import { addQueryParams } from "@/lib/url"
+import { UTM_PARAMS } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 type InstallTab =
@@ -158,7 +160,7 @@ function ManualInstall({ name }: { name: string }) {
             <li key={file}>
               <a
                 className="hover:text-foreground hover:underline"
-                href={fileUrl(file)}
+                href={addQueryParams(fileUrl(file), UTM_PARAMS)}
                 rel="noreferrer"
               >
                 {file}
@@ -169,7 +171,7 @@ function ManualInstall({ name }: { name: string }) {
         <p>
           <a
             className="text-foreground underline-offset-4 hover:underline"
-            href={fileUrl(source)}
+            href={addQueryParams(fileUrl(source), UTM_PARAMS)}
             rel="noreferrer"
           >
             open on github
