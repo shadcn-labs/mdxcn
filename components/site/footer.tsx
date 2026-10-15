@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { ReactNode } from "react"
 import Link from "next/link"
 import { SiteContainer } from "@/components/site/container"
@@ -243,6 +244,18 @@ function SiteFooter() {
         </FooterBlock>
 
         <FooterBlock>
+          <a
+            href="https://www.linkstore.io/apps/mdxcn-5646264081"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Listed on Linkstore"
+              className="h-[54px] w-auto"
+              height={54}
+              src="https://www.linkstore.io/badge/mdxcn-5646264081.svg"
+            />
+          </a>
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-pretty text-muted-foreground">
               © {new Date().getFullYear()}{" "}
