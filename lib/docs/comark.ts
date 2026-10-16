@@ -4,8 +4,8 @@ import { toComarkBlock } from "@/lib/docs/yaml"
 import { SITE_URL } from "@/lib/site"
 
 export const COMARK_URL = "https://comark.dev"
-export const COMARK_DEMO_URL = "https://comark-demo.vercel.app"
-export const COMARK_DEMO_REPO = "https://github.com/atinux/comark-demo"
+export const COMARK_DEMO_URL = "https://comark-graphs-demo.vercel.app/"
+export const COMARK_DEMO_REPO = "https://github.com/atinux/comark-graphs-demo"
 
 export const COMARK_DESCRIPTION =
   "Write figures as ::graph-* blocks in plain Markdown. Comark parses the file and these graphs draw the frames, with no MDX compile step."
