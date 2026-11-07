@@ -19,6 +19,7 @@ import {
   DIM_OPACITY,
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -144,7 +145,7 @@ function GraphTree({
           className="flex min-w-max flex-col gap-1"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {rows.map((row) => {

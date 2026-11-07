@@ -20,6 +20,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -92,7 +93,7 @@ function GraphMeter({
                     transition={graphTransition(reduce, {
                       delay: fillDelay(reduce, index),
                     })}
-                    viewport={{ once: true }}
+                    viewport={graphViewport}
                     whileInView={{ opacity: 1 }}
                   >
                     {isFilled ? marks.fill : marks.empty}

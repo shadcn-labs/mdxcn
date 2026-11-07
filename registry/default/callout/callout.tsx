@@ -9,7 +9,10 @@ import {
   GraphProse,
   type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
-import { fadeUp } from "@/registry/default/graph-frame/graph-motion"
+import {
+  fadeUp,
+  graphViewport,
+} from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type CalloutType = "note" | "tip" | "warning" | "danger"
@@ -72,7 +75,7 @@ function Callout({
           className="grid grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3"
           initial={reduce ? false : "hidden"}
           variants={fadeUp(reduce)}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <span

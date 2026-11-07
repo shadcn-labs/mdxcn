@@ -22,6 +22,7 @@ import {
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -120,7 +121,7 @@ function GraphTable({
             <motion.tbody
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {rows?.map((row, rowIndex) => (

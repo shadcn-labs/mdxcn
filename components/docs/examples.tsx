@@ -73,7 +73,7 @@ function Examples({ items, slug }: { items: Example[]; slug?: string }) {
   const ascii = !slug || !(MDX_SKIP_SLUGS as readonly string[]).includes(slug)
 
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-16 lg:gap-20">
       {items.map((item) => (
         <ComponentPreview
           ascii={ascii || item.source !== "tsx"}

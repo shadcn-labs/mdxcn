@@ -21,6 +21,7 @@ import {
   staggerList,
   toneClass as paletteTone,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -164,7 +165,7 @@ function GraphFlow({
           className="flex flex-col gap-7"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {rows.map((row, rowIndex) => (

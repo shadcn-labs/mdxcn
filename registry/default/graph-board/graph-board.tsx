@@ -20,6 +20,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -135,7 +136,7 @@ function GraphBoard({
                 initial={reduce ? false : "hidden"}
                 key={`${column.title}-${columnIndex}`}
                 variants={list}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={graphViewport}
                 whileInView="show"
               >
                 <motion.p

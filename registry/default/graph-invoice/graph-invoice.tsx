@@ -22,6 +22,7 @@ import {
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -287,7 +288,7 @@ function GraphInvoice({
             <motion.tbody
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {items.map((row) => (
@@ -319,7 +320,7 @@ function GraphInvoice({
               className="ml-auto flex w-full max-w-[22rem] flex-col gap-2"
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {totals.map((entry) => (

@@ -20,6 +20,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -168,7 +169,7 @@ function Endpoint({
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
           variants={item}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <p className="flex min-w-0 items-baseline gap-3">
@@ -187,7 +188,7 @@ function Endpoint({
               className="flex flex-col gap-2"
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {params.map((param, index) => (
@@ -237,7 +238,7 @@ function Endpoint({
             initial={reduce ? false : "hidden"}
             key={index}
             variants={item}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             <GraphRule />

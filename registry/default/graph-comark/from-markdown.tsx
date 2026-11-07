@@ -3,6 +3,7 @@
 import type { ComponentType } from "react"
 
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import { graphViewport } from "@/registry/default/graph-frame/graph-motion"
 import type { GraphAdapter } from "@/registry/default/graph-comark/adapters"
 import { coerceProps } from "@/registry/default/graph-comark/coerce"
 
@@ -36,7 +37,7 @@ function isPresent(value: unknown): boolean {
 /**
  * A key that changes when a figure's data changes, so the graph remounts.
  *
- * The graphs animate with `whileInView` and `viewport={{ once: true }}`. When
+ * The graphs animate with `whileInView` and `viewport={graphViewport}`. When
  * Markdown is streaming, rows arrive one at a time — children mounted after
  * the parent's once-only animation has fired sit at `opacity: 0`. Remounting
  * on a data change lets the animation run again over the full set.

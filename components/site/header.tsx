@@ -25,7 +25,7 @@ function SiteHeader({ stars }: { stars: number | null }) {
       {pathname === "/shadcn-labs" ? null : <LabsBanner />}
       <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-sm">
         <SiteRule className="bottom-0 z-20" />
-        <div className="relative isolate mx-auto w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
+        <div className="relative isolate mx-auto w-full site-width min-w-0 px-4 sm:px-6 lg:px-8">
           <SiteRule className="left-0 z-20" orientation="y" />
           <SiteRule className="right-0 z-20" orientation="y" />
           <SiteCorners />

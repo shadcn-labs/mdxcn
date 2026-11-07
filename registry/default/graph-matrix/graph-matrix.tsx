@@ -20,6 +20,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -128,7 +129,7 @@ function GraphMatrix({
             initial={reduce ? false : "hidden"}
             role="list"
             variants={list}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             {rows.map((row) => {

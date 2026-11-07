@@ -3,6 +3,7 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { CopyButton } from "@/components/docs/copy-button"
 import {
   GraphCompare,
@@ -220,12 +221,10 @@ function RecipeFigures({
 
 function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
-    <section className="flex flex-col gap-6" id={recipe.slug}>
+    <section className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex min-w-0 flex-col gap-2">
-          <h2 className="text-xl font-semibold tracking-tight text-balance">
-            {recipe.title}
-          </h2>
+          <SectionHeading id={recipe.slug}>{recipe.title}</SectionHeading>
           <p className="max-w-[56ch] text-pretty text-muted-foreground">
             {recipe.story}
           </p>

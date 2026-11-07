@@ -19,6 +19,7 @@ import {
   fadeUp,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -67,7 +68,7 @@ function GraphCountdown({
           className="flex flex-col gap-2"
           initial={reduce ? false : "hidden"}
           variants={enter}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <p

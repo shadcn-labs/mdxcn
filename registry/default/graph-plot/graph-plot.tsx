@@ -19,6 +19,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -128,7 +129,7 @@ function GraphPlot({
                         transition={graphTransition(reduce, {
                           delay: fillDelay(reduce, column),
                         })}
-                        viewport={{ once: true }}
+                        viewport={graphViewport}
                         whileInView={{ opacity: 1 }}
                       >
                         {glyph}

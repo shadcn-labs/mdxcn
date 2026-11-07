@@ -24,6 +24,7 @@ import {
   toneClass,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -85,7 +86,7 @@ function GraphKpi({
           className="flex flex-col gap-2"
           initial={reduce ? false : "hidden"}
           variants={enter}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <p
@@ -120,7 +121,7 @@ function GraphKpi({
                     transition={graphTransition(reduce, {
                       delay: fillDelay(reduce, index),
                     })}
-                    viewport={{ once: true }}
+                    viewport={graphViewport}
                     whileInView={{
                       opacity:
                         live || !isMonoPalette(palette) ? 1 : DIM_OPACITY,

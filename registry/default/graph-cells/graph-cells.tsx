@@ -24,6 +24,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -140,7 +141,7 @@ function GraphCells({
                               itemIndex * 8 + rowIndex * 5 + cellIndex
                             ),
                           })}
-                          viewport={{ once: true }}
+                          viewport={graphViewport}
                           whileInView={{ opacity: 1 }}
                         >
                           {filled ? marks.fill : marks.empty}

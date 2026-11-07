@@ -24,6 +24,7 @@ import {
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -163,7 +164,7 @@ function GraphSheet({
                 initial={reduce ? false : "hidden"}
                 key={section.title}
                 variants={list}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={graphViewport}
                 whileInView="show"
               >
                 {sectionIndex > 0 ? (

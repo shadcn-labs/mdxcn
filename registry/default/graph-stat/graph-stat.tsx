@@ -19,6 +19,7 @@ import {
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -89,7 +90,7 @@ function GraphStat({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => (

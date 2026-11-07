@@ -24,6 +24,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -101,7 +102,7 @@ function MiniBars({
                   transition={graphTransition(reduce, {
                     delay: delay + fillDelay(reduce, index, 0.03),
                   })}
-                  viewport={{ once: true }}
+                  viewport={graphViewport}
                   whileInView={{ opacity: 1 }}
                 >
                   {on ? fill : " "}

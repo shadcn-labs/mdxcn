@@ -18,6 +18,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -96,7 +97,7 @@ function GraphWaffle({
                     transition={graphTransition(reduce, {
                       delay: fillDelay(reduce, index, 0.006),
                     })}
-                    viewport={{ once: true }}
+                    viewport={graphViewport}
                     whileInView={{ opacity: 1 }}
                   >
                     {isFilled ? marks.fill : marks.empty}

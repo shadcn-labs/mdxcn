@@ -24,6 +24,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type BulletItem = {
@@ -132,7 +133,7 @@ function GraphBullet({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => {
@@ -156,7 +157,7 @@ function GraphBullet({
             return (
               <motion.li
                 aria-label={`${entry.label} ${formatItem(entry)}`}
-                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] items-center gap-x-2 sm:gap-x-4"
+                className="grid grid-cols-[minmax(0,5rem)_minmax(0,1fr)_minmax(0,4.5rem)] items-center gap-x-2 sm:grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] sm:gap-x-4"
                 key={entry.label}
                 variants={item}
               >

@@ -21,6 +21,7 @@ import {
   toneClass,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -83,7 +84,7 @@ function GraphSpark({
                   transition={graphTransition(reduce, {
                     delay: fillDelay(reduce, index),
                   })}
-                  viewport={{ once: true }}
+                  viewport={graphViewport}
                   whileInView={{
                     opacity: live || !isMonoPalette(palette) ? 1 : DIM_OPACITY,
                   }}

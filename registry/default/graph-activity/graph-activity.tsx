@@ -21,6 +21,7 @@ import {
   staggerList,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -274,7 +275,7 @@ function GraphActivity({
                 className="flex flex-1"
                 initial={reduce ? false : "hidden"}
                 variants={list}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={graphViewport}
                 whileInView="show"
               >
                 {weeks.map((week, weekIndex) => (

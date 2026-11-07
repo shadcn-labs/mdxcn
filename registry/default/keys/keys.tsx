@@ -17,6 +17,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type KeyBinding = {
@@ -106,7 +107,7 @@ function Keys({
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {bindings.map((binding, index) => {

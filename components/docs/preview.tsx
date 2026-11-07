@@ -3,9 +3,10 @@
 import { useState, type ReactNode } from "react"
 
 import { CopyButton } from "@/components/docs/copy-button"
-import { MonoLabel } from "@/components/docs/mono-label"
+import { SectionHeading, sectionId } from "@/components/docs/section-heading"
 import { SegmentedTabs } from "@/components/docs/segmented-tabs"
-import { FrameBox } from "@/components/site/corners"
+import { FrameBox, SiteRule } from "@/components/site/corners"
+import { SiteFrameProvider } from "@/components/site/display-controls"
 import { ProseMuted } from "@/components/site/prose"
 import { useAccent } from "@/hooks/use-accent"
 import { accentCss } from "@/lib/accent"
@@ -36,14 +37,14 @@ function ComponentPreview({
 }) {
   const tabs = (
     [
-      ["md", ".md"],
-      ["mdx", ".mdx"],
-      ["react", ".tsx"],
+      ["mdx", "mdx"],
+      ["react", "react"],
+      ["md", "plain text"],
     ] as const
   ).filter(([id]) => (id !== "mdx" || kind === "mdx") && (id !== "md" || ascii))
-  const [tab, setTab] = useState<SourceTab>(() =>
-    tabs.some(([id]) => id === "md") ? "md" : (tabs[0]?.[0] ?? "react")
-  )
+  // Open on what people write. The plain-text figure repeats the preview, so
+  // it waits behind its tab.
+  const [tab, setTab] = useState<SourceTab>(() => tabs[0]?.[0] ?? "react")
   const accent = useAccent()
   const tsx = `${accentCss(accent.id)}\n\n${(react ?? code).trim()}`
   const source =
@@ -51,40 +52,33 @@ function ComponentPreview({
   const label = { mdx: "MDX", md: "Markdown", react: "React" }[tab]
 
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="text-xl font-semibold tracking-tight text-balance">
-          {title}
-        </h2>
+    <section className="flex flex-col gap-5">
+      <div className="flex min-w-0 flex-col gap-2">
+        <SectionHeading id={sectionId(title)}>{title}</SectionHeading>
         {description ? <ProseMuted>{description}</ProseMuted> : null}
       </div>
 
-      <FrameBox
-        className="min-w-0 overflow-visible bg-muted/25 p-1 sm:p-3"
-        tone="rail"
-      >
-        <div className="graph-scroll-x min-h-44 px-2.5 py-4 sm:min-h-48 sm:px-4 sm:py-5">
-          {children}
-        </div>
-      </FrameBox>
-
-      <div className="flex min-w-0 flex-col gap-2">
-        <div className="flex items-center justify-between gap-4">
-          <MonoLabel>{label}</MonoLabel>
-          <SegmentedTabs
-            className="shrink-0 flex-nowrap"
-            label="Source format"
-            onValueChange={setTab}
-            tabClassName="font-mono"
-            tabs={tabs}
-            value={tab}
-          />
+      {/* One unit: the figure on its stage, its source underneath. The
+          figure brings its own frame, so the stage has none, and it tells the
+          frame's corner marks which color to paint over the dashes. */}
+      <div className="flex min-w-0 flex-col">
+        <div className="graph-scroll-x min-h-44 bg-stage px-5 py-10 [--graph-surface:var(--stage)] sm:min-h-48 sm:px-10 sm:py-14">
+          <SiteFrameProvider>{children}</SiteFrameProvider>
         </div>
         <FrameBox className="min-w-0 overflow-visible" tone="rail">
-          <div className="absolute top-2 right-2 z-20">
+          <div className="relative flex items-center justify-between gap-4 py-1.5 pr-2 pl-2 sm:pl-3">
+            <SegmentedTabs
+              className="flex-nowrap"
+              label={`${title} source`}
+              onValueChange={setTab}
+              tabClassName="font-mono text-xs"
+              tabs={tabs}
+              value={tab}
+            />
             <CopyButton label={`Copy ${label}`} text={source} />
+            <SiteRule className="inset-x-0 bottom-0" />
           </div>
-          <pre className="scrollbar-graph max-h-128 min-h-48 overflow-auto p-3 pr-11 text-muted-foreground sm:p-4 sm:pr-12">
+          <pre className="scrollbar-graph max-h-96 overflow-auto p-3 text-muted-foreground sm:p-4">
             <code>{source}</code>
           </pre>
         </FrameBox>

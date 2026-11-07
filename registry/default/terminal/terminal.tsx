@@ -12,6 +12,7 @@ import {
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -94,7 +95,7 @@ function Terminal({
           className="m-0 flex min-w-max flex-col gap-0.5 leading-relaxed whitespace-pre"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {lines.map((line, index) => (

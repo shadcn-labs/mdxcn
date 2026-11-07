@@ -24,6 +24,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -198,7 +199,7 @@ function GraphDiff({
           className="flex flex-col gap-2"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {rows.map((row) => (
@@ -213,7 +214,7 @@ function GraphDiff({
             <motion.div
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true }}
+              viewport={graphViewport}
               whileInView="show"
             >
               <DiffLine palette={palette} row={footer} variants={item} />

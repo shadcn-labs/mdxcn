@@ -10,7 +10,10 @@ import {
   GraphRule,
   type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
-import { fadeUp } from "@/registry/default/graph-frame/graph-motion"
+import {
+  fadeUp,
+  graphViewport,
+} from "@/registry/default/graph-frame/graph-motion"
 
 type QuoteProps = {
   /** Who said it. Drawn after an em dash. */
@@ -54,7 +57,7 @@ function Quote({
           className="m-0 flex flex-col gap-5 p-0"
           initial={reduce ? false : "hidden"}
           variants={fadeUp(reduce)}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <div className="grid grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3">

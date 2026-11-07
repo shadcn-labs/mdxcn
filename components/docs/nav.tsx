@@ -1,23 +1,35 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Dialog } from "@base-ui/react/dialog"
 import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
-import { AccentPicker } from "@/components/site/accent-picker"
-import { SiteRule } from "@/components/site/corners"
+import { DisplayControls } from "@/components/site/display-controls"
+import { SiteCorners, SiteRule } from "@/components/site/corners"
 import { MonoLabel } from "@/components/docs/mono-label"
+import { OnThisPage } from "@/components/docs/on-this-page"
 import { components, getStarted } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
 import { cn } from "@/lib/utils"
 import { HitArea } from "@/components/site/hit-area"
 
-function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
+function DocsNav({
+  onNavigate,
+  railClassName,
+  controls = true,
+}: {
+  onNavigate?: () => void
+  /** Hides what the right rail already shows, once the rail is on screen. */
+  railClassName?: string
+  /** The sidebar pins its own controls above the list, so it turns these off. */
+  controls?: boolean
+}) {
   return (
     <div className="flex flex-col gap-8">
+      {controls ? <DisplayControls className="px-4" /> : null}
       <nav aria-label="Docs" className="text-base sm:text-sm">
         <div className="flex flex-col gap-8">
           <NavGroup label="get started">
@@ -27,6 +39,7 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
                 isNew={item.isNew}
                 key={item.href}
                 onNavigate={onNavigate}
+                sectionsClassName={railClassName}
               >
                 {item.label}
               </NavItem>
@@ -39,6 +52,7 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
                 isNew={isNewSlug(item.slug)}
                 key={item.slug}
                 onNavigate={onNavigate}
+                sectionsClassName={railClassName}
               >
                 {item.title}
               </NavItem>
@@ -46,10 +60,6 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
           </NavGroup>
         </div>
       </nav>
-
-      <div className="px-4">
-        <AccentPicker />
-      </div>
     </div>
   )
 }
@@ -70,11 +80,13 @@ function NavItem({
   children,
   isNew = false,
   onNavigate,
+  sectionsClassName,
 }: {
   href: string
   children: ReactNode
   isNew?: boolean
   onNavigate?: () => void
+  sectionsClassName?: string
 }) {
   const pathname = usePathname()
   const active = pathname === href
@@ -98,6 +110,9 @@ function NavItem({
           </span>
         ) : null}
       </Link>
+      {active ? (
+        <OnThisPage className={sectionsClassName} onNavigate={onNavigate} />
+      ) : null}
     </li>
   )
 }
@@ -130,15 +145,50 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
   )
 }
 
+/** Keep the current page's link in view when the sidebar is taller than the screen. */
+function useRevealCurrent() {
+  const pathname = usePathname()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const scroller = ref.current
+    const link = scroller?.querySelector<HTMLElement>('[aria-current="page"]')
+    if (!scroller || !link) {
+      return
+    }
+
+    const box = scroller.getBoundingClientRect()
+    const item = link.getBoundingClientRect()
+    if (item.top < box.top + 48 || item.bottom > box.bottom - 48) {
+      scroller.scrollTop += item.top - box.top - box.height / 3
+    }
+  }, [pathname])
+
+  return ref
+}
+
 function DocsSidebar() {
+  const scrollerRef = useRevealCurrent()
+
   return (
-    <aside className="sticky top-16 isolate max-h-[calc(100dvh-4rem)] w-64 shrink-0 max-lg:hidden">
+    <aside className="sticky top-16 isolate flex h-[calc(100dvh-4rem)] w-64 shrink-0 flex-col max-lg:hidden">
       <SiteRule className="right-0" orientation="y" />
-      <div className="scrollbar-none max-h-[calc(100dvh-4rem)] overflow-y-auto py-10">
-        <DocsNav />
+      {/* Below xl there is no right rail, so the controls stay pinned here. */}
+      <div className="relative shrink-0 px-4 pt-8 pb-6 xl:hidden">
+        <DisplayControls />
+        <SiteRule className="bottom-0" />
       </div>
-      <ScrollFade edge="top" />
-      <ScrollFade edge="bottom" />
+      <div className="relative min-h-0 flex-1">
+        <div
+          className="scrollbar-none h-full max-h-full overflow-y-auto py-10"
+          data-docs-scroller=""
+          ref={scrollerRef}
+        >
+          <DocsNav controls={false} railClassName="xl:hidden" />
+        </div>
+        <ScrollFade edge="top" />
+        <ScrollFade edge="bottom" />
+      </div>
     </aside>
   )
 }
@@ -192,4 +242,27 @@ function DocsMobileNav() {
   )
 }
 
-export { DocsMobileNav, DocsNav, DocsSidebar }
+/** Right rail on wide screens: the two display choices, then the page's sections. */
+function DocsRail() {
+  return (
+    <aside className="sticky top-16 isolate flex max-h-[calc(100dvh-4rem)] w-64 shrink-0 flex-col gap-8 py-10 text-sm max-xl:hidden">
+      <SiteRule className="left-0" orientation="y" />
+      <div
+        className="scrollbar-none min-h-0 shrink overflow-y-auto px-4"
+        data-docs-scroller=""
+      >
+        <OnThisPage variant="rail" />
+      </div>
+      {/* Full bleed and outside the scroll area, so the marks where its
+          dashed rules meet the rail lines aren't clipped. */}
+      <div className="relative shrink-0 px-4 py-5">
+        <SiteRule className="top-0" />
+        <SiteRule className="bottom-0" />
+        <SiteCorners />
+        <DisplayControls />
+      </div>
+    </aside>
+  )
+}
+
+export { DocsMobileNav, DocsNav, DocsRail, DocsSidebar }

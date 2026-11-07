@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { Command, CopyBlock, InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import {
@@ -84,7 +85,7 @@ export default function ComarkDocsPage() {
       </DocsPageHeader>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">install</h2>
+        <SectionHeading id="install">install</SectionHeading>
         <ProseP>
           Install the graphs first. <InlineCode>all.json</InlineCode> includes
           the Comark adapter, so if you used it you&apos;re done. If the graphs
@@ -95,7 +96,7 @@ export default function ComarkDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">wire</h2>
+        <SectionHeading id="wire">wire</SectionHeading>
         <ProseP>
           Parse on the server and pass the parsed document to the client, not
           the raw string. That keeps the{" "}
@@ -116,7 +117,7 @@ const graphComponents = createGraphComponents({
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">author</h2>
+        <SectionHeading id="author">author</SectionHeading>
         <ProseP>
           Props go in YAML at the top of a <InlineCode>::graph-*</InlineCode>{" "}
           block, with the same names as the React props. To put figures side by
@@ -137,7 +138,7 @@ caption: 86% of statements
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">coerce</h2>
+        <SectionHeading id="coerce">coerce</SectionHeading>
         <ProseP>
           Inline Markdown attributes are always strings, so{" "}
           <InlineCode>{"{value=0.86}"}</InlineCode> arrives as{" "}
@@ -151,7 +152,7 @@ caption: 86% of statements
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">stream</h2>
+        <SectionHeading id="stream">stream</SectionHeading>
         <ProseP>
           Graphs work with streamed Markdown, like an LLM response arriving a
           token at a time. Comark closes an unfinished{" "}
@@ -166,7 +167,7 @@ caption: 86% of statements
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">hosts</h2>
+        <SectionHeading id="hosts">hosts</SectionHeading>
         <ProseP>
           GitHub, Linear and READMEs don&apos;t run Comark, so use the
           plain-text figure from the .md tab there. For a working setup, the{" "}

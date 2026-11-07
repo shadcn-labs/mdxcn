@@ -19,6 +19,7 @@ import {
   toneClass,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -105,7 +106,7 @@ function GraphUptime({
             className="flex flex-col gap-1 select-none"
             initial={reduce ? false : "hidden"}
             variants={list}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             {rows.map((row, rowIndex) => (

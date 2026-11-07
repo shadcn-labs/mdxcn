@@ -7,13 +7,13 @@ import { cn } from "@/lib/utils"
 
 /** Body copy — Geist Sans, relaxed leading, readable contrast. */
 export const proseBodyClass =
-  "max-w-[56ch] text-pretty leading-relaxed text-foreground/88"
+  "max-w-[60ch] text-pretty leading-relaxed text-foreground/88 sm:text-[0.9375rem]"
 
 export const proseLeadClass =
-  "max-w-[56ch] text-pretty text-base leading-relaxed text-foreground/85 sm:text-[1.0625rem]"
+  "max-w-[60ch] text-pretty text-base leading-relaxed text-muted-foreground sm:text-[1.0625rem]"
 
 export const proseMutedClass =
-  "max-w-[56ch] text-pretty leading-relaxed text-muted-foreground"
+  "max-w-[60ch] text-pretty leading-relaxed text-muted-foreground sm:text-[0.9375rem]"
 
 export const proseLinkClass =
   "text-foreground underline decoration-dashed decoration-graph-frame underline-offset-[0.2em] transition-[color,text-decoration-color] duration-200 ease-out hover:decoration-foreground/70"

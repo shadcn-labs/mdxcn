@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { Callout, Steps } from "@/components/graphs"
 import { Command, InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
@@ -91,7 +92,7 @@ export default function InstallationPage() {
 
       <div className="flex flex-col gap-6 lg:gap-8">
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">mdx</h2>
+          <SectionHeading id="mdx">mdx</SectionHeading>
           <ProseP>
             Register each component once in{" "}
             <InlineCode>mdx-components.tsx</InlineCode>. After that, the lists
@@ -131,7 +132,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">agents</h2>
+          <SectionHeading id="agents">agents</SectionHeading>
           <ProseP>
             With the skill installed, an agent drops in a figure instead of
             drawing an SVG. It writes Markdown inside the tag in MDX, the
@@ -150,9 +151,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">
-            one component
-          </h2>
+          <SectionHeading id="one-component">one component</SectionHeading>
           <ProseP>
             The CLI copies the component and the shared frame code into{" "}
             <InlineCode>registry/default</InlineCode>. If you&apos;d rather do
@@ -162,7 +161,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">everything</h2>
+          <SectionHeading id="everything">everything</SectionHeading>
           <ProseP>
             Installs every graph and the shared frame code into{" "}
             <InlineCode>registry/default</InlineCode>. That includes{" "}
@@ -174,7 +173,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">namespace</h2>
+          <SectionHeading id="namespace">namespace</SectionHeading>
           <ProseP>
             Add the registry to <InlineCode>components.json</InlineCode> once.
             From then on you can install components by name, like{" "}
@@ -184,7 +183,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">import</h2>
+          <SectionHeading id="import">import</SectionHeading>
           <ProseP>
             Components land under <InlineCode>@/registry</InlineCode>. If the
             import path feels long, add a barrel file that re-exports the ones

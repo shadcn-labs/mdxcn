@@ -10,9 +10,14 @@ import {
 } from "@/registry/default/graph-frame/graph-markdown"
 import { cn } from "@/lib/utils"
 
+/**
+ * Corner marks and the edge title paint over the dashed line with the
+ * surface behind the figure. Set `--graph-surface` on a parent when a graph
+ * sits on anything other than the page background.
+ */
 function GraphCorners({ mark = "+" }: { mark?: string }) {
   const corner =
-    "pointer-events-none absolute z-10 flex size-4 items-center justify-center bg-background font-mono text-sm leading-none text-graph-frame select-none"
+    "pointer-events-none absolute z-10 flex size-4 items-center justify-center bg-[var(--graph-surface,var(--background))] font-mono text-sm leading-none text-graph-frame select-none"
 
   return (
     <>
@@ -103,7 +108,7 @@ function GraphTitle({
       className={cn(
         "tracking-wide whitespace-nowrap uppercase",
         placement === "edge"
-          ? "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5"
+          ? "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-[var(--graph-surface,var(--background))] px-2.5"
           : "mb-4 block truncate",
         className
       )}
@@ -178,11 +183,13 @@ function GraphTick({ className, ...props }: React.ComponentProps<"span">) {
 /**
  * Markdown children inside a frame — paragraphs, lists, inline code, links.
  * MDX renders `<p>` / `<ul>` / `<code>` here; this keeps them quiet and
- * on the mono grid instead of inheriting the page's prose styles. Block flow,
+ * on the mono grid instead of inheriting the page's prose styles, and capped
+ * at 72 characters so a wide page doesn't stretch lines past reading length.
+ * Block flow,
  * not flex, so JSX text with an inline link stays on one line.
  */
 const graphProseClass = cn(
-  "min-w-0 space-y-3 leading-relaxed",
+  "max-w-[72ch] min-w-0 space-y-3 leading-relaxed",
   "[&_p]:m-0 [&_p]:text-pretty",
   "[&_ul]:m-0 [&_ul]:flex [&_ul]:list-none [&_ul]:flex-col [&_ul]:gap-1 [&_ul]:p-0",
   "[&_ol]:m-0 [&_ol]:flex [&_ol]:list-none [&_ol]:flex-col [&_ol]:gap-1 [&_ol]:p-0",
