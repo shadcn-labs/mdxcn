@@ -14,6 +14,7 @@ import {
   listItems,
   paragraphsOf,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -40,12 +41,13 @@ type PathProps = {
 }
 
 type GraphFlowProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Path>` children. */
   rows?: FlowRow[]
   children?: React.ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -146,6 +148,7 @@ function GraphFlow({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphFlowProps) {
   const reduce = useReducedMotion()
@@ -155,7 +158,7 @@ function GraphFlow({
   const rows = rowsProp ?? rowsOf(children)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-7">
         <motion.div
           className="flex flex-col gap-7"

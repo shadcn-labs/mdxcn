@@ -13,6 +13,7 @@ import {
   itemText,
   listItems,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -40,6 +41,7 @@ type ChangelogProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -98,6 +100,7 @@ function Changelog({
   children,
   palette,
   corner,
+  frame,
   className,
 }: ChangelogProps) {
   const reduce = useReducedMotion()
@@ -106,7 +109,12 @@ function Changelog({
   const changes = changesOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title ?? version}>
+    <Graph
+      className={className}
+      corner={corner}
+      frame={frame}
+      title={title ?? version}
+    >
       <GraphBody className="flex flex-col gap-4">
         {date || title ? (
           <>

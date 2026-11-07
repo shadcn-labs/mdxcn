@@ -10,6 +10,7 @@ import {
   itemText,
   listItems,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -33,6 +34,7 @@ type KeysProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -89,6 +91,7 @@ function Keys({
   children,
   palette,
   corner,
+  frame,
   className,
 }: KeysProps) {
   const reduce = useReducedMotion()
@@ -97,7 +100,7 @@ function Keys({
   const bindings = bindingsProp ?? bindingsOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.dl
           className="flex flex-col gap-3"

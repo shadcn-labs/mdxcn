@@ -13,6 +13,7 @@ import {
   hasHost,
   isHost,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -53,6 +54,7 @@ type EndpointProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -139,6 +141,7 @@ function Endpoint({
   children,
   palette,
   corner,
+  frame,
   className,
 }: EndpointProps) {
   const reduce = useReducedMotion()
@@ -159,7 +162,7 @@ function Endpoint({
   const accent = toneClass(palette, "primary")
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody className="flex flex-col gap-4">
         <motion.div
           className="flex flex-col gap-3"

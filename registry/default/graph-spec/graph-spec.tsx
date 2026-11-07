@@ -15,6 +15,7 @@ import {
   listItems,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -37,11 +38,12 @@ type SpecLine = SpecRow & {
 }
 
 type GraphSpecProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Field />` children. */
   rows?: SpecRow[]
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -53,6 +55,7 @@ function GraphSpec({
   rows: rowsProp,
   children,
   corner,
+  frame,
   className,
 }: GraphSpecProps) {
   const reduce = useReducedMotion()
@@ -81,7 +84,7 @@ function GraphSpec({
   ).map((entry) => ({ ...entry, value: entry.value ?? "" }))
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.dl
           className="flex flex-col gap-3"
@@ -101,7 +104,7 @@ function GraphSpec({
                 {row.rich ? (
                   <GraphProse
                     className={cn(
-                      "tabular-nums [overflow-wrap:anywhere]",
+                      "[overflow-wrap:anywhere] tabular-nums",
                       row.accent ? "text-graph-accent" : "text-foreground"
                     )}
                   >

@@ -14,6 +14,7 @@ import {
   listItems,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
@@ -40,13 +41,14 @@ type GridProps = {
 const Grid = defineItem<GridProps>("Grid")
 
 type GraphCellsProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Grid>` children. */
   items?: CellGrid[]
   children?: ReactNode
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -86,6 +88,7 @@ function GraphCells({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphCellsProps) {
   const listed = listItems(children).map((item) => {
@@ -108,7 +111,7 @@ function GraphCells({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <div className="@container flex flex-col items-center gap-10 @min-[28rem]:flex-row @min-[28rem]:justify-center @min-[28rem]:gap-12">
           {items.map((item, itemIndex) => (

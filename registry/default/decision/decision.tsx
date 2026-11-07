@@ -14,6 +14,7 @@ import {
   itemText,
   listItems,
   splitDash,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -46,6 +47,7 @@ type DecisionProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -94,6 +96,7 @@ function Decision({
   children,
   palette,
   corner,
+  frame,
   className,
 }: DecisionProps) {
   const reduce = useReducedMotion()
@@ -106,7 +109,7 @@ function Decision({
   const chosen = options.find((option) => option.state === "chosen")
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody className="flex flex-col gap-4">
         {status || date ? (
           <>

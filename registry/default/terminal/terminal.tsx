@@ -7,6 +7,7 @@ import {
   Graph,
   GraphBody,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -21,6 +22,7 @@ type TerminalProps = {
   /** Plain lines, or a fenced code block. `$ cmd` is a command, `# …` a comment. */
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -77,6 +79,7 @@ function Terminal({
   prompt = "$",
   children,
   corner,
+  frame,
   className,
 }: TerminalProps) {
   const reduce = useReducedMotion()
@@ -85,7 +88,7 @@ function Terminal({
   const lines = parse(textOf(children), prompt)
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody className="overflow-x-auto overflow-y-hidden">
         <motion.pre
           className="m-0 flex min-w-max flex-col gap-0.5 leading-relaxed whitespace-pre"

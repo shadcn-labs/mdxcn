@@ -9,6 +9,7 @@ import {
   GraphRule,
   numbers,
   seriesOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   clamp01,
@@ -22,7 +23,7 @@ import {
 import { cn } from "@/lib/utils"
 
 type GraphPlotProps = {
-  title: string
+  title?: string
   /** `[2, 3, 4]` or `"2 3 4"`. One value per column. Or write it as children. */
   data?: number[] | string
   labels?: string[]
@@ -34,6 +35,7 @@ type GraphPlotProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -56,6 +58,7 @@ function GraphPlot({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphPlotProps) {
   const written = seriesOf(children)
@@ -74,7 +77,7 @@ function GraphPlot({
   const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <div className="flex gap-3">
           <div

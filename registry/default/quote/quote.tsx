@@ -8,6 +8,7 @@ import {
   GraphBody,
   GraphProse,
   GraphRule,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import { fadeUp } from "@/registry/default/graph-frame/graph-motion"
 
@@ -21,6 +22,7 @@ type QuoteProps = {
   /** Markdown. The quote itself. */
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -33,12 +35,20 @@ type QuoteProps = {
  * </Quote>
  * ```
  */
-function Quote({ by, source, title, children, corner, className }: QuoteProps) {
+function Quote({
+  by,
+  source,
+  title,
+  children,
+  corner,
+  frame,
+  className,
+}: QuoteProps) {
   const reduce = useReducedMotion()
   const cite = by || source
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.blockquote
           className="m-0 flex flex-col gap-5 p-0"

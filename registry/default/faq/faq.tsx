@@ -12,6 +12,7 @@ import {
   hasHost,
   isHost,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -37,6 +38,7 @@ type FaqProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -88,6 +90,7 @@ function Faq({
   children,
   palette,
   corner,
+  frame,
   className,
 }: FaqProps) {
   const reduce = useReducedMotion()
@@ -96,7 +99,7 @@ function Faq({
   const entries = entriesProp ?? entriesOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.ol
           className="flex flex-col gap-4"

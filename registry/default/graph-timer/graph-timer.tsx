@@ -8,6 +8,7 @@ import {
   GraphBody,
   splitDash,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   formatAgo,
@@ -26,7 +27,7 @@ import { cn } from "@/lib/utils"
 type TimerKind = "elapsed" | "ago" | "clock"
 
 type GraphTimerProps = {
-  title: string
+  title?: string
   kind?: TimerKind
   at?: Date | number | string
   caption?: string
@@ -34,6 +35,7 @@ type GraphTimerProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -45,6 +47,7 @@ function GraphTimer({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphTimerProps) {
   const reduce = useReducedMotion()
@@ -74,7 +77,7 @@ function GraphTimer({
   }
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.div
           className="flex flex-col gap-2"

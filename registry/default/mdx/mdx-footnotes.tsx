@@ -12,6 +12,7 @@ import {
   isHost,
   listItems,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -24,6 +25,7 @@ type FootnotesProps = {
   /** The GFM footnotes section: a hidden `h2` and an `ol`. */
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -32,7 +34,13 @@ type FootnotesProps = {
  * `withMdxcn` swaps it in for `<section data-footnotes>`. The hidden heading
  * and the `fn-*` ids stay, so `[^1]` links still jump here and back.
  */
-function Footnotes({ title, children, corner, className }: FootnotesProps) {
+function Footnotes({
+  title,
+  children,
+  corner,
+  frame,
+  className,
+}: FootnotesProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.04)
@@ -48,6 +56,7 @@ function Footnotes({ title, children, corner, className }: FootnotesProps) {
     <Graph
       className={className}
       corner={corner}
+      frame={frame}
       title={title ?? (textOf(heading).trim().toLowerCase() || "footnotes")}
     >
       <GraphBody>

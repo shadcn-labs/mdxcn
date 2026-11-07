@@ -16,6 +16,7 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -38,7 +39,7 @@ type WaterfallItem = {
 }
 
 type GraphWaterfallProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Delta />` children. */
   items?: WaterfallItem[]
   children?: ReactNode
@@ -46,6 +47,7 @@ type GraphWaterfallProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -105,6 +107,7 @@ function GraphWaterfall({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphWaterfallProps) {
   const reduce = useReducedMotion()
@@ -176,7 +179,7 @@ function GraphWaterfall({
   }
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ul
           className="flex w-full flex-col gap-2"

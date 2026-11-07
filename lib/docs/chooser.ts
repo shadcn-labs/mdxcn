@@ -289,7 +289,7 @@ pnpm dlx shadcn@latest add ${host}/r/all.json
 
 ## Rules
 
-- Geist Mono. Dashed frame, + corners, title as [ TITLE ].
+- Geist Mono. Dashed frame, + corners, title as [ TITLE ]. frame="corners" | "rule" | "none" swaps the border.
 - Charts are made of characters (█ ░ - = + ├ └). Borders are dashes. Do not use SVG, Recharts, or canvas.
 - One accent: --graph-accent. palette="duo" | "multi" is opt-in.
 - Motion is opacity and transform, ~220ms, no loops, no pulsing.

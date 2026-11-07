@@ -17,6 +17,7 @@ import {
   childNodes,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -41,13 +42,14 @@ type DiffLineProps = DiffRow & {
 }
 
 type GraphDiffProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Line />` children. */
   rows?: DiffRow[]
   footer?: DiffRow
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -168,6 +170,7 @@ function GraphDiff({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphDiffProps) {
   const reduce = useReducedMotion()
@@ -188,7 +191,7 @@ function GraphDiff({
     : undefined
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ul
           role="list"

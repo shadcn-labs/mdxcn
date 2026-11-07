@@ -17,6 +17,7 @@ import {
   splitLabel,
   tableOf,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -48,7 +49,7 @@ type InvoiceTotal = {
 }
 
 type GraphInvoiceProps = {
-  title: string
+  title?: string
   from?: InvoiceParty | string
   to?: InvoiceParty | string
   meta?: InvoiceMeta[]
@@ -58,6 +59,7 @@ type GraphInvoiceProps = {
   note?: string
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -176,6 +178,7 @@ function GraphInvoice({
   note: noteProp,
   children,
   corner,
+  frame,
   className,
 }: GraphInvoiceProps) {
   const from = partyOf(fromProp, childItems(children, From)[0])
@@ -232,7 +235,7 @@ function GraphInvoice({
   const columns = 1 + Number(showQty) + Number(showRate) + 1
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-8">
         {from || to ? (
           <div className="grid gap-6 sm:grid-cols-2">

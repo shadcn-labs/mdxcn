@@ -12,6 +12,7 @@ import {
   listItems,
   numbers,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -58,6 +59,7 @@ type GraphCalendarProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -118,6 +120,7 @@ function GraphCalendar({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphCalendarProps) {
   const listed = marksOf(children)
@@ -152,7 +155,7 @@ function GraphCalendar({
   }
 
   return (
-    <Graph title={caption} className={className} corner={corner}>
+    <Graph title={caption} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <div
           aria-hidden="true"

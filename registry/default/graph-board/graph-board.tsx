@@ -13,6 +13,7 @@ import {
   itemText,
   listItems,
   splitDash,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -38,12 +39,13 @@ type BoardColumn = {
 }
 
 type GraphBoardProps = {
-  title: string
+  title?: string
   /** Data form. Or write `### Column` headings, each with a list. */
   columns?: BoardColumn[]
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -97,6 +99,7 @@ function GraphBoard({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphBoardProps) {
   const reduce = useReducedMotion()
@@ -106,7 +109,7 @@ function GraphBoard({
   const total = columns.reduce((sum, column) => sum + column.items.length, 0)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <div
           className={cn(

@@ -34,6 +34,7 @@ import {
   GraphMatrix,
   GraphMeter,
   GraphPlot,
+  GraphFrameProvider,
   GraphRank,
   GraphRule,
   GraphScore,
@@ -55,6 +56,7 @@ import {
   Steps,
   Terminal,
 } from "@/components/graphs"
+import type { GraphFrame } from "@/components/graphs"
 
 type Example = {
   title: string
@@ -3346,6 +3348,108 @@ const frameExamples: Example[] = [
   },
 ]
 
+const FRAME_ROUTES = ["12,400 /docs", "4,100 /install", "860 /plot"]
+
+function frameExample(
+  title: string,
+  description: string,
+  attrs: { title?: string; frame?: GraphFrame }
+): Example {
+  const props = [
+    attrs.title != null ? `title="${attrs.title}"` : null,
+    attrs.frame ? `frame="${attrs.frame}"` : null,
+  ]
+    .filter(Boolean)
+    .join(" ")
+  const open = `<GraphRank${props ? ` ${props}` : ""}>`
+  const list = FRAME_ROUTES.map((route) => `- ${route}`).join("\n")
+  const items = FRAME_ROUTES.map((route) => `    <li>${route}</li>`).join("\n")
+
+  return {
+    title,
+    description,
+    code: `${open}\n\n${list}\n\n</GraphRank>`,
+    react: tsx(
+      "graph-rank",
+      "GraphRank",
+      `${open}\n  <ul>\n${items}\n  </ul>\n</GraphRank>`
+    ),
+    preview: (
+      <GraphRank frame={attrs.frame} title={attrs.title}>
+        <ul>
+          {FRAME_ROUTES.map((route) => (
+            <li key={route}>{route}</li>
+          ))}
+        </ul>
+      </GraphRank>
+    ),
+  }
+}
+
+const frameVariantExamples: Example[] = [
+  frameExample(
+    "box",
+    "The default. Dashed border, corner marks, title on the top edge.",
+    { title: "ROUTES" }
+  ),
+  frameExample(
+    "corners",
+    'frame="corners" keeps the corner marks and drops the dashed lines.',
+    { title: "ROUTES", frame: "corners" }
+  ),
+  frameExample(
+    "rule",
+    'frame="rule" draws dashed lines above and below, with no side padding. Good between paragraphs.',
+    { title: "ROUTES", frame: "rule" }
+  ),
+  frameExample(
+    "none",
+    'frame="none" drops the border and the padding. The title sits above the content.',
+    { title: "ROUTES", frame: "none" }
+  ),
+  frameExample(
+    "none, untitled",
+    "Leave out title and only the figure is left.",
+    { frame: "none" }
+  ),
+  frameExample(
+    "box, untitled",
+    'Every frame works without a title. Pass title="" to drop a default title, like the type on a Callout.',
+    {}
+  ),
+  {
+    title: "one frame for a page",
+    description:
+      "GraphFrameProvider sets the frame for every graph inside it. A graph's own frame prop still wins.",
+    source: "tsx",
+    code: `import { GraphFrameProvider } from "@/registry/default/graph-frame/graph-frame"
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <GraphFrameProvider frame="none">{children}</GraphFrameProvider>
+}`,
+    preview: (
+      <GraphFrameProvider frame="none">
+        <div className="flex flex-col gap-8">
+          <GraphRank title="ROUTES">
+            <ul>
+              {FRAME_ROUTES.map((route) => (
+                <li key={route}>{route}</li>
+              ))}
+            </ul>
+          </GraphRank>
+          <GraphRank frame="rule" title="OVERRIDE">
+            <ul>
+              {FRAME_ROUTES.map((route) => (
+                <li key={route}>{route}</li>
+              ))}
+            </ul>
+          </GraphRank>
+        </div>
+      </GraphFrameProvider>
+    ),
+  },
+]
+
 const calloutExamples: Example[] = [
   {
     title: "warning",
@@ -4511,7 +4615,7 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-bullet": bulletExamples,
   "graph-timer": timerExamples,
   "graph-countdown": countdownExamples,
-  "graph-frame": frameExamples,
+  "graph-frame": [...frameVariantExamples, ...frameExamples],
 }
 
 export { Examples }

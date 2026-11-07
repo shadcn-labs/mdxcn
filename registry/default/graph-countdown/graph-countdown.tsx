@@ -8,6 +8,7 @@ import {
   GraphBody,
   splitDash,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   formatHms,
@@ -22,7 +23,7 @@ import {
 import { cn } from "@/lib/utils"
 
 type GraphCountdownProps = {
-  title: string
+  title?: string
   /** Or write it as children. */
   to?: Date | number | string
   done?: string
@@ -31,6 +32,7 @@ type GraphCountdownProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -42,6 +44,7 @@ function GraphCountdown({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphCountdownProps) {
   const reduce = useReducedMotion()
@@ -58,7 +61,7 @@ function GraphCountdown({
     remaining == null ? "00:00:00" : finished ? done : formatHms(remaining)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.div
           className="flex flex-col gap-2"

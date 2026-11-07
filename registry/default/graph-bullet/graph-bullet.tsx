@@ -15,6 +15,7 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -35,7 +36,7 @@ type BulletItem = {
 }
 
 type GraphBulletProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Target />` children. */
   items?: BulletItem[]
   children?: ReactNode
@@ -43,6 +44,7 @@ type GraphBulletProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -85,6 +87,7 @@ function GraphBullet({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphBulletProps) {
   const reduce = useReducedMotion()
@@ -122,7 +125,7 @@ function GraphBullet({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ul
           className="flex w-full flex-col gap-2"

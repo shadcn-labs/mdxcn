@@ -15,6 +15,7 @@ import {
   listItems,
   numberOf,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -35,7 +36,7 @@ type FunnelStep = {
 }
 
 type GraphFunnelProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Stage />` children. */
   steps?: FunnelStep[]
   children?: ReactNode
@@ -44,6 +45,7 @@ type GraphFunnelProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -61,6 +63,7 @@ function GraphFunnel({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphFunnelProps) {
   const reduce = useReducedMotion()
@@ -90,7 +93,7 @@ function GraphFunnel({
   const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.ol
           className="flex flex-col gap-3"

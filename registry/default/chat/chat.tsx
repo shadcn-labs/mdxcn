@@ -13,6 +13,7 @@ import {
   listItems,
   childNodes,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -44,6 +45,7 @@ type ChatProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -90,6 +92,7 @@ function Chat({
   children,
   palette,
   corner,
+  frame,
   className,
 }: ChatProps) {
   const reduce = useReducedMotion()
@@ -99,7 +102,7 @@ function Chat({
   const asker = (you ?? turns[0]?.by ?? "").toLowerCase()
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.ol
           className="flex flex-col"

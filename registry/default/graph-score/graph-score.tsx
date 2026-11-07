@@ -13,6 +13,7 @@ import {
   listItems,
   numberOf,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -33,7 +34,7 @@ type ScoreRow = {
 }
 
 type GraphScoreProps = {
-  title: string
+  title?: string
   /** Data form. Or a Markdown list: `- Docs: 4/5`. */
   items?: ScoreRow[]
   /** Dots per row. Default 5, or the `/n` written in the first row. */
@@ -42,6 +43,7 @@ type GraphScoreProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -86,6 +88,7 @@ function GraphScore({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphScoreProps) {
   const reduce = useReducedMotion()
@@ -97,7 +100,7 @@ function GraphScore({
   const anyAccent = rows.some((row) => row.accent)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.ol
           className="flex flex-col gap-2"

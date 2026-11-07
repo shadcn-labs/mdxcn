@@ -7,6 +7,7 @@ import {
   Graph,
   GraphBody,
   GraphProse,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import { fadeUp } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
@@ -21,6 +22,7 @@ type CalloutProps = {
   /** Markdown. Paragraphs, lists, inline code, links. */
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -52,6 +54,7 @@ function Callout({
   title,
   children,
   corner,
+  frame,
   className,
 }: CalloutProps) {
   const reduce = useReducedMotion()
@@ -60,6 +63,7 @@ function Callout({
     <Graph
       className={className}
       corner={corner}
+      frame={frame}
       role="note"
       title={title ?? type}
     >

@@ -15,7 +15,7 @@ description: >-
 
 # mdxcn
 
-Glyphs in a dashed frame with `+` corners and a `[ TITLE ]` on the top edge.
+Glyphs in a dashed frame with `+` corners and a `[ TITLE ]` on the top edge. `frame="corners" | "rule" | "none"` swaps the border. `none` drops it, and the title sits above the figure.
 
 Pick the host before you write. What you paste depends on it.
 
@@ -281,7 +281,7 @@ const graphFilters = createGraphFilters(["graph_table", "graph_timeline"])
 - Invent ASCII art. Copy the official fence from llms.txt / the .md tab.
 - Paste JSX into README, GitHub, Linear, or any file that cannot import the components.
 - Paste `::graph-*` into GitHub, Linear, or a README. Those hosts get the fenced ASCII.
-- Restyle the frame (no extra borders, no rounded cards, no new corner marks).
+- Restyle the frame (no extra borders, no rounded cards, no new corner marks). Use the `frame` prop instead.
 - Dump every graph you know into one reply.
 - Use a pie chart. Stack or Waffle.
 - Pass `palette` on Table, Sheet, Invoice, Spec, Stat, Tree, or Frame.

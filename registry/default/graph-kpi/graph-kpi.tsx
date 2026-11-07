@@ -12,6 +12,7 @@ import {
   linesOf,
   numbers,
   splitDash,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
@@ -29,7 +30,7 @@ import { cn } from "@/lib/utils"
 const SPARK_DEFAULT = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 
 type GraphKpiProps = {
-  title: string
+  title?: string
   value?: string
   label?: string
   hint?: string
@@ -43,6 +44,7 @@ type GraphKpiProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -56,6 +58,7 @@ function GraphKpi({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphKpiProps) {
   const [head = "", ...tail] = linesOf(children)
@@ -76,7 +79,7 @@ function GraphKpi({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         <motion.div
           className="flex flex-col gap-2"

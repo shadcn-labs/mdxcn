@@ -1,3 +1,4 @@
+import { reframeAscii } from "@/registry/default/graph-knap/frame"
 import {
   asciiAnnotate,
   asciiBars,
@@ -480,6 +481,15 @@ function drawMarkdown(
   body: string,
   title: string | undefined = props.title
 ) {
+  return reframeAscii(drawBoxed(name, props, body, title), props.frame)
+}
+
+function drawBoxed(
+  name: string,
+  props: Record<string, string>,
+  body: string,
+  title: string | undefined
+) {
   switch (name) {
     case "Callout":
       return asciiCallout({
@@ -526,7 +536,7 @@ function drawMarkdown(
     case "GraphTable": {
       const table = parseGfm(body)
       return asciiTable({
-        title: title ?? "TABLE",
+        title: title ?? "",
         headers: table?.headers ?? [],
         rows: table?.rows ?? [],
         footer: table?.footer,
@@ -561,19 +571,19 @@ function drawMarkdown(
         current.rows.push(cells)
       }
       return asciiSheet({
-        title: title ?? "SHEET",
+        title: title ?? "",
         headers: headers.length > 0 ? headers : ["Item"],
         sections,
       })
     }
     case "GraphTree":
       return asciiTree({
-        title: title ?? "TREE",
+        title: title ?? "",
         nodes: nest(bullets(body)),
       })
     case "GraphTimeline":
       return asciiTimeline({
-        title: title ?? "TIMELINE",
+        title: title ?? "",
         events: listBlocks(body).map((item) => {
           const { label, rest } = splitLabel(item.text)
           const { label: what, rest: aside } = splitDash(rest || label)
@@ -590,12 +600,12 @@ function drawMarkdown(
       })
     case "GraphCheck":
       return asciiCheck({
-        title: title ?? "CHECK",
+        title: title ?? "",
         items: checkTree(body),
       })
     case "GraphFlow":
       return asciiFlow({
-        title: title ?? "FLOW",
+        title: title ?? "",
         rows: body
           .split(/\n+/)
           .map((line) => line.replace(/\*+/g, "").trim())
@@ -611,7 +621,7 @@ function drawMarkdown(
         }
       })
       return asciiBars({
-        title: title ?? "BARS",
+        title: title ?? "",
         from: series[0] ?? { label: "from", values: [] },
         to: series[1] ?? { label: "to", values: [] },
         processor: props.processor,
@@ -619,16 +629,19 @@ function drawMarkdown(
     }
     case "GraphRank":
       return asciiRank({
-        title: title ?? "RANK",
+        title: title ?? "",
         items: bullets(body).map((item) => {
           const { token, rest } = firstToken(item.text)
-          return { label: rest || token, value: Number.parseFloat(token) || 0 }
+          return {
+            label: rest || token,
+            value: Number.parseFloat(token.replace(/,/g, "")) || 0,
+          }
         }),
         max: props.max ? Number(props.max) : undefined,
       })
     case "GraphCells":
       return asciiCells({
-        title: title ?? "CELLS",
+        title: title ?? "",
         items: bullets(body).map((item) => {
           const { label, rest } = splitLabel(item.text)
           const cells = (rest || item.text).split("/").map((row) =>
@@ -643,7 +656,7 @@ function drawMarkdown(
     case "GraphMeter": {
       const written = firstToken(plain(body))
       return asciiMeter({
-        title: title ?? "METER",
+        title: title ?? "",
         value: fraction(props.value ?? written.token),
         ticks: props.ticks ? Number(props.ticks) : 14,
         caption:
@@ -656,14 +669,14 @@ function drawMarkdown(
     case "GraphSpark": {
       const written = series(body)
       return asciiSpark({
-        title: title ?? "SPARK",
+        title: title ?? "",
         data: props.data ? numbers(props.data) : written.data,
         caption: props.caption ?? written.caption,
       })
     }
     case "GraphStack":
       return asciiStack({
-        title: title ?? "STACK",
+        title: title ?? "",
         rows: bullets(body).map((item) => {
           const { label, rest } = splitLabel(item.text)
           const segs = (rest || item.text)
@@ -674,7 +687,7 @@ function drawMarkdown(
               const { token, rest: name } = firstToken(part)
               return {
                 label: name || token,
-                value: Number.parseFloat(token) || 0,
+                value: Number.parseFloat(token.replace(/,/g, "")) || 0,
               }
             })
           return { label: rest ? label : item.text, segments: segs }
@@ -683,7 +696,7 @@ function drawMarkdown(
       })
     case "GraphFunnel":
       return asciiFunnel({
-        title: title ?? "FUNNEL",
+        title: title ?? "",
         steps: bullets(body).map((item) => {
           const { token, rest } = firstToken(item.text)
           return {
@@ -694,7 +707,7 @@ function drawMarkdown(
       })
     case "GraphGantt":
       return asciiGantt({
-        title: title ?? "GANTT",
+        title: title ?? "",
         columns: props.columns ? Number(props.columns) : 24,
         ticks: props.ticks ? props.ticks.split(/\s+/) : undefined,
         items: bullets(body).map((item) => {
@@ -710,7 +723,7 @@ function drawMarkdown(
       })
     case "GraphDiff":
       return asciiDiff({
-        title: title ?? "DIFF",
+        title: title ?? "",
         rows: bullets(body).flatMap((item) => {
           const strike = item.text.match(/^(.*?)~~(.+?)~~(.*)$/)
           if (strike) {
@@ -780,7 +793,7 @@ function drawMarkdown(
         /amount|total|sum/.test(header)
       )
       return asciiInvoice({
-        title: title ?? "INVOICE",
+        title: title ?? "",
         from: props.from ? { name: props.from } : undefined,
         to: props.to ? { name: props.to } : undefined,
         meta,
@@ -801,7 +814,7 @@ function drawMarkdown(
     case "GraphCompare": {
       const labeled = parseLabeled(body)
       return asciiCompare({
-        title: title ?? "COMPARE",
+        title: title ?? "",
         columns: labeled?.columns ?? props.columns?.split(/\s+/) ?? [],
         rows: (labeled?.rows ?? []).map((row) => ({
           label: row.label,
@@ -826,7 +839,7 @@ function drawMarkdown(
     }
     case "GraphStat":
       return asciiStat({
-        title: title ?? "STAT",
+        title: title ?? "",
         items: bullets(body).map((item) => {
           const { token, rest } = firstToken(item.text)
           const [label, hint] = rest.split(/\s+[—–]\s+/)
@@ -841,7 +854,7 @@ function drawMarkdown(
       const { token, rest } = firstToken(head)
       const written = splitDash(rest)
       return asciiKpi({
-        title: title ?? "KPI",
+        title: title ?? "",
         value: props.value ?? token,
         label: props.label ?? written.label,
         hint: props.hint ?? (written.rest || undefined),
@@ -850,7 +863,7 @@ function drawMarkdown(
     }
     case "GraphSpec":
       return asciiSpec({
-        title: title ?? "SPEC",
+        title: title ?? "",
         rows: listBlocks(body).map((item) => {
           const { label, rest } = splitLabel(plain(item.text))
           return {
@@ -862,7 +875,7 @@ function drawMarkdown(
       })
     case "GraphWaterfall":
       return asciiWaterfall({
-        title: title ?? "WATERFALL",
+        title: title ?? "",
         items: bullets(body).map((item) => {
           const { label, rest } = splitLabel(item.text)
           return {
@@ -875,7 +888,7 @@ function drawMarkdown(
       })
     case "GraphUptime":
       return asciiUptime({
-        title: title ?? "UPTIME",
+        title: title ?? "",
         from: props.from,
         to: props.to,
         days: runs(props.days ?? body.replace(/\\\*/g, "*")).filter(
@@ -885,7 +898,7 @@ function drawMarkdown(
       })
     case "GraphSlope":
       return asciiSlope({
-        title: title ?? "SLOPE",
+        title: title ?? "",
         fromLabel: props.fromLabel ?? "",
         toLabel: props.toLabel ?? "",
         items: bullets(body).map((item) => {
@@ -900,7 +913,7 @@ function drawMarkdown(
       })
     case "GraphBullet":
       return asciiBullet({
-        title: title ?? "BULLET",
+        title: title ?? "",
         items: bullets(body).map((item) => {
           const { label, rest } = splitLabel(item.text)
           const nums = (rest || item.text).match(/[\d.]+/g) ?? []
@@ -915,7 +928,7 @@ function drawMarkdown(
     case "GraphWaffle": {
       const written = firstToken(plain(body))
       return asciiWaffle({
-        title: title ?? "WAFFLE",
+        title: title ?? "",
         value: fraction(props.value ?? written.token),
         caption:
           props.caption ??
@@ -927,14 +940,14 @@ function drawMarkdown(
     case "GraphPlot": {
       const written = series(body)
       return asciiSpark({
-        title: title ?? "PLOT",
+        title: title ?? "",
         data: props.data ? numbers(props.data) : written.data,
         caption: props.caption ?? written.caption,
       })
     }
     case "GraphBoard":
       return asciiBoard({
-        title: title ?? "BOARD",
+        title: title ?? "",
         columns: sections(body).map((section) => ({
           title: plain(section.title),
           items: bullets(section.lines.join("\n")).map((item) => {
@@ -982,7 +995,7 @@ function drawMarkdown(
       })
     case "GraphScore":
       return asciiScore({
-        title: title ?? "SCORE",
+        title: title ?? "",
         max: props.max ? Number(props.max) : undefined,
         items: bullets(body).map((item) => {
           const { label, rest } = splitLabel(plain(item.text))

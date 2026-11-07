@@ -9,6 +9,7 @@ import {
   Graph,
   GraphBody,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
@@ -21,7 +22,7 @@ import {
 import { cn } from "@/lib/utils"
 
 type GraphWaffleProps = {
-  title: string
+  title?: string
   /** `0.73`, `"0.73"`, or `"73%"`. Or write `73% green` as children. */
   value?: number | string
   cells?: number
@@ -32,6 +33,7 @@ type GraphWaffleProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -45,6 +47,7 @@ function GraphWaffle({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphWaffleProps) {
   const written = firstToken(textOf(children).replace(/\s+/g, " ").trim())
@@ -65,7 +68,7 @@ function GraphWaffle({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         <div
           aria-hidden="true"

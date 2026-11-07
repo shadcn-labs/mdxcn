@@ -13,6 +13,7 @@ import {
   itemParts,
   listItems,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -36,6 +37,7 @@ type AnnotateProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -92,6 +94,7 @@ function Annotate({
   children,
   palette,
   corner,
+  frame,
   className,
 }: AnnotateProps) {
   const reduce = useReducedMotion()
@@ -120,6 +123,7 @@ function Annotate({
     <Graph
       className={className}
       corner={corner}
+      frame={frame}
       title={title ?? languageOf(pre) ?? "code"}
     >
       <GraphBody className="flex flex-col gap-5">
