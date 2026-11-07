@@ -12,6 +12,7 @@ import {
   Row,
   textOf,
   words,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -22,6 +23,7 @@ import {
   staggerList,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -31,7 +33,7 @@ type HeatRow = {
 }
 
 type GraphHeatmapProps = {
-  title: string
+  title?: string
   /** Data form. Or `"0 4 8 12"`. */
   columns?: string[] | string
   /** Data form. Or write `<Row label="Mon">0 1 4 8</Row>`. */
@@ -43,6 +45,7 @@ type GraphHeatmapProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -88,6 +91,7 @@ function GraphHeatmap({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphHeatmapProps) {
   const markdown = labeledTable(children)
@@ -114,7 +118,7 @@ function GraphHeatmap({
   const set = resolveGlyphs(glyphs)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         <div className="flex w-full flex-col gap-2">
           <div
@@ -136,7 +140,7 @@ function GraphHeatmap({
             initial={reduce ? false : "hidden"}
             role="list"
             variants={list}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             {rows.map((row) => (

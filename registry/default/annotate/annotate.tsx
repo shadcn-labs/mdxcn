@@ -13,12 +13,14 @@ import {
   itemParts,
   listItems,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -36,6 +38,7 @@ type AnnotateProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -92,6 +95,7 @@ function Annotate({
   children,
   palette,
   corner,
+  frame,
   className,
 }: AnnotateProps) {
   const reduce = useReducedMotion()
@@ -120,6 +124,7 @@ function Annotate({
     <Graph
       className={className}
       corner={corner}
+      frame={frame}
       title={title ?? languageOf(pre) ?? "code"}
     >
       <GraphBody className="flex flex-col gap-5">
@@ -127,7 +132,7 @@ function Annotate({
           className="overflow-x-auto overflow-y-hidden"
           initial={reduce ? false : "hidden"}
           variants={item}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           <pre className="m-0 flex min-w-max flex-col gap-0.5 leading-relaxed whitespace-pre">
@@ -161,7 +166,7 @@ function Annotate({
               initial={reduce ? false : "hidden"}
               role="list"
               variants={list}
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {notes.map((note, index) => (

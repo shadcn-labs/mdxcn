@@ -10,6 +10,7 @@ import {
   GraphTrack,
   runs,
   sourceText,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -18,13 +19,14 @@ import {
   toneClass,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type UptimeStatus = "ok" | "degraded" | "down" | "empty"
 
 type GraphUptimeProps = {
-  title: string
+  title?: string
   /** `["ok", "down"]`, `"ok ok down"`, or runs: `"ok*40 down*2"`. */
   days?: UptimeStatus[] | string
   from?: string
@@ -35,6 +37,7 @@ type GraphUptimeProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -66,6 +69,7 @@ function GraphUptime({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphUptimeProps) {
   const days = runs(daysProp ?? sourceText(children)).filter(
@@ -94,7 +98,7 @@ function GraphUptime({
   }
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col items-center gap-4">
         <div className="flex scrollbar-graph w-fit max-w-full flex-col gap-4 overflow-x-auto overflow-y-hidden">
           <motion.div
@@ -102,7 +106,7 @@ function GraphUptime({
             className="flex flex-col gap-1 select-none"
             initial={reduce ? false : "hidden"}
             variants={list}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             {rows.map((row, rowIndex) => (

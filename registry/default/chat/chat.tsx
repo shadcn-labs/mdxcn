@@ -13,12 +13,14 @@ import {
   listItems,
   childNodes,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -44,6 +46,7 @@ type ChatProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -90,6 +93,7 @@ function Chat({
   children,
   palette,
   corner,
+  frame,
   className,
 }: ChatProps) {
   const reduce = useReducedMotion()
@@ -99,14 +103,14 @@ function Chat({
   const asker = (you ?? turns[0]?.by ?? "").toLowerCase()
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.ol
           className="flex flex-col"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {turns.map((turn, index) => {

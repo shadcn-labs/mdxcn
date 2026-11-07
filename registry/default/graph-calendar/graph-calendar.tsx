@@ -12,6 +12,7 @@ import {
   listItems,
   numbers,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -19,6 +20,7 @@ import {
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -58,6 +60,7 @@ type GraphCalendarProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -118,6 +121,7 @@ function GraphCalendar({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphCalendarProps) {
   const listed = marksOf(children)
@@ -152,7 +156,7 @@ function GraphCalendar({
   }
 
   return (
-    <Graph title={caption} className={className} corner={corner}>
+    <Graph title={caption} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <div
           aria-hidden="true"
@@ -172,7 +176,7 @@ function GraphCalendar({
           className="flex flex-col gap-1"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {weeks.map((week, weekIndex) => (
@@ -217,7 +221,7 @@ function GraphCalendar({
               initial={reduce ? false : "hidden"}
               role="list"
               variants={list}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {notes.map((mark) => (

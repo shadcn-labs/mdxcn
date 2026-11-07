@@ -10,12 +10,14 @@ import {
   itemText,
   listItems,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type KeyBinding = {
@@ -33,6 +35,7 @@ type KeysProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -89,6 +92,7 @@ function Keys({
   children,
   palette,
   corner,
+  frame,
   className,
 }: KeysProps) {
   const reduce = useReducedMotion()
@@ -97,13 +101,13 @@ function Keys({
   const bindings = bindingsProp ?? bindingsOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.dl
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {bindings.map((binding, index) => {

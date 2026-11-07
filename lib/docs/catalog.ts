@@ -88,6 +88,14 @@ const corner: PropRow = {
   description: "Character at each corner of the frame.",
 }
 
+const frameProp: PropRow = {
+  name: "frame",
+  type: '"box" | "corners" | "rule" | "none"',
+  default: '"box"',
+  description:
+    "box draws the dashed border. corners keeps only the corner marks. rule draws dashed lines above and below. none drops the border and padding, and puts the title above the content.",
+}
+
 const className: PropRow = {
   name: "className",
   type: "string",
@@ -2067,14 +2075,15 @@ const catalog: CatalogEntry[] = [
     title: "frame",
     name: "Graph",
     description:
-      "The dashed frame every graph is drawn in. Build with GraphTitle, GraphBody, GraphRule, GraphTrack and GraphTick, and set corner to change the corner character.",
+      "The dashed frame every graph is drawn in. Build with GraphTitle, GraphBody, GraphRule, GraphTrack and GraphTick. Set corner to change the corner character and frame to change the border. Wrap a page in GraphFrameProvider to set the frame for every graph inside it.",
     registry: "graph-frame",
     dependencies: ["motion"],
     props: [
       {
         name: "title",
         type: "string",
-        description: "Optional caption. Renders as [ TITLE ] on the top edge.",
+        description:
+          "Optional caption. Renders as [ TITLE ] on the top edge, or above the content when frame is none. Pass an empty string to drop a component's default title.",
       },
       {
         name: "corner",
@@ -2439,6 +2448,11 @@ function withProps(item: CatalogEntry): PropRow[] {
       type: "Markdown",
       description: `${child.usage}${child.note ? ` ${child.note}` : ""}`,
     })
+  }
+
+  const cornerAt = props.findIndex((prop) => prop.name === "corner")
+  if (cornerAt !== -1) {
+    props.splice(cornerAt + 1, 0, frameProp)
   }
 
   if (PALETTE_SLUGS.has(item.slug)) {

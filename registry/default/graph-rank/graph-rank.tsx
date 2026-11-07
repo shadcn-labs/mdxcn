@@ -15,6 +15,7 @@ import {
   listItems,
   numberOf,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -23,6 +24,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type RankItem = {
@@ -33,7 +35,7 @@ type RankItem = {
 }
 
 type GraphRankProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Rank />` children. */
   items?: RankItem[]
   children?: ReactNode
@@ -42,6 +44,7 @@ type GraphRankProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -69,6 +72,7 @@ function GraphRank({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphRankProps) {
   const reduce = useReducedMotion()
@@ -101,13 +105,13 @@ function GraphRank({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ol
           className="flex w-full list-none flex-col gap-2"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => {
@@ -120,7 +124,7 @@ function GraphRank({
             return (
               <motion.li
                 aria-label={`${entry.label} ${shown}`}
-                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] items-center gap-x-2 sm:gap-x-4"
+                className="grid grid-cols-[minmax(0,5rem)_minmax(0,1fr)_minmax(0,4.5rem)] items-center gap-x-2 sm:grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] sm:gap-x-4"
                 key={entry.label}
                 variants={item}
               >

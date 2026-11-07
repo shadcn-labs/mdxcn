@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { CopyBlock } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import { GraphSpec, GraphTimeline } from "@/components/graphs"
@@ -64,7 +65,7 @@ export default function GrammarPage() {
       />
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">rules</h2>
+        <SectionHeading id="rules">rules</SectionHeading>
         <ProseP>
           Write Markdown inside the tag and the component reads it as data. The
           muted line under each rule lists the components that use it.
@@ -73,7 +74,7 @@ export default function GrammarPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">every host</h2>
+        <SectionHeading id="every-host">every host</SectionHeading>
         <ProseP>
           The same list works everywhere: as MDX children, as the body of a{" "}
           <TextLink href="/docs/comark">Comark</TextLink> block, and as the{" "}
@@ -98,7 +99,7 @@ export default function GrammarPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">upgrades</h2>
+        <SectionHeading id="upgrades">upgrades</SectionHeading>
         <ProseP>
           With <TextLink href="/docs/mdx">withMdxcn</TextLink>, some plain
           Markdown that GitHub already understands, like alerts, quotes and

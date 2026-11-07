@@ -17,10 +17,12 @@ import {
   Row,
   tableOf,
   words,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -36,7 +38,7 @@ function RuleY() {
 }
 
 type GraphTableProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Head>Name | Value</Head>`. */
   headers?: string[] | string
   /** Data form. Or write `<Row>docs | 12,400</Row>`. */
@@ -45,6 +47,7 @@ type GraphTableProps = {
   align?: GraphAlign[] | string
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -56,6 +59,7 @@ function GraphTable({
   align: alignProp,
   children,
   corner,
+  frame,
   className,
 }: GraphTableProps) {
   const markdown = tableOf(children)
@@ -86,7 +90,7 @@ function GraphTable({
   const list = staggerList(reduce, 0.04)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="px-3 py-6 sm:px-6 sm:py-8">
         <div className="@container overflow-x-auto overflow-y-hidden">
           <table className="w-full border-separate border-spacing-0">
@@ -117,7 +121,7 @@ function GraphTable({
             <motion.tbody
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {rows?.map((row, rowIndex) => (

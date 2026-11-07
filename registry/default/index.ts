@@ -17,6 +17,8 @@ export {
   GraphCorners,
   GraphProse,
   graphProseClass,
+  GRAPH_FRAMES,
+  GraphFrameProvider,
   GraphRule,
   GraphRuleY,
   GraphTick,
@@ -39,6 +41,7 @@ export {
 } from "./graph-frame/graph-frame"
 export type {
   CellProps,
+  GraphFrame,
   GraphItemComponent,
   RowProps,
 } from "./graph-frame/graph-frame"

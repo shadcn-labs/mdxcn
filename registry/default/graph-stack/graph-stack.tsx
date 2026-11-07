@@ -15,6 +15,7 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -25,6 +26,7 @@ import {
   staggerList,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 const DEFAULT_GLYPHS = ["█", "▓", "▒", "░", "#", "=", "+", "-"]
@@ -43,7 +45,7 @@ type StackRow = {
 }
 
 type GraphStackProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Bar>` children with `<Segment>` inside. */
   rows?: StackRow[]
   children?: ReactNode
@@ -52,6 +54,7 @@ type GraphStackProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -126,6 +129,7 @@ function GraphStack({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphStackProps) {
   const reduce = useReducedMotion()
@@ -162,14 +166,14 @@ function GraphStack({
   }
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-6">
         <motion.ul
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {rows.map((row) => {

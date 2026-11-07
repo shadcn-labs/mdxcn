@@ -15,12 +15,14 @@ import {
   splitDash,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -36,12 +38,13 @@ type TimelineEvent = {
 }
 
 type GraphTimelineProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Event />` children. */
   events?: TimelineEvent[]
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -60,6 +63,7 @@ function GraphTimeline({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphTimelineProps) {
   const reduce = useReducedMotion()
@@ -88,14 +92,14 @@ function GraphTimeline({
   )
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.ol
           className="flex flex-col"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {events.map((event, index) => {

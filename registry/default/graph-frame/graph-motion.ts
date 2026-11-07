@@ -4,6 +4,16 @@ export const easeOutCubic = [0.215, 0.61, 0.355, 1] as const
 
 export const DIM_OPACITY = 0.4
 
+/**
+ * Reveal a figure once its top edge is a little inside the viewport. An
+ * `amount` threshold never fires for a figure taller than the screen, which
+ * leaves a blank frame while someone is reading past it.
+ */
+export const graphViewport = {
+  once: true,
+  margin: "0px 0px -10% 0px",
+} as const
+
 export function graphTransition(
   reduce: boolean | null,
   extras?: Transition

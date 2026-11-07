@@ -10,6 +10,7 @@ import {
   numbers,
   sourceText,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -20,6 +21,7 @@ import {
   staggerList,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -52,7 +54,7 @@ type ActivityCell = {
 }
 
 type GraphActivityProps = {
-  title: string
+  title?: string
   /** `{ date, count }` per day. Or write the counts as children. */
   days?: ActivityDay[]
   /**
@@ -67,6 +69,7 @@ type GraphActivityProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -206,6 +209,7 @@ function GraphActivity({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphActivityProps) {
   const reduce = useReducedMotion()
@@ -231,7 +235,7 @@ function GraphActivity({
   }, [weeks.length])
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         <div
           className="scrollbar-graph overflow-x-auto overflow-y-hidden"
@@ -271,7 +275,7 @@ function GraphActivity({
                 className="flex flex-1"
                 initial={reduce ? false : "hidden"}
                 variants={list}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={graphViewport}
                 whileInView="show"
               >
                 {weeks.map((week, weekIndex) => (

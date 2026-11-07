@@ -15,6 +15,7 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
@@ -23,6 +24,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type BulletItem = {
@@ -35,7 +37,7 @@ type BulletItem = {
 }
 
 type GraphBulletProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Target />` children. */
   items?: BulletItem[]
   children?: ReactNode
@@ -43,6 +45,7 @@ type GraphBulletProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -85,6 +88,7 @@ function GraphBullet({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphBulletProps) {
   const reduce = useReducedMotion()
@@ -122,14 +126,14 @@ function GraphBullet({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ul
           className="flex w-full flex-col gap-2"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => {
@@ -153,7 +157,7 @@ function GraphBullet({
             return (
               <motion.li
                 aria-label={`${entry.label} ${formatItem(entry)}`}
-                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] items-center gap-x-2 sm:gap-x-4"
+                className="grid grid-cols-[minmax(0,5rem)_minmax(0,1fr)_minmax(0,4.5rem)] items-center gap-x-2 sm:grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] sm:gap-x-4"
                 key={entry.label}
                 variants={item}
               >

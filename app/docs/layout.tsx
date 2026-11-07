@@ -1,11 +1,14 @@
 import type { ReactNode } from "react"
 
-import { DocsMobileNav, DocsSidebar } from "@/components/docs/nav"
+import { DocsMobileNav, DocsRail, DocsSidebar } from "@/components/docs/nav"
 import { SiteCorners, SiteRule } from "@/components/site/corners"
 
 function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative isolate mx-auto flex w-full max-w-6xl min-w-0 flex-col">
+    <div
+      className="relative isolate mx-auto flex w-full site-width min-w-0 flex-col"
+      data-wide-layout=""
+    >
       <SiteRule className="left-0" orientation="y" />
       <SiteRule className="right-0" orientation="y" />
       <div className="relative lg:hidden">
@@ -23,6 +26,7 @@ function DocsLayout({ children }: { children: ReactNode }) {
         >
           {children}
         </main>
+        <DocsRail />
       </div>
     </div>
   )

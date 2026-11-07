@@ -10,9 +10,14 @@ import {
 } from "@/registry/default/graph-frame/graph-markdown"
 import { cn } from "@/lib/utils"
 
+/**
+ * Corner marks and the edge title paint over the dashed line with the
+ * surface behind the figure. Set `--graph-surface` on a parent when a graph
+ * sits on anything other than the page background.
+ */
 function GraphCorners({ mark = "+" }: { mark?: string }) {
   const corner =
-    "pointer-events-none absolute z-10 flex size-4 items-center justify-center bg-background font-mono text-sm leading-none text-graph-frame select-none"
+    "pointer-events-none absolute z-10 flex size-4 items-center justify-center bg-[var(--graph-surface,var(--background))] font-mono text-sm leading-none text-graph-frame select-none"
 
   return (
     <>
@@ -50,15 +55,61 @@ function GraphCorners({ mark = "+" }: { mark?: string }) {
   )
 }
 
+/**
+ * How a graph is framed.
+ *
+ * - `box`: dashed border, corner marks, title on the top edge. The default.
+ * - `corners`: corner marks only, title on the top edge.
+ * - `rule`: dashed rules above and below, title on the top rule.
+ * - `none`: no border and no padding. The title sits above the content.
+ */
+type GraphFrame = "box" | "corners" | "rule" | "none"
+
+const GRAPH_FRAMES = ["box", "corners", "rule", "none"] as const
+
+const GraphFrameContext = React.createContext<GraphFrame | undefined>(undefined)
+
+/**
+ * Sets the frame for every graph inside it. A graph's own `frame` prop wins.
+ *
+ * ```tsx
+ * <GraphFrameProvider frame="none">{children}</GraphFrameProvider>
+ * ```
+ */
+function GraphFrameProvider({
+  frame,
+  children,
+}: {
+  frame: GraphFrame
+  children?: React.ReactNode
+}) {
+  return (
+    <GraphFrameContext.Provider value={frame}>
+      {children}
+    </GraphFrameContext.Provider>
+  )
+}
+
+function useGraphFrame(): GraphFrame {
+  return React.useContext(GraphFrameContext) ?? "box"
+}
+
 function GraphTitle({
+  placement = "edge",
   className,
   children,
   ...props
-}: React.ComponentProps<"figcaption">) {
+}: React.ComponentProps<"figcaption"> & {
+  /** `edge` sits on the top border. `inline` sits above the content. */
+  placement?: "edge" | "inline"
+}) {
   return (
     <figcaption
       className={cn(
-        "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5 tracking-wide whitespace-nowrap uppercase",
+        "tracking-wide whitespace-nowrap uppercase",
+        placement === "edge"
+          ? "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-[var(--graph-surface,var(--background))] px-2.5"
+          : "mb-4 block truncate",
         className
       )}
       {...props}
@@ -68,10 +119,23 @@ function GraphTitle({
   )
 }
 
+const bodyPadding: Record<GraphFrame, string | undefined> = {
+  box: undefined,
+  corners: undefined,
+  rule: "px-0 sm:px-0",
+  none: "p-0 sm:p-0",
+}
+
 function GraphBody({ className, ...props }: React.ComponentProps<"div">) {
+  const frame = useGraphFrame()
+
   return (
     <div
-      className={cn("min-w-0 px-5 py-7 sm:px-8 sm:py-8", className)}
+      className={cn(
+        "min-w-0 px-5 py-7 sm:px-8 sm:py-8",
+        className,
+        bodyPadding[frame]
+      )}
       {...props}
     />
   )
@@ -119,11 +183,13 @@ function GraphTick({ className, ...props }: React.ComponentProps<"span">) {
 /**
  * Markdown children inside a frame — paragraphs, lists, inline code, links.
  * MDX renders `<p>` / `<ul>` / `<code>` here; this keeps them quiet and
- * on the mono grid instead of inheriting the page's prose styles. Block flow,
+ * on the mono grid instead of inheriting the page's prose styles, and capped
+ * at 72 characters so a wide page doesn't stretch lines past reading length.
+ * Block flow,
  * not flex, so JSX text with an inline link stays on one line.
  */
 const graphProseClass = cn(
-  "min-w-0 space-y-3 leading-relaxed",
+  "max-w-[72ch] min-w-0 space-y-3 leading-relaxed",
   "[&_p]:m-0 [&_p]:text-pretty",
   "[&_ul]:m-0 [&_ul]:flex [&_ul]:list-none [&_ul]:flex-col [&_ul]:gap-1 [&_ul]:p-0",
   "[&_ol]:m-0 [&_ol]:flex [&_ol]:list-none [&_ol]:flex-col [&_ol]:gap-1 [&_ol]:p-0",
@@ -203,28 +269,52 @@ function alignsOf(
 function Graph({
   title,
   corner = "+",
+  frame: frameProp,
   className,
   children,
   ...props
 }: React.ComponentProps<"figure"> & {
+  /** Drawn as `[ TITLE ]`. Pass `""` to drop a default title. */
   title?: string
   corner?: string
+  frame?: GraphFrame
 }) {
   const captionId = React.useId()
+  const inherited = React.useContext(GraphFrameContext)
+  const frame = frameProp ?? inherited ?? "box"
 
   return (
-    <figure
-      aria-labelledby={title ? captionId : undefined}
-      className={cn(
-        "relative w-full min-w-0 graph-frame font-mono text-sm text-foreground",
-        className
-      )}
-      {...props}
-    >
-      {title ? <GraphTitle id={captionId}>{title}</GraphTitle> : null}
-      <GraphCorners mark={corner} />
-      {children}
-    </figure>
+    <GraphFrameContext.Provider value={frame}>
+      <figure
+        aria-labelledby={title ? captionId : undefined}
+        className={cn(
+          "relative w-full min-w-0 font-mono text-sm text-foreground",
+          frame === "box" && "graph-frame",
+          className
+        )}
+        data-frame={frame}
+        {...props}
+      >
+        {title ? (
+          <GraphTitle
+            id={captionId}
+            placement={frame === "none" ? "inline" : "edge"}
+          >
+            {title}
+          </GraphTitle>
+        ) : null}
+        {frame === "box" || frame === "corners" ? (
+          <GraphCorners mark={corner} />
+        ) : null}
+        {frame === "rule" ? (
+          <>
+            <GraphRule className="absolute inset-x-0 top-0" />
+            <GraphRule className="absolute inset-x-0 bottom-0" />
+          </>
+        ) : null}
+        {children}
+      </figure>
+    </GraphFrameContext.Provider>
   )
 }
 
@@ -278,6 +368,8 @@ export {
   Graph,
   GraphBody,
   GraphCorners,
+  GraphFrameProvider,
+  GRAPH_FRAMES,
   GraphProse,
   graphProseClass,
   GraphRule,
@@ -287,5 +379,6 @@ export {
   GraphTrack,
   Head,
   Row,
+  useGraphFrame,
 }
-export type { CellProps, RowProps }
+export type { CellProps, GraphFrame, RowProps }

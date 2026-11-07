@@ -17,10 +17,12 @@ import {
   splitLabel,
   tableOf,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -48,7 +50,7 @@ type InvoiceTotal = {
 }
 
 type GraphInvoiceProps = {
-  title: string
+  title?: string
   from?: InvoiceParty | string
   to?: InvoiceParty | string
   meta?: InvoiceMeta[]
@@ -58,6 +60,7 @@ type GraphInvoiceProps = {
   note?: string
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -176,6 +179,7 @@ function GraphInvoice({
   note: noteProp,
   children,
   corner,
+  frame,
   className,
 }: GraphInvoiceProps) {
   const from = partyOf(fromProp, childItems(children, From)[0])
@@ -232,7 +236,7 @@ function GraphInvoice({
   const columns = 1 + Number(showQty) + Number(showRate) + 1
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-8">
         {from || to ? (
           <div className="grid gap-6 sm:grid-cols-2">
@@ -284,7 +288,7 @@ function GraphInvoice({
             <motion.tbody
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {items.map((row) => (
@@ -316,7 +320,7 @@ function GraphInvoice({
               className="ml-auto flex w-full max-w-[22rem] flex-col gap-2"
               initial={reduce ? false : "hidden"}
               variants={list}
-              viewport={{ once: true }}
+              viewport={graphViewport}
               whileInView="show"
             >
               {totals.map((entry) => (

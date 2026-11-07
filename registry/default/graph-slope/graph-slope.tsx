@@ -13,12 +13,14 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -30,7 +32,7 @@ type SlopeItem = {
 }
 
 type GraphSlopeProps = {
-  title: string
+  title?: string
   fromLabel: string
   toLabel: string
   /** Data form. Or write `<Slope />` children. */
@@ -38,6 +40,7 @@ type GraphSlopeProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -60,6 +63,7 @@ function GraphSlope({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphSlopeProps) {
   const reduce = useReducedMotion()
@@ -83,7 +87,7 @@ function GraphSlope({
   }))
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-3">
         <div className="grid grid-cols-[minmax(0,1fr)_6.5rem_2rem_6.5rem] items-end gap-x-3">
           <span />
@@ -96,7 +100,7 @@ function GraphSlope({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((row) => {

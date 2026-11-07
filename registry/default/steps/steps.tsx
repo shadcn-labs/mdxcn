@@ -15,10 +15,12 @@ import {
   paragraphsOf,
   splitDash,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -37,6 +39,7 @@ type StepsProps = {
   title?: string
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -94,7 +97,7 @@ function stepsOf(children: ReactNode): StepProps[] {
     }
   })
 }
-function Steps({ title, children, corner, className }: StepsProps) {
+function Steps({ title, children, corner, frame, className }: StepsProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.06)
@@ -102,14 +105,14 @@ function Steps({ title, children, corner, className }: StepsProps) {
   const digits = String(steps.length).length
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.ol
           className="flex flex-col"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {steps.map((step, index) => {

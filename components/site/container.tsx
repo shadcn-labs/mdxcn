@@ -21,7 +21,7 @@ function SiteContainer({
       {borderTop ? <SiteRule className="top-0" /> : null}
       <div
         className={cn(
-          "relative isolate mx-auto w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8",
+          "relative isolate mx-auto w-full site-width min-w-0 px-4 sm:px-6 lg:px-8",
           containerClassName
         )}
       >

@@ -13,12 +13,14 @@ import {
   itemText,
   listItems,
   splitLabel,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -40,6 +42,7 @@ type ChangelogProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -98,6 +101,7 @@ function Changelog({
   children,
   palette,
   corner,
+  frame,
   className,
 }: ChangelogProps) {
   const reduce = useReducedMotion()
@@ -106,7 +110,12 @@ function Changelog({
   const changes = changesOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title ?? version}>
+    <Graph
+      className={className}
+      corner={corner}
+      frame={frame}
+      title={title ?? version}
+    >
       <GraphBody className="flex flex-col gap-4">
         {date || title ? (
           <>
@@ -126,7 +135,7 @@ function Changelog({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {changes.map((change, index) => {

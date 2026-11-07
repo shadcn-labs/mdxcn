@@ -13,11 +13,13 @@ import {
   listItems,
   nestedList,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -40,11 +42,12 @@ type NodeProps = {
 }
 
 type GraphTreeProps = {
-  title: string
+  title?: string
   /** Data form. Or nest `<Node />` children. */
   nodes?: TreeNode[]
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -125,6 +128,7 @@ function GraphTree({
   nodes,
   children,
   corner,
+  frame,
   className,
 }: GraphTreeProps) {
   const reduce = useReducedMotion()
@@ -134,14 +138,14 @@ function GraphTree({
   const hasAccent = rows.some((row) => row.accent)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="overflow-x-auto overflow-y-hidden">
         <motion.ul
           role="list"
           className="flex min-w-max flex-col gap-1"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {rows.map((row) => {

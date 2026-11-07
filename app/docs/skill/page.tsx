@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { CopyBlock } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import { SkillInstall } from "@/components/docs/skill-install"
@@ -70,7 +71,7 @@ export default async function SkillPage() {
       </DocsPageHeader>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">install</h2>
+        <SectionHeading id="install">install</SectionHeading>
         <p className="max-w-prose text-pretty text-muted-foreground">
           A project copy is committed with the repo, so everyone on the team
           gets it. A personal copy lives only on your machine. Your agent loads
@@ -82,7 +83,7 @@ export default async function SkillPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">try it</h2>
+        <SectionHeading id="try-it">try it</SectionHeading>
         <p className="max-w-prose text-pretty text-muted-foreground">
           After installing, paste one of these prompts. A good result uses two
           graphs from the guide, with prose in between.
@@ -99,7 +100,7 @@ export default async function SkillPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">when to use</h2>
+        <SectionHeading id="when-to-use">when to use</SectionHeading>
         <p className="max-w-prose text-pretty text-muted-foreground">
           Before writing a long list of bullets, the skill checks whether a
           figure would be quicker to read. If the whole point fits in one
@@ -153,7 +154,7 @@ export default async function SkillPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">rules</h2>
+        <SectionHeading id="rules">rules</SectionHeading>
         <ul
           className="flex max-w-prose flex-col gap-2 text-pretty text-muted-foreground"
           role="list"
@@ -171,7 +172,7 @@ export default async function SkillPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">the file</h2>
+        <SectionHeading id="the-file">the file</SectionHeading>
         <p className="max-w-prose text-pretty text-muted-foreground">
           This is exactly what the agent loads.{" "}
           <TextLink href="/skill.md">/skill.md</TextLink> and{" "}

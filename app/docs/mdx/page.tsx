@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { CopyBlock, InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import {
@@ -87,7 +88,7 @@ export default function MdxDocsPage() {
       />
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">install</h2>
+        <SectionHeading id="install">install</SectionHeading>
         <ProseP>
           If you installed <InlineCode>all.json</InlineCode>, you already have
           it. Installed on its own, it also brings in Callout, Quote and
@@ -97,7 +98,7 @@ export default function MdxDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">wire</h2>
+        <SectionHeading id="wire">wire</SectionHeading>
         <Annotate title="mdx-components.tsx">
           <pre>
             <code className="language-tsx">{`import { withMdxcn } from "@/registry/default/mdx/mdx" // (1)
@@ -122,7 +123,7 @@ export function useMDXComponents(components) {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">upgrades</h2>
+        <SectionHeading id="upgrades">upgrades</SectionHeading>
         <ProseP>
           Write Markdown that already looks right on GitHub. On your site, it
           renders as the frames below. The full list is on the{" "}
@@ -150,13 +151,13 @@ export function useMDXComponents(components) {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">overrides</h2>
+        <SectionHeading id="overrides">overrides</SectionHeading>
         <ProseP>{MDX_WHY}</ProseP>
         <CopyBlock label="mdx-components.tsx" value={MDX_OVERRIDE} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">options</h2>
+        <SectionHeading id="options">options</SectionHeading>
         <ProseP>
           Every upgrade is on by default. Turn off any you&apos;d rather style
           yourself.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { Callout } from "@/components/graphs"
 import { InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
@@ -13,6 +14,7 @@ import {
   componentsByCategory,
   getComponent,
 } from "@/lib/docs/catalog"
+import { mdxExample } from "@/lib/docs/ascii"
 import { isNewSlug } from "@/lib/docs/new"
 import { docsJsonLd, pageMeta } from "@/lib/seo"
 import { DOCS_DESCRIPTION } from "@/lib/site"
@@ -27,6 +29,12 @@ export const metadata: Metadata = pageMeta({
 })
 
 const intro = `mdxcn is a set of React components for documentation, drawn with text: callouts, steps, timelines, tables and small charts. Every example in these docs has three tabs. .mdx is what you write in an MDX page, .tsx is the same figure in plain React, and .md is the figure as a code block you can paste into Notion, Linear or a README.`
+
+/** The top of a component's plain-text figure, as a card thumbnail. */
+function figureOf(slug: string) {
+  const ascii = mdxExample(slug)?.ascii
+  return ascii ? ascii.split("\n").slice(0, 8).join("\n") : null
+}
 
 export default function DocsPage() {
   const groups = componentsByCategory()
@@ -78,7 +86,7 @@ export default function DocsPage() {
       </Callout>
 
       <div className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">install</h2>
+        <SectionHeading id="install">install</SectionHeading>
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
           The CLI copies a component into your repo. You can also copy the files
           from GitHub by hand.
@@ -88,7 +96,7 @@ export default function DocsPage() {
 
       <div className="flex flex-col gap-6">
         <div className="flex items-baseline justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">components</h2>
+          <SectionHeading id="components">components</SectionHeading>
           <MonoLabel>{components.length} total</MonoLabel>
         </div>
         <div className="flex flex-col gap-10">
@@ -123,7 +131,7 @@ export default function DocsPage() {
                       key={item.slug}
                     >
                       <Link
-                        className="group flex h-full flex-col justify-between gap-3 px-4 py-5 hover:bg-muted/40 sm:px-6"
+                        className="group flex h-full flex-col gap-4 px-4 py-6 transition-colors duration-150 ease-out hover:bg-muted/40 sm:px-6"
                         href={`/docs/${item.slug}`}
                       >
                         <div className="flex flex-col gap-2">
@@ -134,26 +142,30 @@ export default function DocsPage() {
                                 new
                               </span>
                             ) : null}
+                            <HugeiconsIcon
+                              className="ml-auto shrink-0 text-muted-foreground transition-transform duration-200 ease-out-cubic group-hover:translate-x-1 group-hover:text-foreground"
+                              icon={ArrowRight02Icon}
+                              size={18}
+                              strokeWidth={2}
+                            />
                           </p>
                           <p className="max-w-[40ch] text-pretty text-muted-foreground">
                             {item.description}
                           </p>
                         </div>
-                        <div className="flex items-end justify-between gap-4">
-                          {item.mdx ? (
-                            <code className="min-w-0 truncate font-mono text-xs text-graph-muted">
-                              {item.mdx}
-                            </code>
-                          ) : (
-                            <span />
-                          )}
-                          <HugeiconsIcon
-                            className="shrink-0 text-muted-foreground transition-transform duration-200 ease-out-cubic group-hover:translate-x-1 group-hover:text-foreground"
-                            icon={ArrowRight02Icon}
-                            size={20}
-                            strokeWidth={2}
-                          />
-                        </div>
+                        {figureOf(item.slug) ? (
+                          <pre
+                            aria-hidden="true"
+                            className="mt-auto h-32 overflow-hidden bg-stage [mask-image:linear-gradient(to_bottom,black_60%,transparent)] px-3 py-3 font-mono text-[11px] leading-[1.35] text-graph-muted select-none group-hover:text-muted-foreground"
+                          >
+                            {figureOf(item.slug)}
+                          </pre>
+                        ) : null}
+                        {item.mdx && !figureOf(item.slug) ? (
+                          <code className="min-w-0 truncate font-mono text-xs text-graph-muted">
+                            {item.mdx}
+                          </code>
+                        ) : null}
                       </Link>
                     </li>
                   ))}

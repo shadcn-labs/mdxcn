@@ -5,7 +5,7 @@ import { toMdxCopy } from "@/lib/docs/mdx"
 import type { ComponentDoc, PropRow } from "@/lib/docs/catalog"
 
 export const DESIGN_AND_MOOD = `Design
-- Geist Mono. Dashed frame, plus-sign corners, title as [ TITLE ] on the top edge.
+- Geist Mono. Dashed frame, plus-sign corners, title as [ TITLE ] on the top edge. frame="corners" | "rule" | "none" swaps the border; none drops it and puts the title above the figure.
 - One accent color: CSS variable --graph-accent. Unused rows recede with opacity (~0.4). Drawing graphs accept palette="mono" | "duo" | "multi" (default mono). duo uses --graph-accent-2 for the second series. multi cycles three accents. Do not invent extra hues.
 - Glyphs do the drawing: █ ░ - = + ├ └ ✓. Borders are dashes, not SVG strokes. Do not use Recharts, canvas, or SVG.
 - Numbers use tabular-nums and sit right-aligned.

@@ -15,12 +15,14 @@ import {
   childNodes,
   splitDash,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -34,12 +36,13 @@ type CheckItem = {
 }
 
 type GraphCheckProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Task />` children. */
   items?: CheckItem[]
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -143,6 +146,7 @@ function GraphCheck({
   children,
   palette,
   corner,
+  frame,
   className,
 }: GraphCheckProps) {
   const reduce = useReducedMotion()
@@ -152,14 +156,14 @@ function GraphCheck({
   const flat = flatten(items)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.ul
           className="flex flex-col gap-2"
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => (

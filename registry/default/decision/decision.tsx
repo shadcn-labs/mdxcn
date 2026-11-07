@@ -14,12 +14,14 @@ import {
   itemText,
   listItems,
   splitDash,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -46,6 +48,7 @@ type DecisionProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -94,6 +97,7 @@ function Decision({
   children,
   palette,
   corner,
+  frame,
   className,
 }: DecisionProps) {
   const reduce = useReducedMotion()
@@ -106,7 +110,7 @@ function Decision({
   const chosen = options.find((option) => option.state === "chosen")
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody className="flex flex-col gap-4">
         {status || date ? (
           <>
@@ -124,7 +128,7 @@ function Decision({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {options.map((option, index) => {
@@ -167,7 +171,7 @@ function Decision({
             <motion.div
               initial={reduce ? false : "hidden"}
               variants={item}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={graphViewport}
               whileInView="show"
             >
               <GraphProse className="text-foreground/80">{after}</GraphProse>

@@ -14,10 +14,12 @@ import {
   listItems,
   splitDash,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -37,11 +39,12 @@ type StatItem = {
 }
 
 type GraphStatProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Stat />` children. */
   items?: StatItem[]
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -53,6 +56,7 @@ function GraphStat({
   items: itemsProp,
   children,
   corner,
+  frame,
   className,
 }: GraphStatProps) {
   const reduce = useReducedMotion()
@@ -79,14 +83,14 @@ function GraphStat({
   const columns = Math.min(Math.max(items.length, 1), 4)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody>
         <motion.ul
           className={cn("grid gap-8", columnClass[columns])}
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => (

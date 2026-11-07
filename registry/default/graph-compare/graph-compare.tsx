@@ -12,6 +12,7 @@ import {
   Row,
   textOf,
   words,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
@@ -20,6 +21,7 @@ import {
   seriesClass,
   staggerList,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -34,7 +36,7 @@ type CompareRow = {
 const Col = defineItem("Col")
 
 type GraphCompareProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Col>` children / `"Solo Studio"`. */
   columns?: string[] | string
   /** Data form. Or write `<Row label="Registry">true true</Row>`. */
@@ -43,6 +45,7 @@ type GraphCompareProps = {
   accent?: string
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -94,6 +97,7 @@ function GraphCompare({
   accent,
   palette,
   corner,
+  frame,
   className,
 }: GraphCompareProps) {
   const markdown = labeledTable(children)
@@ -125,7 +129,7 @@ function GraphCompare({
   const template = `minmax(7rem,1fr) repeat(${columns.length}, minmax(4rem, 7rem))`
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="overflow-x-auto overflow-y-hidden">
         <div className="flex flex-col gap-3">
           <div
@@ -159,7 +163,7 @@ function GraphCompare({
             initial={reduce ? false : "hidden"}
             role="list"
             variants={list}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={graphViewport}
             whileInView="show"
           >
             {rows.map((row) => (

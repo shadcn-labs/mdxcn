@@ -14,12 +14,14 @@ import {
   splitDash,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -44,6 +46,7 @@ type EnvProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -127,6 +130,7 @@ function Env({
   children,
   palette,
   corner,
+  frame,
   className,
 }: EnvProps) {
   const reduce = useReducedMotion()
@@ -145,14 +149,14 @@ function Env({
   const accent = toneClass(palette, "primary")
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody className="flex flex-col gap-4">
         <motion.ul
           role="list"
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {vars.map((entry, index) => (

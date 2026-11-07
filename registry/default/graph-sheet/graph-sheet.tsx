@@ -19,10 +19,12 @@ import {
   Row,
   tableOf,
   words,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -42,7 +44,7 @@ type SectionProps = {
 const Section = defineItem<SectionProps>("Section")
 
 type GraphSheetProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Head>Item | Owner | Status</Head>`. */
   headers?: string[] | string
   /** Data form. Or write `<Section>` children. */
@@ -51,6 +53,7 @@ type GraphSheetProps = {
   align?: GraphAlign[] | string
   children?: ReactNode
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -75,6 +78,7 @@ function GraphSheet({
   align: alignProp,
   children,
   corner,
+  frame,
   className,
 }: GraphSheetProps) {
   const markdownSections = headingSections(children).map((section) => {
@@ -128,7 +132,7 @@ function GraphSheet({
   }
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="px-3 py-6 sm:px-6 sm:py-8">
         <div className="@container overflow-x-auto overflow-y-hidden">
           <table className="w-full border-separate border-spacing-0">
@@ -160,7 +164,7 @@ function GraphSheet({
                 initial={reduce ? false : "hidden"}
                 key={section.title}
                 variants={list}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={graphViewport}
                 whileInView="show"
               >
                 {sectionIndex > 0 ? (

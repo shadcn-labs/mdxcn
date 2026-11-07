@@ -6,6 +6,7 @@ export {
   Graph,
   GraphBody,
   GraphCorners,
+  GraphFrameProvider,
   GraphProse,
   GraphRule,
   GraphRuleY,
@@ -16,6 +17,7 @@ export {
   Row,
   textOf,
 } from "@/registry/default/graph-frame/graph-frame"
+export type { GraphFrame } from "@/registry/default/graph-frame/graph-frame"
 export { Callout } from "@/registry/default/callout/callout"
 export { Quote } from "@/registry/default/quote/quote"
 export { Step, Steps } from "@/registry/default/steps/steps"

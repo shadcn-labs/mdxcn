@@ -38,7 +38,7 @@ Marks are sidenav-only (desktop + mobile). Tiny mono `new` in `text-graph-accent
 
 ## Palette prop
 
-Drawing graphs take `palette?: "mono" | "duo" | "multi"`. Don't paste it into every catalog row. `PALETTE_SLUGS` + `paletteProp` in `catalog.ts` inject it before `corner`. Skip table, sheet, invoice, spec, stat, tree, frame.
+Drawing graphs take `palette?: "mono" | "duo" | "multi"`. Don't paste it into every catalog row. `PALETTE_SLUGS` + `paletteProp` in `catalog.ts` inject it before `corner`. `frameProp` is injected after `corner` on every item; don't add it by hand. Skip table, sheet, invoice, spec, stat, tree, frame.
 
 `when` / `not` live in `lib/docs/chooser.ts`. They feed the agent prompt, docs blurb, and `/llms.txt`. Update that map when you add a graph. Composed examples live in `recipes.ts` — add a recipe there and a preview in `recipe-card.tsx`.
 

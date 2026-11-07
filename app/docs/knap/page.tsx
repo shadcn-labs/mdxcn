@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 
+import { SectionHeading } from "@/components/docs/section-heading"
 import { Command, CopyBlock, InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import {
@@ -80,7 +81,7 @@ export default function KnapDocsPage() {
       />
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">install</h2>
+        <SectionHeading id="install">install</SectionHeading>
         <ProseP>
           Three names are involved. <TextLink href={KNAP_URL}>Knap</TextLink> is
           the templating language, installed from npm.{" "}
@@ -94,7 +95,7 @@ export default function KnapDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">wire</h2>
+        <SectionHeading id="wire">wire</SectionHeading>
         <ProseP>
           Add <InlineCode>graphFilters</InlineCode> to{" "}
           <InlineCode>createEngine</InlineCode> alongside{" "}
@@ -109,7 +110,7 @@ export default function KnapDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">author</h2>
+        <SectionHeading id="author">author</SectionHeading>
         <ProseP>
           The value you pipe in is the same props object the React component
           takes, and a string argument sets the title. Every component page has
@@ -126,7 +127,7 @@ export default function KnapDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">format</h2>
+        <SectionHeading id="format">format</SectionHeading>
         <ProseP>
           By default a filter prints the plain-text figure in a code block. Pass{" "}
           <InlineCode>comark</InlineCode> to get a{" "}
@@ -138,7 +139,7 @@ export default function KnapDocsPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">validate</h2>
+        <SectionHeading id="validate">validate</SectionHeading>
         <ProseP>
           Pass <InlineCode>graphFilterMetadata</InlineCode> to{" "}
           <InlineCode>validateFilters</InlineCode> and a misspelled{" "}
@@ -161,7 +162,7 @@ const filterErrors = validateFilters(parsed.ast, {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold tracking-tight">hosts</h2>
+        <SectionHeading id="hosts">hosts</SectionHeading>
         <ProseP>
           The output is plain Markdown, so GitHub, Linear, Obsidian and READMEs
           all show the text figure as is. If you asked for Comark output, a

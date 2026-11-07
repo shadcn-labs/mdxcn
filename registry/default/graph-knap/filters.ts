@@ -1,4 +1,4 @@
-import { fence } from "@/registry/default/graph-knap/frame"
+import { fence, reframeAscii } from "@/registry/default/graph-knap/frame"
 import { drawMarkdown } from "@/registry/default/graph-knap/markdown"
 import {
   asciiBars,
@@ -170,7 +170,9 @@ function applyGraphFilter(
   }
 
   try {
-    return fence(ascii!(resolved.props as never))
+    return fence(
+      reframeAscii(ascii!(resolved.props as never), resolved.props.frame)
+    )
   } catch {
     warnFilter(context, `Could not draw ${filterName(slug)}`)
     return value

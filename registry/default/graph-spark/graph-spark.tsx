@@ -10,6 +10,7 @@ import {
   GraphTrack,
   numbers,
   seriesOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
@@ -20,13 +21,14 @@ import {
   toneClass,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 const SPARK_DEFAULT = ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 
 type GraphSparkProps = {
-  title: string
+  title?: string
   /** `[2, 3, 4]` or `"2 3 4"`. Scaled to the max. Or write it as children. */
   data?: number[] | string
   caption?: string
@@ -35,6 +37,7 @@ type GraphSparkProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -46,6 +49,7 @@ function GraphSpark({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphSparkProps) {
   const written = seriesOf(children)
@@ -62,7 +66,7 @@ function GraphSpark({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col items-center gap-4">
         <GraphTrack className="justify-center gap-0.5">
           {points.map((glyph, index) => {
@@ -80,7 +84,7 @@ function GraphSpark({
                   transition={graphTransition(reduce, {
                     delay: fillDelay(reduce, index),
                   })}
-                  viewport={{ once: true }}
+                  viewport={graphViewport}
                   whileInView={{
                     opacity: live || !isMonoPalette(palette) ? 1 : DIM_OPACITY,
                   }}

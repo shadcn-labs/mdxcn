@@ -11,6 +11,7 @@ import {
   GraphTick,
   GraphTrack,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
@@ -19,11 +20,12 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type GraphMeterProps = {
-  title: string
+  title?: string
   /** `0.67`, `"0.67"`, or `"67%"`. Or write `67% used` as children. */
   value?: number | string
   ticks?: number
@@ -33,6 +35,7 @@ type GraphMeterProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -45,6 +48,7 @@ function GraphMeter({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphMeterProps) {
   const written = firstToken(textOf(children).replace(/\s+/g, " ").trim())
@@ -64,7 +68,7 @@ function GraphMeter({
   })
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         <p className="flex w-full items-center gap-3 tabular-nums">
           <span aria-hidden="true" className="text-graph-frame select-none">
@@ -89,7 +93,7 @@ function GraphMeter({
                     transition={graphTransition(reduce, {
                       delay: fillDelay(reduce, index),
                     })}
-                    viewport={{ once: true }}
+                    viewport={graphViewport}
                     whileInView={{ opacity: 1 }}
                   >
                     {isFilled ? marks.fill : marks.empty}

@@ -16,6 +16,7 @@ import {
   numberOf,
   splitLabel,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   clamp01,
@@ -26,6 +27,7 @@ import {
   trackMarks,
   type Glyphs,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -39,7 +41,7 @@ type GanttItem = {
 }
 
 type GraphGanttProps = {
-  title: string
+  title?: string
   /** Data form. Or write `<Span />` children. */
   items?: GanttItem[]
   children?: ReactNode
@@ -50,6 +52,7 @@ type GraphGanttProps = {
   glyphs?: Glyphs
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -75,6 +78,7 @@ function GraphGantt({
   glyphs,
   palette,
   corner,
+  frame,
   className,
 }: GraphGanttProps) {
   const reduce = useReducedMotion()
@@ -117,7 +121,7 @@ function GraphGantt({
   const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className} corner={corner}>
+    <Graph title={title} className={className} corner={corner} frame={frame}>
       <GraphBody className="flex flex-col gap-4">
         {playhead != null ? (
           <div className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] gap-x-2 sm:gap-x-4">
@@ -143,7 +147,7 @@ function GraphGantt({
           initial={reduce ? false : "hidden"}
           role="list"
           variants={list}
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {items.map((entry) => {

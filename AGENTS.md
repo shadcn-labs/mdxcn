@@ -42,7 +42,7 @@ OG artwork is the static asset `public/og.png`. `SITE_OG_IMAGE` in `lib/site.ts`
 
 ## Design
 
-- Geist Mono. Dashed frame, `+` corners (`corner` prop), title as `[ TITLE ]`.
+- Geist Mono. Dashed frame, `+` corners (`corner` prop), title as `[ TITLE ]`. `frame` picks the border: `box` (default), `corners`, `rule`, `none`. `none` drops the border and padding, and the title moves above the content. `GraphFrameProvider` sets it for a whole page. `title` is optional everywhere; `title=""` drops a default title.
 - One accent: `--graph-accent`. Dim unused rows with opacity (~0.4). Drawing graphs take `palette?: "mono" | "duo" | "multi"` — default mono. duo uses `--graph-accent-2` for the second series. multi cycles three hues. Site accent picker: solid hues first (Theme, Mint, Orange, Green, Cyan, Blue, Purple, Pink), then 3-stop families (Sunset, Ocean, Neon, Aurora, Fire, Prism).
 - Glyphs draw the chart. Tracks that represent a range (meter, stack, activity) span the frame (`GraphTrack` / `GraphTick`). Spark, bars, cells, uptime, and rank stay packed at 1ch, centered, with a small gap. `glyphs` is a preset (`shade` `ascii` `hash` `bar`) or a custom character array. No SVG, Recharts, or canvas.
 - `tabular-nums`. Amounts right-aligned.
@@ -55,7 +55,7 @@ OG artwork is the static asset `public/og.png`. `SITE_OG_IMAGE` in `lib/site.ts`
 - Prettier: no semicolons, double quotes, 80 width, Tailwind plugin.
 - Registry imports: `@/registry/default/...`. Site barrel: `@/components/graphs`.
 - `"use client"` on graphs that use motion.
-- Every graph forwards `corner?: string` to `Graph`. Drawing graphs also take `glyphs?: Glyphs` and `palette?: GraphPalette`.
+- Every graph forwards `corner?: string` and `frame?: GraphFrame` to `Graph`. Padding belongs on `GraphBody`, which reads the frame from context; don't pad the figure yourself or `frame="none"` can't remove it. Drawing graphs also take `glyphs?: Glyphs` and `palette?: GraphPalette`.
 - Shared helpers live in `graph-frame` (`graph-motion.ts`). Don’t couple intensity legends into the frame — keep them in the drawing component.
 - Markdown parsing helpers live in `graph-frame/graph-markdown.ts` with no `"use client"`, so a server `mdx-components.tsx` (`registry/default/mdx/mdx.tsx`) can call them. `graph-frame.tsx` re-exports them.
 - Content components (`callout`, `steps`, `chat`, …) are unprefixed; drawing graphs are `graph-*`. Knap filters are always `graph_*` (`graph_callout`) — Knap ships its own `callout`.

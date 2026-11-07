@@ -12,12 +12,14 @@ import {
   hasHost,
   isHost,
   textOf,
+  type GraphFrame,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
   toneClass,
   type GraphPalette,
+  graphViewport,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -37,6 +39,7 @@ type FaqProps = {
   children?: ReactNode
   palette?: GraphPalette
   corner?: string
+  frame?: GraphFrame
   className?: string
 }
 
@@ -88,6 +91,7 @@ function Faq({
   children,
   palette,
   corner,
+  frame,
   className,
 }: FaqProps) {
   const reduce = useReducedMotion()
@@ -96,14 +100,14 @@ function Faq({
   const entries = entriesProp ?? entriesOf(children)
 
   return (
-    <Graph className={className} corner={corner} title={title}>
+    <Graph className={className} corner={corner} frame={frame} title={title}>
       <GraphBody>
         <motion.ol
           className="flex flex-col gap-4"
           role="list"
           initial={reduce ? false : "hidden"}
           variants={list}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={graphViewport}
           whileInView="show"
         >
           {entries.map((entry, index) => {
