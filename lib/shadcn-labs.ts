@@ -17,6 +17,11 @@ export const SHADCN_LABS_GROUPS = [
       { name: "editorcn", href: "https://github.com/shadcn-labs/editorcn" },
       { name: "pdfcn", href: "https://github.com/shadcn-labs/pdfcn" },
       { name: "shadercn", href: "https://github.com/shadcn-labs/shadercn" },
+      { name: "mdxcn", href: "https://github.com/shadcn-labs/mdxcn" },
+      { name: "snapcn", href: "https://github.com/shadcn-labs/snapcn" },
+      { name: "form-builder", href: "https://github.com/shadcn-labs/form-builder" },
+      { name: "sensory-ui", href: "https://github.com/shadcn-labs/sensory-ui" },
+      { name: "pin-ui", href: "https://github.com/shadcn-labs/pin-ui" },
     ],
   },
   {
