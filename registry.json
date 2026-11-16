@@ -4178,6 +4178,10 @@
           "type": "registry:lib"
         },
         {
+          "path": "registry/default/graph-knap/markdown.ts",
+          "type": "registry:lib"
+        },
+        {
           "path": "registry/default/graph-knap/yaml.ts",
           "type": "registry:lib"
         },

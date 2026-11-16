@@ -3,10 +3,46 @@
 import * as React from "react"
 
 import {
+  childElements,
   childItems,
+  childrenOf,
   defineItem,
+  dropLead,
+  dropText,
+  elementsOf,
+  firstToken,
+  fraction,
+  GRAPH_HOST_TAGS,
+  hasHost,
+  headingSections,
+  hostOf,
+  isHost,
+  itemParts,
+  itemText,
+  labeledTable,
+  linesOf,
+  listItems,
+  nestedList,
+  childNodes,
+  numberOf,
+  numbers,
+  paragraphsOf,
+  runs,
+  seriesOf,
+  sourceText,
+  splitDash,
+  splitLabel,
+  tableOf,
+  takeText,
   textOf,
+  typeName,
+  unlazy,
   words,
+} from "@/registry/default/graph-frame/graph-markdown"
+import type {
+  GraphItemComponent,
+  MdAlign,
+  MdTable,
 } from "@/registry/default/graph-frame/graph-markdown"
 import { cn } from "@/lib/utils"
 
@@ -354,12 +390,8 @@ export {
   typeName,
   unlazy,
   words,
-} from "@/registry/default/graph-frame/graph-markdown"
-export type {
-  GraphItemComponent,
-  MdAlign,
-  MdTable,
-} from "@/registry/default/graph-frame/graph-markdown"
+}
+export type { GraphItemComponent, MdAlign, MdTable }
 export {
   alignsOf,
   Cell,
